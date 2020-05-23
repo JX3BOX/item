@@ -1,16 +1,19 @@
 <template>
     <div id="app">
         <Header></Header>
+        <!-- 频道栏 -->
         <Breadcrumb name="频道名称" slug="slug" root="/slug" publishEnable="true">
             <img slot="logo" svg-inline src="./assets/img/logo.svg" />
             <Info />
         </Breadcrumb>
+        <!-- 左侧菜单 -->
         <LeftSidebar>
             <Nav />
         </LeftSidebar>
         <Main :withoutRight="false">
-            primary content
-            <!-- <Comment post-id="100"/> -->
+            <!-- 路由页面内容 -->
+            <router-view/>
+            <!-- 右侧咨询 -->
             <RightSidebar>
                 <Extend/>
             </RightSidebar>
