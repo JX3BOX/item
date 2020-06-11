@@ -3,12 +3,15 @@ import VueRouter from "vue-router";
 
 // 组件懒加载
 const Home = () => import("./views/Home.vue");
+const Normal = () => import("./views/Normal.vue");
 
 Vue.use(VueRouter);
 
 const routes = [
     // 主页
     { name: 'home', path: '/home', component: Home },
+    // 常规
+    {name: 'normal', path: '/:SubType([empty|\\d]+)/:DetailType([empty|\\d]+)?', component: Normal},
     // 默认页重定向
     {path: '*', redirect: 'home'}
 ];

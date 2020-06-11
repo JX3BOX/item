@@ -3,12 +3,12 @@
         <Header></Header>
         <!-- 频道栏 -->
         <Breadcrumb name="频道名称" slug="slug" root="/slug" publishEnable="true">
-            <img slot="logo" svg-inline src="./assets/img/logo.svg" />
-            <Info />
+            <img slot="logo" svg-inline src="./assets/img/logo.svg"/>
+            <Info/>
         </Breadcrumb>
         <!-- 左侧菜单 -->
         <LeftSidebar>
-            <Nav />
+            <Sidebar/>
         </LeftSidebar>
         <Main :withoutRight="false">
             <!-- 路由页面内容 -->
@@ -23,24 +23,23 @@
 </template>
 
 <script>
-import Info from '@/components/Info.vue';
-import Nav from '@/components/Nav.vue';
-import Extend from '@/components/Extend.vue';
+    import Info from '@/components/Info.vue';
+    import Sidebar from '@/components/Sidebar.vue';
+    import Extend from '@/components/Extend.vue';
 
     export default {
-        name : 'App',
-        props:[],
-        data : function(){
-            return {
-                
-            }
+        name: 'App',
+        props: [],
+        data: function () {
+            return {}
         },
-        computed:{},
-        methods:{},
-        mounted:function(){},
-        components:{
+        computed: {},
+        methods: {},
+        mounted: function () {
+        },
+        components: {
             Info,
-            Nav,
+            Sidebar,
             Extend,
         }
     }
