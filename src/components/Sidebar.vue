@@ -7,7 +7,7 @@
                     node-key="id"
                     ref="tree"
             >
-                <router-link class="el-tree-node__label" slot-scope="{ node, data }" :to="menu_url(data)">
+                <router-link class="el-tree-node__label" slot-scope="{ node, data }" :to="menu_url(data,node)">
                     <span class="u-name" v-text="data.label"></span>
                     <em v-if="false" class="u-count" v-text="`(0)`"></em>
                 </router-link>
@@ -46,9 +46,13 @@
                     this.menus = false;
                 });
             },
-            menu_url(data) {
-                if (typeof data.SubType === 'undefined') return {};
-                let params = {SubType: data.SubType === '' ? 'empty' : data.SubType};
+            menu_url(data, node) {
+                let Genre = this.$_.get(node.parent, 'data.Genre', null);
+                if (Genre === null || typeof data.SubType === 'undefined') return {};
+                let params = {
+                    Genre: Genre === '' ? 'empty' : Genre,
+                    SubType: data.SubType === '' ? 'empty' : data.SubType,
+                };
                 if (typeof data.DetailType !== 'undefined') params.DetailType = data.DetailType === '' ? 'empty' : data.DetailType;
                 return {name: 'normal', params: params};
             },
