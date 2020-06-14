@@ -27,5 +27,5 @@
 </script>
 
 <style lang="less">
-
+    @import '../assets/css/views/home.less';
 </style>

@@ -5,6 +5,10 @@ Vue.use(Vuex);
 
 let store = {
     state: {
+        sidebar: {
+            AucGeneral: null,
+            AucSub: null,
+        }
     },
     mutations: {
     },

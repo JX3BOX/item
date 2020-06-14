@@ -1,0 +1,30 @@
+//父级节点
+.el-tree-node__content {
+  .fz(14px, 28px);
+  .h(28px);
+  user-select: none;
+}
+
+//子级节点
+.is-leaf + .el-tree-node__label {
+  &:before {
+    content: "»";
+    color: @color;
+    .mr(5px);
+  }
+}
+
+.is-current {
+  & > .el-tree-node__content {
+    .bold;
+  }
+}
+
+.el-tree-node__label {
+  .u-count {
+    font-size: 13px;
+    color: #888;
+    margin-left: 5px;
+    font-style: normal;
+  }
+}
