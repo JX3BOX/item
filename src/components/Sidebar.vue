@@ -43,16 +43,17 @@
                         for (let index in data.data.menus) {
                             data.data.menus[index].id = data.data.menus[index].AucGenre;
                             for (let i in data.data.menus[index].children) {
-                                data.data.menus[index].children[i].id = `${data.data.menus[index].AucGenre}-${data.data.menus[index].children[i].AucSubType}`
+                                data.data.menus[index].children[i].id = `${data.data.menus[index].AucGenre}-${data.data.menus[index].children[i].AucSubTypeID}`
                             }
                             menus.push(data.data.menus[index]);
                         }
+
                         this.menus = menus;
 
                         this.$nextTick(() => {
                             let AucGenre = this.$store.state.sidebar.AucGenre;
-                            let AucSubType = this.$store.state.sidebar.AucSubType;
-                            let key = AucGenre + (AucSubType ? `-${AucSubType}` : '');
+                            let AucSubTypeID = this.$store.state.sidebar.AucSubTypeID;
+                            let key = AucGenre + (AucSubTypeID ? `-${AucSubTypeID}` : '');
 
                             if (key) {
                                 let node = this.$refs.tree.store.getNode(key);
@@ -74,7 +75,7 @@
                 if (AucGenre === null) return {};
                 let params = {
                     AucGenre: AucGenre === '' ? 'empty' : AucGenre,
-                    AucSubType: data.AucSubType === '' ? 'empty' : data.AucSubType,
+                    AucSubTypeID: data.AucSubTypeID === '' ? 'empty' : data.AucSubTypeID,
                 };
                 return {name: 'normal', params: params};
             },

@@ -46,16 +46,18 @@
             $route: {
                 immediate: true,
                 handler() {
-                    if (typeof this.$route.params.AucGenre === 'undefined' &&
-                        typeof this.$route.params.AucSubType === 'undefined' &&
-                        !this.$route.params.item_id) {
+                    if (
+                        typeof this.$route.params.AucGenre === 'undefined' &&
+                        typeof this.$route.params.AucSubTypeID === 'undefined' &&
+                        !this.$route.params.item_id
+                    ) {
                         this.$store.state.sidebar.AucGenre = null;
-                        this.$store.state.sidebar.AucSubType = null;
+                        this.$store.state.sidebar.AucSubTypeID = null;
                     } else {
                         if (typeof this.$route.params.AucGenre !== 'undefined')
                             this.$store.state.sidebar.AucGenre = this.$route.params.AucGenre === 'empty' ? '' : this.$route.params.AucGenre;
-                        if (typeof this.$route.params.AucSubType !== 'undefined')
-                            this.$store.state.sidebar.AucSubType = this.$route.params.AucSubType === 'empty' ? '' : this.$route.params.AucSubType;
+                        if (typeof this.$route.params.AucSubTypeID !== 'undefined')
+                            this.$store.state.sidebar.AucSubTypeID = this.$route.params.AucSubTypeID ? this.$route.params.AucSubTypeID : '';
                     }
                 }
             },

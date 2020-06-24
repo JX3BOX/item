@@ -11,7 +11,7 @@ const routes = [
     // 主页
     { name: 'home', path: '/home', component: Home },
     // 常规
-    {name: 'normal', path: '/:AucGenre([empty|\\d]+)/:AucSubType([empty|\\d]+)', component: Normal},
+    {name: 'normal', path: '/:AucGenre([empty|\\d]+)/:AucSubTypeID(\\d+)', component: Normal},
     // 默认页重定向
     {path: '*', redirect: 'home'}
 ];

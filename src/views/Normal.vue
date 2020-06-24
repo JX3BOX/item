@@ -38,7 +38,7 @@
                     headers: {Accept: "application/prs.helper.v2+json"},
                     params: {
                         auc_genre: this.$store.state.sidebar.AucGenre,
-                        auc_sub_type: this.$store.state.sidebar.AucSubType,
+                        auc_sub_type_id: this.$store.state.sidebar.AucSubTypeID,
                         page: page, limit: this.length,
                     },
                     withCredentials: true
@@ -57,7 +57,7 @@
                     name: 'normal',
                     params: {
                         AucGenre: this.$store.state.sidebar.AucGenre,
-                        AucSubType: this.$store.state.sidebar.AucSubType
+                        AucSubTypeID: this.$store.state.sidebar.AucSubTypeID
                     },
                     query: {page: page}
                 });

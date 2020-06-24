@@ -6,8 +6,8 @@ Vue.use(Vuex);
 let store = {
     state: {
         sidebar: {
-            AucGeneral: null,
-            AucSub: null,
+            AucGenre: null,
+            AucSubTypeID: null,
         }
     },
     mutations: {
