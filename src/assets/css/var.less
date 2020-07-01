@@ -2,6 +2,12 @@
   box-sizing: border-box;
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 .u-icon {
   width: 36px;
   height: auto;
@@ -64,5 +70,57 @@
   .u-name.white {
     font-weight: normal;
     text-shadow: -1px 0 #666666, 0 1px #666666, 1px 0 #666666,0 -1px #666666;
+  }
+}
+
+// m-module
+//===============================
+.m-module {
+  display: block;
+  margin-bottom: 15px;
+  background-color: #FAFBFC;
+  border: 1px solid #EEEEEE;
+  border-radius: 5px;
+  font-size: 14px;
+  overflow: hidden;
+
+  &.pd {
+    padding: 10px 15px 12px;
+    box-sizing:border-box;
+  }
+
+  .u-head {
+    background-color: #F3F3F3;
+    background-color: #F5F7FA;
+    border-bottom: 1px solid #EEEEEE;
+
+    & > h4 {
+      padding: 10px 0 10px 15px;
+      color: #6c645c;
+      // font-weight: normal;
+      margin:0;
+      font-weight: 500;
+    }
+
+    & > .other {
+      float: right;
+      padding: 12px 0;
+      margin-right: 15px;
+      font-size: 13px;
+      line-height: 1.1;
+      &:hover{
+        color:@pink;
+      }
+    }
+  }
+
+  .u-body {
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: @ipad) {
+  .m-module {
+    width: 100%;
   }
 }

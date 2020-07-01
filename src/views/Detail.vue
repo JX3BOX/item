@@ -1,43 +1,125 @@
 <template>
-    <div id="m-cj-view" class="m-cj-index">
-        <div v-if="item && JSON.stringify(item) !== '{}'" class="m-item">
-            <img class="u-icon" :src="$options.filters.icon_url(item.IconID)"
-                 :title="$options.filters.description(item.Desc)">
-            <h6 class="u-name" :class="{white:item.Quality==1}" v-text="item.Name"
-                :style="{color:$options.filters.item_color(item.Quality)}"></h6>
-            <ul>
-                <li v-text="'描述：'+$options.filters.description(item.Desc)"></li>
-                <li v-text="'价格：'+$options.filters.item_price(item.Price)"></li>
-                <li v-text="'品级：'+$options.filters.item_bind(item.BindType)"></li>
-                <li v-text="'耐久度：'+item.MaxDurability"></li>
-                <li v-text="'磨损率：'+item.AbradeRate"></li>
-                <li v-text="'存放时间：'+item.MaxExistTime"></li>
-                <li v-text="'最大拥有数：'+item.MaxExistAmount"></li>
-                <li v-text="'能否交易：'+(item.CanTrade?'能':'不能')"></li>
-                <li v-text="'能否丢弃：'+(item.CanDestroy||item.CanDestroy===null?'能':'不能')"></li>
-                <li v-text="'品质：'+item.Quality"></li>
-                <li v-text="'门派：'+item.BelongSchool"></li>
-                <li v-text="'心法：'+item.MagicKind"></li>
-                <li v-text="'属性：'+item.MagicType"></li>
-                <li v-text="'获得途径：'+item.GetType"></li>
-                <li v-text="'能否改色：'+(item.CanSetColor?'能':'不能')"></li>
-                <li v-text="'阵营：'+item.RequireCamp"></li>
-                <li v-text="'能否分解：'+(item.CanApart?'能':'不能')"></li>
-                <li v-text="'能否收集：'+(item.CanExterior?'能':'不能')"></li>
-                <li v-text="'能否附魔：'+(item.CanChangeMagic?'能':'不能')"></li>
-                <li v-text="'能否分享：'+(item.CanShared?'能':'不能')"></li>
-                <li v-text="'PVE装备：'+(item.IsPVEEquip?'是':'否')"></li>
-                <li v-text="'修理费：'+item.RepairPriceRebate"></li>
-                <li v-text="'能否堆叠：'+(item.CanStack?'能':'不能')"></li>
-                <li v-text="'能否消耗：'+(item.CanConsume?'能':'不能')"></li>
-            </ul>
-        </div>
+    <div id="m-item-view" class="m-item-index">
+        <el-row v-if="item && JSON.stringify(item) !== '{}'" class="m-item">
+            <el-col :xs="24" :md="3" class="m-name">
+                <img class="u-icon" :src="$options.filters.icon_url(item.IconID)"
+                     :title="$options.filters.description(item.Desc)">
+                <h6 class="u-name" :class="{white:item.Quality==1}" v-text="item.Name"
+                    :style="{color:$options.filters.item_color(item.Quality)}"></h6>
+                <div class="u-description" v-text="$options.filters.description(item.Desc)"></div>
+            </el-col>
+            <el-col :xs="24" :md="21">
+                <el-row class="m-fields">
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">回购价格：</label>
+                        <span class="u-value" v-text="$options.filters.item_price(item.Price)"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">品质等级：</label>
+                        <span class="u-value" v-text="item.Level"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">绑定类型：</label>
+                        <span class="u-value" v-text="$options.filters.item_bind(item.BindType)"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field" v-if="item.Require1Type">
+                        <label class="u-title" v-text="$options.filters.item_require_1_type(item.Require1Type)"></label>
+                        <span class="u-value" v-text="item.Require1Value"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">耐久度：</label>
+                        <span class="u-value" v-text="`${item.MaxDurability}/${item.MaxDurability}`"></span>
+                    </el-col>
+                    <!--<el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">磨损率：</label>
+                        <span class="u-value" v-text="item.AbradeRate"></span>
+                    </el-col>-->
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">存放时间：</label>
+                        <span class="u-value" v-text="item.MaxExistTime"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">最大拥有数：</label>
+                        <span class="u-value" v-text="item.MaxExistAmount?item.MaxExistAmount:'无限制'"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">能否交易：</label>
+                        <span class="u-value" v-text="item.CanTrade?'✔️':'❌'"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">能否丢弃：</label>
+                        <span class="u-value" v-text="item.CanDestroy||item.CanDestroy===null?'✔️':'❌'"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">品质：</label>
+                        <span class="u-value" v-text="$options.filters.item_quality(item.Quality)"
+                              :style="{color:$options.filters.item_color(item.Quality)}"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">适用门派：</label>
+                        <span class="u-value" v-text="item.BelongSchool"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">心法：</label>
+                        <span class="u-value" v-text="item.MagicKind"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">属性：</label>
+                        <span class="u-value" v-text="item.MagicType"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">获得途径：</label>
+                        <span class="u-value" v-text="item.GetType"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">能否改色：</label>
+                        <span class="u-value" v-text="item.CanSetColor?'✔️':'❌'"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">阵营：</label>
+                        <span class="u-value" v-text="$options.filters.item_require_camp(item.RequireCamp)"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">能否分解：</label>
+                        <span class="u-value" v-text="item.CanApart?'✔️':'❌'"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">能否收集：</label>
+                        <span class="u-value" v-text="item.CanExterior?'✔️':'❌'"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">能否附魔：</label>
+                        <span class="u-value" v-text="item.CanChangeMagic?'✔️':'❌'"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">能否共享：</label>
+                        <span class="u-value" v-text="item.CanShared?'✔️':'❌'"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">PVE装备：</label>
+                        <span class="u-value" v-text="item.IsPVEEquip?'✔️':'❌'"></span>
+                    </el-col>
+                    <!--<el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">修理费：</label>
+                        <span class="u-value" v-text="item.RepairPriceRebate"></span>
+                    </el-col>-->
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">能否堆叠：</label>
+                        <span class="u-value" v-text="item.CanStack?'✔️':'❌'"></span>
+                    </el-col>
+                    <el-col :xs="12" :md="8" class="m-field">
+                        <label class="u-title">能否消耗：</label>
+                        <span class="u-value" v-text="item.CanConsume?'✔️':'❌'"></span>
+                    </el-col>
+                </el-row>
+            </el-col>
+        </el-row>
         <div v-if="post && JSON.stringify(post) === '{}'" class="m-cj-post-null">
             <span>暂无攻略，我要</span>
             <a class="s-link" :href="publish_url(`cj/${item.ID}`)">完善攻略</a>
         </div>
         <div v-if="post && JSON.stringify(post) !== '{}'" class="m-archive-list">
-            <div class="cj-module m-cj-post">
+            <div class="m-module m-cj-post">
                 <div class="u-head">
                     <a class="el-button el-button--primary u-publish s-link"
                        :href="publish_url(`cj/${item.ID}`)">
@@ -63,7 +145,7 @@
                 </div>
             </div>
 
-            <div class="cj-module m-cj-revisions">
+            <div class="m-module m-cj-revisions">
                 <div class="u-head">
                     <h4 class="u-title">📄 历史版本</h4>
                 </div>
@@ -72,7 +154,7 @@
                 </div>
             </div>
 
-            <div class="cj-module m-cj-comments">
+            <div class="m-module m-cj-comments">
                 <div class="u-head">
                     <h4 class="u-title">💖 评论</h4>
                 </div>
@@ -148,8 +230,12 @@
             get_item_newest_post() {
                 if (!this.$route.params.item_id) return;
                 this.$http({
-                    url: `${JX3BOX.__helperUrl}api/wiki/${this.$route.params.item_id}/post`,
+                    url: `${JX3BOX.__helperUrl}api/wiki/post`,
                     headers: {Accept: "application/prs.helper.v2+json"},
+                    params: {
+                        type: 'item',
+                        source_id: this.$route.params.item_id,
+                    },
                     withCredentials: true
                 }).then(res => {
                     this.post = res.data.data.post || {};
@@ -179,14 +265,14 @@
                 handler() {
                     // 获取物品
                     this.get_item();
-                    // // 获取物品最新攻略
-                    // if(!this.$route.params.post_id) this.get_item_newest_post();
+                    // 获取物品最新攻略
+                    if (!this.$route.params.post_id) this.get_item_newest_post();
                 }
             },
             '$route.params.post_id': {
                 immediate: true,
                 handler() {
-                    // // 获取物品攻略
+                    // 获取物品攻略
                     // this.get_item_post();
                 }
             }

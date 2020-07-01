@@ -7,7 +7,7 @@
         </Breadcrumb>
         <!-- 左侧菜单 -->
         <LeftSidebar>
-            <Sidebar/>
+            <Sidebar :sidebar="$store.state.sidebar" />
         </LeftSidebar>
         <Main :withoutRight="false">
             <Search/>

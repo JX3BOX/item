@@ -21,13 +21,25 @@
 
     export default {
         name: "Sidebar",
-        props: [],
+        props: ['sidebar'],
         data: function () {
             return {
                 menus: null,
             };
         },
-        watch: {},
+        watch: {
+            sidebar: {
+                immediate: true,
+                deep: true,
+                handler() {
+                    // 展开菜单
+                    this.expand_menu();
+
+                    // 异步加载侧边栏数据
+                    this.get_menus();
+                },
+            },
+        },
         methods: {
             get_menus() {
                 this.$http({
@@ -47,26 +59,29 @@
                             }
                             menus.push(data.data.menus[index]);
                         }
-
                         this.menus = menus;
 
-                        this.$nextTick(() => {
-                            let AucGenre = this.$store.state.sidebar.AucGenre;
-                            let AucSubTypeID = this.$store.state.sidebar.AucSubTypeID;
-                            let key = AucGenre + (AucSubTypeID ? `-${AucSubTypeID}` : '');
-
-                            if (key) {
-                                let node = this.$refs.tree.store.getNode(key);
-                                if (node) {
-                                    node.expanded = true;
-                                    if (node.parent) node.parent.expanded = true;
-                                    this.$refs.tree.store.setCurrentNode(node);
-                                }
-                            }
-                        });
+                        // 展开菜单
+                        this.expand_menu();
                     }
                 }, () => {
                     this.menus = false;
+                });
+            },
+            expand_menu() {
+                this.$nextTick(() => {
+                    let AucGenre = this.sidebar.AucGenre;
+                    let AucSubTypeID = this.sidebar.AucSubTypeID;
+                    let key = AucGenre + (AucSubTypeID ? `-${AucSubTypeID}` : '');
+
+                    if (key) {
+                        let node = this.$refs.tree.store.getNode(key);
+                        if (node) {
+                            node.expanded = true;
+                            if (node.parent) node.parent.expanded = true;
+                            this.$refs.tree.store.setCurrentNode(node);
+                        }
+                    }
                 });
             },
             menu_url(data, node) {
@@ -79,9 +94,6 @@
                 };
                 return {name: 'normal', params: params};
             },
-        },
-        mounted() {
-            this.get_menus();
         },
     };
 </script>

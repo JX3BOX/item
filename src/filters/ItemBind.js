@@ -4,10 +4,15 @@
  */
 
 export default (BindType) => {
-    return BindType === 2
-        ? '装备后绑定'
-        : BindType === 3
-            ? '拾取后绑定'
-            : ''
+    switch (BindType) {
+        case 1:
+            return '不绑定';
+        case 2:
+            return '装备后绑定';
+        case 3 :
+            return '拾取后绑定';
+        default:
+            return '未知'
+    }
 }
 

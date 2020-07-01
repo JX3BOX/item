@@ -36,6 +36,6 @@
     };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     @import '../assets/css/components/item.less';
 </style>
