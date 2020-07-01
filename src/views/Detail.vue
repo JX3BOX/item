@@ -175,9 +175,8 @@
 </template>
 
 <script>
-    // import Item from '@/components/Item.vue';
-    // import Revisions from '@/components/Revisions.vue';
-    // import Comments from '@/components/Comments.vue';
+    import Revisions from '@/components/Revisions.vue';
+    import Comments from '@/components/Comments.vue';
 
     const {JX3BOX} = require("@jx3box/jx3box-common");
 
@@ -193,9 +192,8 @@
             }
         },
         components: {
-            // Item,
-            // Revisions,
-            // Comments,
+            Revisions,
+            Comments,
         },
         methods: {
             relations_got(relations) {
