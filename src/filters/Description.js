@@ -5,9 +5,13 @@
  */
 
 export default (description) => {
-    let matchs = /text="(.*?)(\\\\\\n)?"/.exec(description);
-    if (matchs && matchs.length > 1) description = matchs[1].trim();
-    if (description) description = description.replace(/\\n/g, "<br>");
-    return description;
+    let output = '';
+    let matchs = description.match(/text="(.*?)(\\\\\\n)?"/ig);
+    for (let i in matchs) {
+        let ms = /text="((.*?)(\\\\\\n)?)"/ig.exec(matchs[i]);
+        if (ms && ms.length > 1) matchs[i] = ms[1].trim();
+        if (matchs[i]) output += matchs[i].replace(/\\n/g, "<br>").replace(/\\\\/g, '');
+    }
+    return output;
 }
 

@@ -22,7 +22,7 @@
                 items: null,
                 items_total: 0,
                 page: 1,
-                length: 80,
+                length: 20,
                 auc_genre: null,
                 auc_sub_type: null,
             }

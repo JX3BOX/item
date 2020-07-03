@@ -6,10 +6,14 @@
                      :title="$options.filters.description(item.Desc)">
                 <h6 class="u-name" :class="{white:item.Quality==1}" v-text="item.Name"
                     :style="{color:$options.filters.item_color(item.Quality)}"></h6>
-                <div class="u-description" v-text="$options.filters.description(item.Desc)"></div>
+                <!--<div class="u-description" v-html="$options.filters.description(item.Desc)"></div>-->
             </el-col>
             <el-col :xs="24" :md="21">
                 <el-row class="m-fields">
+                    <el-col :xs="24" :md="24" class="m-field" v-if="item.Desc">
+                        <span class="u-value" v-html="$options.filters.description(item.Desc)"></span>
+                        <hr class="u-hr">
+                    </el-col>
                     <el-col :xs="12" :md="8" class="m-field">
                         <label class="u-title">回购价格：</label>
                         <span class="u-value" v-text="$options.filters.item_price(item.Price)"></span>
@@ -23,7 +27,8 @@
                         <span class="u-value" v-text="$options.filters.item_bind(item.BindType)"></span>
                     </el-col>
                     <el-col :xs="12" :md="8" class="m-field" v-if="item.Require1Type">
-                        <label class="u-title" v-text="$options.filters.item_require_1_type(item.Require1Type)"></label>
+                        <label class="u-title"
+                               v-text="$options.filters.item_require_1_type(item.Require1Type)+'：'"></label>
                         <span class="u-value" v-text="item.Require1Value"></span>
                     </el-col>
                     <el-col :xs="12" :md="8" class="m-field">

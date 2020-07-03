@@ -1,8 +1,8 @@
 <template>
-    <ul class="m-items">
-        <li class="u-list-empty" v-if="!$_.get(items,'length')">👻 暂无记录</li>
+    <el-row class="m-items">
+        <el-col :xs="24" :md="24" class="u-list-empty" v-if="!$_.get(items,'length')">👻 暂无记录</el-col>
         <Item v-for="(item, key) in items" :key="key" :item="item"/>
-    </ul>
+    </el-row>
 </template>
 
 <script>
