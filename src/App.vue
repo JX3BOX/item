@@ -2,8 +2,8 @@
     <div id="app">
         <Header></Header>
         <!-- 频道栏 -->
-        <Breadcrumb name="物品百科" slug="slug" root="/slug" publishEnable="true" feedbackEnable="true">
-            <img slot="logo" svg-inline src="./assets/img/logo.svg"/>
+        <Breadcrumb name="物品百科" slug="item" root="/item" :publishEnable="true" :feedbackEnable="true" :adminEnable="false">
+            <img slot="logo" svg-inline src="./assets/img/item.svg"/>
         </Breadcrumb>
         <!-- 左侧菜单 -->
         <LeftSidebar>

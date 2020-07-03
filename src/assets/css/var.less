@@ -1,127 +1,132 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .u-icon {
-  width: 36px;
-  height: auto;
-  border-radius: 5px;
+    width: 36px;
+    height: auto;
+    border-radius: 5px;
 }
 
 .u-msg-blue {
-  background-color: #d9edf7;
-  border: 1px solid #bce8f1;
-  color: #3a87ad;
-  padding: 8px 14px 8px 14px;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  border-radius: 4px;
+    background-color: #d9edf7;
+    border: 1px solid #bce8f1;
+    color: #3a87ad;
+    padding: 8px 14px 8px 14px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
 }
 
 .u-msg-green {
-  background-color: #dff0d8;
-  border: 1px solid #d6e9c6;
-  color: #3c763d;
-  padding: 8px 14px 8px 14px;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  border-radius: 4px;
+    background-color: #dff0d8;
+    border: 1px solid #d6e9c6;
+    color: #3c763d;
+    padding: 8px 14px 8px 14px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
 }
 
 .u-msg-yellow {
-  color: #8a6d3b;
-  background-color: #fcf8e3;
-  border: 1px solid #faebcc;
-  padding: 8px 14px 8px 14px;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  border-radius: 4px;
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border: 1px solid #faebcc;
+    padding: 8px 14px 8px 14px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
 }
 
 .u-msg-red {
-  color: #a94442;
-  background-color: #f2dede;
-  border-color: #ebccd1;
-  padding: 8px 14px 8px 14px;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
-  border-radius: 4px;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+    padding: 8px 14px 8px 14px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
 }
 
 .el-tree-node__label {
-  width: 100%;
+    width: 100%;
 }
 
 .u-list-empty {
-  .db;
-  .u-msg-yellow;
-  .mt(5px);
-  text-align: center;
+    .db;
+    .u-msg-yellow;
+    .mt(5px);
+    text-align: center;
 }
 
 .c-main {
-  padding-left: 10px;
-  padding-right: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 
-  .m-item {
-    .u-name.white {
-      font-weight: lighter;
-      text-shadow: -1px 0 #000000, 0 1px #000000, 1px 0 #000000, 0 -1px #000000;
+    .m-item {
+        .u-name.white {
+            font-weight: lighter;
+            text-shadow: -1px 0 #000000, 0 1px #000000, 1px 0 #000000,
+                0 -1px #000000;
+        }
     }
-  }
 }
 
 // m-module
 //===============================
 .m-module {
-  display: block;
-  margin-bottom: 15px;
-  background-color: #FAFBFC;
-  border: 1px solid #EEEEEE;
-  border-radius: 5px;
-  font-size: 14px;
-  overflow: hidden;
+    display: block;
+    margin-bottom: 15px;
+    background-color: #fafbfc;
+    border: 1px solid #eeeeee;
+    border-radius: 5px;
+    font-size: 14px;
+    overflow: hidden;
 
-  &.pd {
-    padding: 10px 15px 12px;
-    box-sizing: border-box;
-  }
-
-  .u-head {
-    background-color: #F3F3F3;
-    background-color: #F5F7FA;
-    border-bottom: 1px solid #EEEEEE;
-
-    & > h4 {
-      padding: 10px 0 10px 15px;
-      color: #6c645c;
-      // font-weight: normal;
-      margin: 0;
-      font-weight: 500;
+    &.pd {
+        padding: 10px 15px 12px;
+        box-sizing: border-box;
     }
 
-    & > .other {
-      float: right;
-      padding: 12px 0;
-      margin-right: 15px;
-      font-size: 13px;
-      line-height: 1.1;
+    .u-head {
+        background-color: #f3f3f3;
+        background-color: #f5f7fa;
+        border-bottom: 1px solid #eeeeee;
 
-      &:hover {
-        color: @pink;
-      }
+        & > h4 {
+            padding: 10px 0 10px 15px;
+            color: #6c645c;
+            // font-weight: normal;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        & > .other {
+            float: right;
+            padding: 12px 0;
+            margin-right: 15px;
+            font-size: 13px;
+            line-height: 1.1;
+
+            &:hover {
+                color: @pink;
+            }
+        }
     }
-  }
 
-  .u-body {
-    padding: 10px;
-  }
+    .u-body {
+        padding: 10px;
+    }
 }
 
 @media screen and (max-width: @ipad) {
-  .m-module {
-    width: 100%;
-  }
+    .m-module {
+        width: 100%;
+    }
+}
+
+.el-tree {
+    background: none;
 }

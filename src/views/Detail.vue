@@ -11,7 +11,7 @@
             <el-col :xs="24" :md="21">
                 <el-row class="m-fields">
                     <el-col :xs="24" :md="24" class="m-field" v-if="item.Desc">
-                        <span class="u-value" v-html="$options.filters.description(item.Desc)"></span>
+                        <span class="u-value u-intro" v-html="$options.filters.description(item.Desc)"></span>
                         <hr class="u-hr">
                     </el-col>
                     <el-col :xs="12" :md="8" class="m-field">
@@ -120,6 +120,7 @@
             </el-col>
         </el-row>
         <div v-if="post && JSON.stringify(post) === '{}'" class="m-cj-post-null">
+            <i class="el-icon-s-opportunity"></i>
             <span>暂无攻略，我要</span>
             <a class="s-link" :href="publish_url(`cj/${item.ID}`)">完善攻略</a>
         </div>
