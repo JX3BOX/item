@@ -5,6 +5,8 @@
  */
 
 export default (description) => {
+    if(!description) return '';
+
     let output = '';
     let matchs = description.match(/text="(.*?)(\\\\\\n)?"/ig);
     for (let i in matchs) {
