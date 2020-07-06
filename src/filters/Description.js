@@ -7,6 +7,7 @@ const {JX3BOX} = require("@jx3box/jx3box-common");
 
 export default (description) => {
     if (!description) return '';
+    return description;
 
     let dom = document.createElement("span");
     dom.innerHTML = description.replace(/<text>(.*?)<\/text>/ig, '<span $1></span>');
