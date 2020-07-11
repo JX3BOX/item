@@ -1,5 +1,5 @@
 <template>
-    <div class="m-extend">
+    <div class="m-extend" :class="{isHome : isHome}">
         <!-- <ins
             class="adsbygoogle"
             style="display:block;width:100%;overflow:hidden;"
@@ -24,11 +24,24 @@ export default {
     name: "Extend",
     props: [],
     data: function() {
-        return {};
+        return {
+            isHome : true
+        };
     },
     computed: {},
-    methods: {},
-    mounted: function() {},
+    methods: {
+        checkIsHome : function (){
+            this.isHome =  this.$route.name == 'home' || !this.$route.name
+        }
+    },
+    watch: {
+        '$route.name' : function (newpath){
+            this.checkIsHome()
+        }
+    },
+    mounted: function() {
+        this.checkIsHome()
+    },
 };
 </script>
 
