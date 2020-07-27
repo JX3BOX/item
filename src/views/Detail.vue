@@ -5,7 +5,6 @@
                 <img
                     class="u-icon"
                     :src="$options.filters.icon_url(item.IconID)"
-                    :title="$options.filters.description(item.Desc)"
                 />
                 <h6
                     class="u-name"
@@ -15,14 +14,14 @@
                         color: $options.filters.item_color(item.Quality),
                     }"
                 ></h6>
-                <!--<div class="u-description" v-html="$options.filters.description(item.Desc)"></div>-->
+                <!--<div class="u-description" v-html="item.DescHtml"></div>-->
             </el-col>
             <el-col :xs="24" :md="21">
                 <el-row class="m-fields">
-                    <el-col :xs="24" :md="24" class="m-field" v-if="item.Desc">
+                    <el-col :xs="24" :md="24" class="m-field" v-if="item.DescHtml">
                         <span
                             class="u-value u-intro"
-                            v-html="$options.filters.description(item.Desc)"
+                            v-html="item.DescHtml"
                         ></span>
                         <hr class="u-hr" />
                     </el-col>
