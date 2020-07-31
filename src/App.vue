@@ -4,6 +4,7 @@
         <!-- 频道栏 -->
         <Breadcrumb name="物品百科" slug="item" root="/item" :publishEnable="true" :feedbackEnable="true" :adminEnable="false">
             <img slot="logo" svg-inline src="./assets/img/item.svg"/>
+            <ItemBreadcrumb />
         </Breadcrumb>
         <!-- 左侧菜单 -->
         <LeftSidebar>
@@ -23,6 +24,7 @@
 </template>
 
 <script>
+    import ItemBreadcrumb from "@/components/ItemBreadcrumb.vue";
     import Sidebar from '@/components/Sidebar.vue';
     import Search from '@/components/Search.vue';
     import Extend from '@/components/Extend.vue';
@@ -38,6 +40,7 @@
         mounted: function () {
         },
         components: {
+            ItemBreadcrumb,
             Sidebar,
             Search,
             Extend,
