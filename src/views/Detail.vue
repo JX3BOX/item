@@ -216,7 +216,7 @@
         >
             <i class="el-icon-s-opportunity"></i>
             <span>暂无攻略，我要</span>
-            <a class="s-link" :href="publish_url(`cj/${item.ID}`)">完善攻略</a>
+            <a class="s-link" :href="publish_url(`item/${item.UiID}`)">完善攻略</a>
         </div>
         <div
             v-if="post && JSON.stringify(post) !== '{}'"
@@ -226,7 +226,7 @@
                 <div class="u-head">
                     <a
                         class="el-button el-button--primary u-publish s-link"
-                        :href="publish_url(`cj/${item.ID}`)"
+                        :href="publish_url(`item/${item.UiID}`)"
                     >
                         <i class="el-icon-edit"></i>
                         <span>完善物品攻略</span>
