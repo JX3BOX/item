@@ -92,11 +92,11 @@
                     ((is_small) => {
                         setTimeout(() => {
                             for (let i in indexes) this.$set(this.icon_items[indexes[i]], is_small ? 'small' : 'big', false);
-                        }, 750);
+                        }, 300);
                     })(is_small);
                     is_small = !is_small;
                 }
-            }, 1000)
+            }, 600)
         },
         components: {},
         filters: {}
