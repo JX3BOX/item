@@ -6,7 +6,7 @@
             </div>
             <div class="u-body">
                 <div class="m-orange">
-                    <a class="u-orange" :class="{'small':item.small}" v-for="(item,key) in icon_items" :key="key"
+                    <a class="u-orange" :class="{'small':item.small,'big':item.big}" v-for="(item,key) in icon_items" :key="key"
                        :title="item.Name" :href="item.Link">
                         <img :src="$options.filters.icon_url(item.IconID)">
                     </a>
@@ -76,19 +76,27 @@
             });
 
             // 抖动动效
+            let indexes = [];
+            let is_small = true;
             setInterval(() => {
                 if (this.icon_items.length) {
-                    let indexes = [];
-                    let length = Math.floor(this.icon_items.length * 0.05);
-                    for (let i = 0; i < length; i++) indexes.push(Math.floor(Math.random() * this.icon_items.length));
+                    let _indexes = [];
+                    let length = Math.floor(this.icon_items.length * 0.15);
+                    for (let i = 0; i < length; i++) {
+                        let index = Math.floor(Math.random() * this.icon_items.length);
+                        if (indexes.indexOf(index) === -1) _indexes.push(index);
+                    }
                     // 去重
-                    indexes = Array.from(new Set(indexes));
-                    for (let i in indexes) this.$set(this.icon_items[indexes[i]], `small`, true);
-                    setTimeout(() => {
-                        for (let i in indexes) this.$set(this.icon_items[indexes[i]], `small`, false);
-                    }, 300);
+                    indexes = Array.from(new Set(_indexes));
+                    for (let i in indexes) this.$set(this.icon_items[indexes[i]], is_small ? 'small' : 'big', true);
+                    ((is_small) => {
+                        setTimeout(() => {
+                            for (let i in indexes) this.$set(this.icon_items[indexes[i]], is_small ? 'small' : 'big', false);
+                        }, 750);
+                    })(is_small);
+                    is_small = !is_small;
                 }
-            }, 500)
+            }, 1000)
         },
         components: {},
         filters: {}
