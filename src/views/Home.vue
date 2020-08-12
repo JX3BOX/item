@@ -6,7 +6,8 @@
             </div>
             <div class="u-body">
                 <div class="m-orange">
-                    <a class="u-orange" :class="{'small':item.small,'big':item.big}" v-for="(item,key) in icon_items" :key="key"
+                    <a class="u-orange" :class="{'small':item.small,'big':item.big}" v-for="(item,key) in icon_items"
+                       :key="key"
                        :title="item.Name" :href="item.Link">
                         <img :src="$options.filters.icon_url(item.IconID)">
                     </a>
@@ -19,8 +20,8 @@
                 <h4>最近攻略</h4>
             </div>
             <div class="u-body">
-                <el-row class="cj-post-list" v-if="newest_posts.length">
-                    <el-col class="cj-post" v-for="(post, key) in newest_posts" :key="key">
+                <el-row class="wiki-post-list" v-if="newest_posts.length">
+                    <el-col class="wiki-post" v-for="(post, key) in newest_posts" :key="key">
                         <div class="m-head">
                             <div class="m-user">
                                 <div class="u-author">
@@ -30,19 +31,19 @@
                                 </div>
                                 <div class="u-updated" v-text="$options.filters.date_format(post.updated)"></div>
                             </div>
-                            <div class="m-achievement">
-                                <div class="u-achievement">
+                            <div class="m-wiki">
+                                <div class="u-wiki">
                                     <img class="u-icon" @error.once="img_error_handle"
-                                         :src="icon_url_filter(post.cj_icon_id)"/>
+                                         :src="$options.filters.icon_url(post.source_icon_id)"/>
                                     <router-link class="u-name" v-text="post.title"
-                                                 :to="{name: 'view',params: { cj_id: post.cj_id }}"></router-link>
+                                                 :to="{name: 'view',params: { item_id: post.source_id }}"></router-link>
                                 </div>
-                                <div class="u-level" v-text="'综合难度：' + render_stars(post.level)"></div>
+                                <div class="u-level" v-text="'综合难度：' + $options.filters.star(post.level)"></div>
                                 <div class="u-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
                             </div>
                         </div>
                         <div class="m-body">
-                            <span class="u-excerpt" :to="{name: 'view',params: { cj_id: post.cj_id }}"
+                            <span class="u-excerpt" :to="{name: 'view',params: { item_id: post.source_id }}"
                                   v-html="ellipsis(post.excerpt)"></span>
                         </div>
                     </el-col>
@@ -54,9 +55,8 @@
 </template>
 
 <script>
-    import {get_home_icons} from "../service/item.js";
-
     const {JX3BOX} = require("@jx3box/jx3box-common");
+    import {get_home_icons, get_item_posts} from "../service/item.js";
 
     export default {
         name: 'Home',
@@ -68,11 +68,29 @@
             }
         },
         computed: {},
-        methods: {},
+        methods: {
+            img_error_handle(e) {
+                e.target.src = `${JX3BOX.__ossRoot}image/common/nullicon.png`;
+            },
+            ellipsis(value) {
+                value = value ? value.trim() : "";
+                if (value.length > 100) {
+                    return value.slice(0, 100) + "...";
+                }
+                return value;
+            },
+        },
         mounted: function () {
             get_home_icons().then((res) => {
                 res = res.data;
                 if (res.code === 200) this.icon_items = res.data.data;
+            });
+
+            get_item_posts().then((data) => {
+                data = data.data;
+                if (data.code === 200) {
+                    this.newest_posts = data.data.newest;
+                }
             });
 
             // 抖动动效
@@ -99,7 +117,11 @@
             }, 600)
         },
         components: {},
-        filters: {}
+        filters: {
+            resolveAvatarPath: function (val) {
+                return val.replace(JX3BOX.__ossRoot, JX3BOX.__ossMirror);
+            },
+        },
     }
 </script>
 

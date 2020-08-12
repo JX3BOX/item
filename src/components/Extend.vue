@@ -16,7 +16,7 @@
         </RightSideMsg>
         <div class="m-hot-items">
             <h3 class="c-sidebar-right-title">
-                <img class="u-icon" svg-inline src="../assets/img/rank.svg" />
+                <img class="u-icon" svg-inline src="../assets/img/rank.svg"/>
                 <span>热门物品</span>
             </h3>
             <router-link class="m-hot-item" v-for="(item, key) in hot_items" :key="key"
@@ -92,51 +92,15 @@
                     if (data.code === 200) {
                         let items = data.data.data;
                         for (let i in items) {
-                            let rank = ranks[items[i].ID];
+                            let rank = ranks[items[i].UiID];
                             items[i].rank = rank;
                         }
-                        // 按照长度分批
-                        this.hot_items = this.chuck(items);
+                        this.hot_items = items;
                     }
                 });
             });
 
-            let ranks = {
-                164384: {"30days": 204, "7days": 26, "yesterday": 2},
-                164506: {"30days": 101, "7days": 24, "yesterday": 3},
-                160116: {"30days": 36, "7days": 24, "today": 3, "yesterday": 4},
-                143452: {"30days": 38, "7days": 15, "yesterday": 2},
-                158246: {"30days": 16, "7days": 13, "today": 3, "yesterday": 2},
-                143416: {"30days": 45, "7days": 12, "yesterday": 2},
-                160306: {"30days": 30, "7days": 11, "yesterday": 0},
-                162020: {"30days": 9, "7days": 9, "yesterday": 0},
-                158497: {"30days": 8, "7days": 8, "yesterday": 0},
-                159379: {"30days": 7, "7days": 7, "yesterday": 0},
-                161941: {"30days": 7, "7days": 7, "yesterday": 0},
-                152525: {"30days": 7, "7days": 7, "yesterday": 0},
-                153192: {"30days": 6, "7days": 6, "yesterday": 0},
-                159012: {"30days": 6, "7days": 6, "yesterday": 0},
-                154662: {"30days": 5, "7days": 5, "yesterday": 0},
-                164523: {"30days": 2, "7days": 2, "yesterday": 2},
-                164505: {"30days": 17, "7days": 2, "yesterday": 2},
-                143586: {"30days": 2, "7days": 2, "yesterday": 2},
-                164385: {"30days": 38, "7days": 2, "yesterday": 2},
-                117015: {"30days": 1, "7days": 1, "yesterday": 1}
-            };
-            get_items({ids: [164384,164506,160116,143452,158246,143416,160306,162020,158497,159379,161941,152525,153192,159012,154662,164523,164505,143586,164385,117015], limit: 15})
-                .then((data) => {
-                data = data.data;
-                if (data.code === 200) {
-                    let items = data.data.data;
-                    for (let i in items) {
-                        let rank = ranks[items[i].UiID];
-                        items[i].rank = rank;
-                    }
-                    this.hot_items = items;
-                }
-            });
-
-            this.checkIsHome()
+            this.checkIsHome();
         },
     };
 </script>

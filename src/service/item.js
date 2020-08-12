@@ -23,4 +23,13 @@ function get_items(params) {
     });
 }
 
-export {get_home_icons, get_items_count, get_items};
+// 获取物品攻略列表
+function get_item_posts() {
+    return $http.get(`${__helperUrl}api/wiki/posts/newest`, {
+        headers: {Accept: "application/prs.helper.v2+json"},
+        withCredentials: true,
+        params: {type: 'item'},
+    });
+}
+
+export {get_home_icons, get_items_count, get_items, get_item_posts};
