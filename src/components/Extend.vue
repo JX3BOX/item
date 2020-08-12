@@ -31,8 +31,6 @@
                     </span>
                     <span class="u-desc" v-html="` ${item.DescHtml}`"></span>
                     <span class="u-rank" v-if="item.rank">
-                        <i class="el-icon-watermelon"></i>
-                        <span v-text="`昨日 - ${item.rank['yesterday']}`"></span>
                         <i class="el-icon-grape"></i>
                         <span v-text="`七天 - ${item.rank['7days']}`"></span>
                         <i class="el-icon-pear"></i>
