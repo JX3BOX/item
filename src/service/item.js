@@ -16,4 +16,11 @@ function get_items_count() {
     });
 }
 
-export {get_home_icons, get_items_count};
+function get_items(params) {
+    return $http.get(`${API}s`, {
+        headers: {Accept: "application/prs.helper.v2+json"},
+        params: params,
+    });
+}
+
+export {get_home_icons, get_items_count, get_items};

@@ -23,4 +23,17 @@ function postStat(id) {
     });
 }
 
-export { getStat, postStat };
+const rank = __next + 'api/summary/visit/rank';
+// const rank = "/api/summary/visit/rank";
+function getRank() {
+    return axios.get(rank,{
+        params : {
+            postType : 'item',
+            postAction : 'views',
+            sort : '7days',
+            pageSize : 15
+        }
+    });
+}
+
+export { getStat, postStat, getRank };
