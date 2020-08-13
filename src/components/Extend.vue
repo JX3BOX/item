@@ -103,12 +103,13 @@
                         let items = {};
                         for (let i in data) items[data[i].UiID] = data[i];
 
-                        let output = {};
+                        // 数据填充保持原有排序
+                        let output = [];
                         for (let i in item_ids) {
                             let id = item_ids[i];
                             let item = items[id];
                             item.rank = ranks[id];
-                            output[id] = item;
+                            output.push(item);
                         }
 
                         this.hot_items = output;
