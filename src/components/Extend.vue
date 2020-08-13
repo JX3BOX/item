@@ -86,22 +86,32 @@
                     item_ids = [];
                 for (let i in data) {
                     let name = this.$_.get(data, `${i}.name`, '-');
-                    let achievement_id = this.$_.get(name.split('-'), 1, '');
-                    if (achievement_id) {
-                        item_ids.push(achievement_id);
-                        ranks[achievement_id] = this.$_.get(data, `${i}.value`, {});
+                    let item_id = this.$_.get(name.split('-'), 1, '');
+                    if (item_id) {
+                        item_ids.push(item_id);
+                        ranks[item_id] = this.$_.get(data, `${i}.value`, {});
                     }
                 }
+                item_ids = item_ids.slice(1, 15);
 
-                get_items({ids: item_ids, limit: 15}).then((data) => {
+                get_items({ids: item_ids, limit: item_ids.length}).then((data) => {
                     data = data.data;
                     if (data.code === 200) {
-                        let items = data.data.data;
-                        for (let i in items) {
-                            let rank = ranks[items[i].UiID];
-                            items[i].rank = rank;
+                        data = data.data.data;
+
+                        // 使用UiID作为键值
+                        let items = {};
+                        for (let i in data) items[data[i].UiID] = data[i];
+
+                        let output = {};
+                        for (let i in item_ids) {
+                            let id = item_ids[i];
+                            let item = items[id];
+                            item.rank = ranks[id];
+                            output[id] = item;
                         }
-                        this.hot_items = items;
+
+                        this.hot_items = output;
                     }
                 });
             });
