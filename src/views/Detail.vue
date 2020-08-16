@@ -299,6 +299,7 @@
 </template>
 
 <script>
+import Article from "@jx3box/jx3box-editor/src/Article.vue";
 import Revisions from "@/components/Revisions.vue";
 import Comments from "@/components/Comments.vue";
 import { postStat } from "@/service/stat.js";
@@ -318,6 +319,7 @@ export default {
     components: {
         Revisions,
         Comments,
+        Article,
     },
     methods: {
         relations_got(relations) {
