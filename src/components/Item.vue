@@ -2,13 +2,12 @@
     <el-col :xs="24" :md="24" class="m-item" v-if="JSON.stringify(item) !== '{}'">
         <router-link :target="target_filter()" :to="url_filter(item.UiID)">
             <div class="m-left">
-                <img class="u-icon" :src="$options.filters.icon_url(item.IconID)"
-                     :title="$options.filters.description(item.Desc)">
+                <img class="u-icon" :src="$options.filters.icon_url(item.IconID)">
             </div>
             <div class="m-right">
                 <h6 class="u-name" :class="{white:item.Quality==1}" v-text="item.Name"
                     :style="{color:$options.filters.item_color(item.Quality)}"></h6>
-                <div class="u-description" v-html="$options.filters.description(item.Desc)"></div>
+                <div class="u-description" v-html="item.DescHtml"></div>
             </div>
         </router-link>
     </el-col>

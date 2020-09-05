@@ -1,0 +1,113 @@
+.m-item-home {
+  .wiki-post-list {
+    margin: -10px 0;
+    list-style: none;
+    overflow: hidden;
+
+    .wiki-post {
+      padding: 15px 10px;
+      border-bottom: 1px solid #CCCCCC;
+      font-size: 12px;
+      overflow: hidden;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .u-icon {
+        .dbi;
+        .w(20px);
+        border-radius: 3px;
+        vertical-align: middle;
+      }
+
+      .u-name {
+        .dbi;
+        .ml(8px);
+        vertical-align: middle;
+      }
+
+      .m-wiki {
+        .mt(5px);
+      }
+
+      .u-author, .u-updated, .u-wiki, .u-level, .u-remark {
+        display: inline-block;
+        .mr(25px);
+        vertical-align: middle;
+      }
+
+      .u-updated {
+        .fr;
+        .mr(0);
+        opacity: .75;
+      }
+
+      .u-remark {
+        margin: 5px 0;
+      }
+
+      .u-excerpt {
+        .db;
+        .mt(6px);
+        color: #999;
+        .lh(1.6);
+        // opacity: .75;
+      }
+    }
+  }
+}
+
+.m-orange {
+  padding: 0 8px;
+}
+
+.u-orange {
+  @m-orange-border-radius: 6px;
+
+  position: relative;
+  display: inline-block;
+  margin: 8px;
+  padding: 0;
+  border-radius: @m-orange-border-radius;
+  overflow: hidden;
+  transition: transform .25s linear;
+
+  &.small {
+    transform: scale(.8);
+  }
+
+  &.big {
+    transform: scale(1.2);
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 3px solid rgb(249, 161, 1);
+    box-sizing: border-box;
+    border-radius: @m-orange-border-radius;
+    z-index: 20;
+  }
+
+  & img {
+    position: relative;
+    display: block;
+    border-radius: @m-orange-border-radius;
+    z-index: 10;
+  }
+}
+
+@media screen and (max-width: @ipad) {
+  .m-item-home {
+    .wiki-post-list {
+      .wiki-post {
+        width: 100%;
+      }
+    }
+  }
+}

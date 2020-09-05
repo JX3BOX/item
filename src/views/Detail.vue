@@ -5,7 +5,6 @@
                 <img
                     class="u-icon"
                     :src="$options.filters.icon_url(item.IconID)"
-                    :title="$options.filters.description(item.Desc)"
                 />
                 <h6
                     class="u-name"
@@ -15,14 +14,14 @@
                         color: $options.filters.item_color(item.Quality),
                     }"
                 ></h6>
-                <!--<div class="u-description" v-html="$options.filters.description(item.Desc)"></div>-->
+                <!--<div class="u-description" v-html="item.DescHtml"></div>-->
             </el-col>
             <el-col :xs="24" :md="21">
                 <el-row class="m-fields">
-                    <el-col :xs="24" :md="24" class="m-field" v-if="item.Desc">
+                    <el-col :xs="24" :md="24" class="m-field" v-if="item.DescHtml">
                         <span
                             class="u-value u-intro"
-                            v-html="$options.filters.description(item.Desc)"
+                            v-html="item.DescHtml"
                         ></span>
                         <hr class="u-hr" />
                     </el-col>
@@ -217,7 +216,7 @@
         >
             <i class="el-icon-s-opportunity"></i>
             <span>暂无攻略，我要</span>
-            <a class="s-link" :href="publish_url(`cj/${item.ID}`)">完善攻略</a>
+            <a class="s-link" :href="publish_url(`item/${item.UiID}`)">完善攻略</a>
         </div>
         <div
             v-if="post && JSON.stringify(post) !== '{}'"
@@ -227,7 +226,7 @@
                 <div class="u-head">
                     <a
                         class="el-button el-button--primary u-publish s-link"
-                        :href="publish_url(`cj/${item.ID}`)"
+                        :href="publish_url(`item/${item.UiID}`)"
                     >
                         <i class="el-icon-edit"></i>
                         <span>完善物品攻略</span>
@@ -300,6 +299,7 @@
 </template>
 
 <script>
+import Article from "@jx3box/jx3box-editor/src/Article.vue";
 import Revisions from "@/components/Revisions.vue";
 import Comments from "@/components/Comments.vue";
 import { postStat } from "@/service/stat.js";
@@ -319,6 +319,7 @@ export default {
     components: {
         Revisions,
         Comments,
+        Article,
     },
     methods: {
         relations_got(relations) {
