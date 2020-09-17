@@ -6,12 +6,14 @@
 const {
     __ossRoot,
     __ossMirror,
+    __imgPath,
+    __iconPath
 } = require("@jx3box/jx3box-common/js/jx3box.json");
 
 export default (icon_id) => {
     if (isNaN(parseInt(icon_id))) {
-        return `${__ossRoot}image/common/nullicon.png`;
+        return `${__imgPath}image/common/nullicon.png`;
     } else {
-        return `${__ossRoot}icon/${icon_id}.png`;
+        return `${__iconPath}icon/${icon_id}.png`;
     }
 };

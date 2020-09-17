@@ -70,7 +70,7 @@
         computed: {},
         methods: {
             img_error_handle(e) {
-                e.target.src = `${JX3BOX.__ossRoot}image/common/nullicon.png`;
+                e.target.src = `${JX3BOX.__imgPath}image/common/nullicon.png`;
             },
             ellipsis(value) {
                 value = value ? value.trim() : "";
