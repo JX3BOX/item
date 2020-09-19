@@ -20,7 +20,7 @@
                 <span>热门物品</span>
             </h3>
             <router-link class="m-hot-item" v-for="(item, key) in hot_items" :key="key"
-                         :to="{name:'view', params: {item_id: item.UiID}}">
+                         :to="{name:'view', params: {item_id: item.id}}">
                 <div class="u-icon">
                     <img @error.once="img_error_handle" :src="$options.filters.icon_url(item.IconID)">
                 </div>
@@ -99,9 +99,9 @@
                     if (data.code === 200) {
                         data = data.data.data;
 
-                        // 使用UiID作为键值
+                        // 使用id作为键值
                         let items = {};
-                        for (let i in data) items[data[i].UiID] = data[i];
+                        for (let i in data) items[data[i].id] = data[i];
 
                         // 数据填充保持原有排序
                         let output = [];

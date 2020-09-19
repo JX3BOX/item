@@ -15,7 +15,7 @@ const routes = [
     // 常规
     {name: 'normal', path: '/:AucGenre([empty|\\d]+)/:AucSubTypeID(\\d+)', component: Normal},
     // 单页
-    {name: 'view', path: '/view/:item_id(\\d+)/:post_id(\\d+)?', component: Detail},
+    {name: 'view', path: '/view/:item_id([_\\d]+)/:post_id(\\d+)?', component: Detail},
     // 搜索
     {name: 'search', path: '/search/:keyword(.+)?', component: Search},
     // 默认页重定向

@@ -1,6 +1,6 @@
 <template>
     <el-col :xs="24" :md="24" class="m-item" v-if="JSON.stringify(item) !== '{}'">
-        <router-link :target="target_filter()" :to="url_filter(item.UiID)">
+        <router-link :target="target_filter()" :to="url_filter(item.id)">
             <div class="m-left">
                 <img class="u-icon" :src="$options.filters.icon_url(item.IconID)">
             </div>

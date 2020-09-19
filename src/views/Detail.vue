@@ -216,7 +216,7 @@
         >
             <i class="el-icon-s-opportunity"></i>
             <span>暂无攻略，我要</span>
-            <a class="s-link" :href="publish_url(`item/${item.UiID}`)">完善攻略</a>
+            <a class="s-link" :href="publish_url(`item/${item.id}`)">完善攻略</a>
         </div>
         <div
             v-if="post && JSON.stringify(post) !== '{}'"
@@ -226,7 +226,7 @@
                 <div class="u-head">
                     <a
                         class="el-button el-button--primary u-publish s-link"
-                        :href="publish_url(`item/${item.UiID}`)"
+                        :href="publish_url(`item/${item.id}`)"
                     >
                         <i class="el-icon-edit"></i>
                         <span>完善物品攻略</span>
@@ -274,7 +274,7 @@
                     <h4 class="u-title">📄 历史版本</h4>
                 </div>
                 <div class="u-body">
-                    <Revisions :item_id="item.UiID" />
+                    <Revisions :item_id="item.id" />
                 </div>
             </div>
 
@@ -283,7 +283,7 @@
                     <h4 class="u-title">💖 评论</h4>
                 </div>
                 <div class="u-body">
-                    <Comments :item_id="item.UiID" />
+                    <Comments :item_id="item.id" />
                 </div>
             </div>
         </div>
