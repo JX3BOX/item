@@ -108,8 +108,10 @@
                         for (let i in item_ids) {
                             let id = item_ids[i];
                             let item = items[id];
-                            item.rank = ranks[id];
-                            output.push(item);
+                            if (item) {
+                                item.rank = ranks[id];
+                                output.push(item);
+                            }
                         }
 
                         this.hot_items = output;
