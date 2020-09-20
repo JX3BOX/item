@@ -66,22 +66,22 @@
                         <span class="u-value"
                               v-html="`品质 <span style='color:${$options.filters.item_color(item.Quality)}'>${$options.filters.item_quality(item.Quality)}</span>`"></span>
                             </el-col>
-                            <el-col :xs="12" :md="8" class="m-field">
+                            <el-col :xs="12" :md="8" class="m-field" v-if="item.BelongSchool">
                                 <span class="u-value" v-text="'门派 '+item.BelongSchool"></span>
                             </el-col>
-                            <el-col :xs="12" :md="8" class="m-field">
+                            <el-col :xs="12" :md="8" class="m-field" v-if="item.MagicKind">
                                 <span class="u-value" v-text="'心法 '+item.MagicKind"></span>
                             </el-col>
-                            <el-col :xs="12" :md="8" class="m-field">
+                            <el-col :xs="12" :md="8" class="m-field" v-if="item.MagicType">
                                 <span class="u-value" v-text="'属性 '+item.MagicType"></span>
                             </el-col>
-                            <el-col :xs="12" :md="8" class="m-field">
+                            <el-col :xs="12" :md="8" class="m-field" v-if="item.GetType">
                                 <span class="u-value" v-text="'获得途径 '+item.GetType"></span>
                             </el-col>
                             <el-col :xs="12" :md="8" class="m-field" v-if="item.CanSetColor">
                                 <span class="u-value" v-text="'可以改色'"></span>
                             </el-col>
-                            <el-col :xs="12" :md="8" class="m-field" v-if="item.RequireCamp!=7">
+                            <el-col :xs="12" :md="8" class="m-field" v-if="item.RequireCamp!==null&&item.RequireCamp!=7">
                             <span class="u-value"
                                   v-text="'阵营 '+$options.filters.item_require_camp(item.RequireCamp)"></span>
                             </el-col>
