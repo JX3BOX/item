@@ -22,7 +22,7 @@
                         <span class="u-value u-intro" v-html="item.DescHtml"></span>
                         <hr class="u-hr"/>
                     </el-col>
-                    <el-col class="m-attributes" :xs="24" :md="6">
+                    <el-col class="m-attributes" v-if="item.attributes.length" :xs="24" :md="6">
                         <div v-for="(attribute,key) in item.attributes" :key="key" class="m-field">
                             <span class="u-value" :style="{color:attribute.color}" v-text="attribute.label"></span>
                         </div>
