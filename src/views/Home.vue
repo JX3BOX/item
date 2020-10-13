@@ -1,5 +1,31 @@
 <template>
     <div class="m-item-index m-item-home">
+        <div class="m-module no-border">
+            <div class="u-head">
+                <a class="other" target="_blank" :href="feedback">反馈建议 &raquo;</a>
+                <h4>
+                    <i class="el-icon-location-information"></i>
+                    <span> 便捷入口</span>
+                </h4>
+            </div>
+            <div class="u-body">
+                <ul class="m-qlinks">
+                    <li class="qlink">
+                        <a style="background-color:#FE7979;" target="_blank" href="https://www.jx3box.com/tool/18151/">
+                            <i class="el-icon-trophy"></i>
+                            <span> 游戏内看百科</span>
+                        </a>
+                    </li>
+                    <li class="qlink">
+                        <router-link :to="{ name: 'search', query: {ids:'5_24423,5_24424,5_24425,5_24426,5_24427,5_24428,5_24429,5_24430'} }">
+                            <i class="el-icon-edit-outline"></i>
+                            <span> 五行石合成</span>
+                        </router-link>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
         <div class="m-module">
             <div class="u-head">
                 <h4>稀世物品</h4>
@@ -7,8 +33,7 @@
             <div class="u-body">
                 <div class="m-orange">
                     <a class="u-orange" :class="{'small':item.small,'big':item.big}" v-for="(item,key) in icon_items"
-                       :key="key"
-                       :title="item.Name" :href="item.Link">
+                       :key="key" :title="item.Name" :href="item.Link">
                         <img :src="$options.filters.icon_url(item.IconID)">
                     </a>
                 </div>
@@ -93,7 +118,7 @@
                 }
             });
 
-            // 抖动动效
+            /*// 抖动动效
             let indexes = [];
             let is_small = true;
             setInterval(() => {
@@ -114,7 +139,7 @@
                     })(is_small);
                     is_small = !is_small;
                 }
-            }, 600)
+            }, 600)*/
         },
         components: {},
         filters: {

@@ -33,9 +33,8 @@ export default {
     },
     methods: {
         // 获取物品搜索列表
-        get_items(keyword, page, length) {
-            if (!keyword) return [];
-            let data = { keyword: keyword, page: page };
+        get_items(ids, keyword, page, length) {
+            let data = { ids: ids, keyword: keyword, page: page };
             if (typeof length !== "undefined") data["limit"] = length;
             return new Promise((resolve, reject) => {
                 this.$http({
@@ -75,6 +74,7 @@ export default {
             async handler() {
                 this.page = parseInt(this.$route.query.page);
                 let data = await this.get_items(
+                    this.$route.query.ids ? this.$route.query.ids.split(',') : [],
                     this.$route.params.keyword,
                     this.page,
                     this.length
