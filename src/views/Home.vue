@@ -118,7 +118,7 @@
                 }
             });
 
-            /*// 抖动动效
+            // 抖动动效
             let indexes = [];
             let is_small = true;
             setInterval(() => {
@@ -139,7 +139,7 @@
                     })(is_small);
                     is_small = !is_small;
                 }
-            }, 600)*/
+            }, 600)
         },
         components: {},
         filters: {
