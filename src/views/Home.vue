@@ -90,6 +90,7 @@
             return {
                 icon_items: [],
                 newest_posts: [],
+                feedback: JX3BOX.feedback,
             }
         },
         computed: {},

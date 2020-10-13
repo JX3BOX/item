@@ -1,17 +1,27 @@
 <template>
     <div class="m-item" v-if="item">
-        <span class="none"
-              :data-require_level="(item.RequireLevel = parseInt(item.Require1Type) === 5 ? item.Require1Value : '')"
-        ></span>
-        <img class="item-icon" :src="$options.filters.icon_url(item.IconID)" :alt="item.Name"/>
         <div class="item-detail">
-            <h4 class="title" :style="{color:$options.filters.item_color(item.Quality)}" v-text="item.Name"></h4>
-            <span v-if="item.BindType && item.BindType!==1" class="bind"
-                  v-text="$options.filters.item_bind(item.BindType)"></span>
+            <!-- 物品名称 -->
+            <h4 class="u-title" :style="{color:$options.filters.item_color(item.Quality)}" v-text="item.Name"></h4>
+            <!-- 绑定状态 -->
+            <span v-if="item.BindType > 1" class="u-bind" v-text="$options.filters.item_bind(item.BindType)"></span>
+            <!-- 唯一 -->
             <span v-if="parseInt(item.MaxExistAmount) === 1" class="unique" v-text="'唯一'"></span>
-            <span v-if="item.RequireLevel" class="unique" v-text="'需要等级' + item.RequireLevel"></span>
-            <p v-if="item.DescHtml" class="desc" v-html="item.DescHtml"></p>
-            <span v-if="item.Level" class="level" v-text="'品质等级' + item.Level"></span>
+            <!-- 装备属性 -->
+            <div class="m-attributes" v-if="item.attributes.length">
+                <div v-for="(attribute,key) in item.attributes" :key="key" class="m-field">
+                    <span class="u-value" :style="{color:attribute.color}" v-text="attribute.label"></span>
+                </div>
+            </div>
+            <!-- 需要等级 -->
+            <span v-if="parseInt(item.Require1Type) === 5" class="u-require-level" v-text="'需要等级' + item.Require1Value"></span>
+            <!-- 最大耐久度 -->
+            <span v-if="item.MaxDurability" class="u-max-durability" v-text="'最大耐久度' + item.MaxDurability"></span>
+            <!-- 描述 -->
+            <p v-if="item.DescHtml" class="u-desc" v-html="item.DescHtml"></p>
+            <!-- 品质等级 -->
+            <span v-if="item.Level" class="u-level" v-text="'品质等级' + item.Level"></span>
+            <!-- 装备分数 -->
         </div>
     </div>
 </template>

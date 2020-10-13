@@ -1,6 +1,6 @@
 <template>
     <div id="m-item-view" class="m-item-index">
-        <Item :item_id="'8_873'" />
+        <Item :item_id="'6_23963'" />
         <el-row v-if="item && JSON.stringify(item) !== '{}'" class="m-item-panel">
             <el-col :xs="24" :md="3" class="m-name">
                 <img
