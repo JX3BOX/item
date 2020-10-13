@@ -1,18 +1,18 @@
 <template>
     <el-row class="m-items">
         <el-col :xs="24" :md="24" class="u-list-empty" v-if="!$_.get(items,'length')">👻 暂无记录</el-col>
-        <Item v-for="(item, key) in items" :key="key" :item="item"/>
+        <ItemPanel v-for="(item, key) in items" :key="key" :item="item"/>
     </el-row>
 </template>
 
 <script>
-    import Item from '@/components/Item.vue';
+    import ItemPanel from '@/components/ItemPanel.vue';
 
     export default {
         name: "Items",
         props: ['items'],
         components: {
-            Item,
+            ItemPanel,
         }
     };
 </script>

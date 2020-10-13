@@ -1,6 +1,7 @@
 <template>
     <div id="m-item-view" class="m-item-index">
-        <el-row v-if="item && JSON.stringify(item) !== '{}'" class="m-item">
+        <Item :item_id="'8_873'" />
+        <el-row v-if="item && JSON.stringify(item) !== '{}'" class="m-item-panel">
             <el-col :xs="24" :md="3" class="m-name">
                 <img
                         class="u-icon"
@@ -206,6 +207,7 @@
 
 <script>
     import Article from "@jx3box/jx3box-editor/src/Article.vue";
+    import Item from "@/components/Item.vue";
     import Revisions from "@/components/Revisions.vue";
     import Comments from "@/components/Comments.vue";
     import {postStat} from "@/service/stat.js";
@@ -224,6 +226,7 @@
             };
         },
         components: {
+            Item,
             Revisions,
             Comments,
             Article,

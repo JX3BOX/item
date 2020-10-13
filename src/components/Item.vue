@@ -1,40 +1,43 @@
 <template>
-    <el-col :xs="24" :md="24" class="m-item" v-if="JSON.stringify(item) !== '{}'">
-        <router-link :target="target_filter()" :to="url_filter(item.id)">
-            <div class="m-left">
-                <img class="u-icon" :src="$options.filters.icon_url(item.IconID)">
-            </div>
-            <div class="m-right">
-                <h6 class="u-name" :class="{white:item.Quality==1}" v-text="item.Name"
-                    :style="{color:$options.filters.item_color(item.Quality)}"></h6>
-                <div class="u-description" v-html="item.DescHtml"></div>
-            </div>
-        </router-link>
-    </el-col>
+    <div class="m-item" v-if="item">
+        <span class="none"
+              :data-require_level="(item.RequireLevel = parseInt(item.Require1Type) === 5 ? item.Require1Value : '')"
+        ></span>
+        <img class="item-icon" :src="$options.filters.icon_url(item.IconID)" :alt="item.Name"/>
+        <div class="item-detail">
+            <h4 class="title" :style="{color:$options.filters.item_color(item.Quality)}" v-text="item.Name"></h4>
+            <span v-if="item.BindType && item.BindType!==1" class="bind"
+                  v-text="$options.filters.item_bind(item.BindType)"></span>
+            <span v-if="parseInt(item.MaxExistAmount) === 1" class="unique" v-text="'唯一'"></span>
+            <span v-if="item.RequireLevel" class="unique" v-text="'需要等级' + item.RequireLevel"></span>
+            <p v-if="item.DescHtml" class="desc" v-html="item.DescHtml"></p>
+            <span v-if="item.Level" class="level" v-text="'品质等级' + item.Level"></span>
+        </div>
+    </div>
 </template>
 
 <script>
+    import {get_item} from "../service/item.js";
+
     const {JX3BOX} = require("@jx3box/jx3box-common");
 
     export default {
         name: "Item",
-        props: ['item', "target", 'jump'],
+        props: ['item_id'],
         data: function () {
-            return {}
+            return {
+                item: null
+            }
         },
-        methods: {
-            url_filter: function (item_id) {
-                return this.jump === true || typeof this.jump === "undefined"
-                    ? {name: "view", params: {item_id: item_id}}
-                    : {};
-            },
-            target_filter: function () {
-                return this.target || typeof this.target !== "undefined"
-                    ? this.target
-                    : "";
-            },
-        },
+        methods: {},
         mounted() {
+            get_item(this.item_id).then((res) => {
+                let data = res.data;
+                if (data.code === 200) {
+                    let item = data.data.item;
+                    if (JSON.stringify(item) !== '{}') this.item = item;
+                }
+            });
         },
         components: {}
     };

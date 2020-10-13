@@ -16,6 +16,16 @@ function get_items_count() {
     });
 }
 
+// 获取物品
+function get_item(item_id) {
+    if (!item_id) return;
+    return $http({
+        url: `${__helperUrl}api/item/${item_id}`,
+        headers: {Accept: "application/prs.helper.v2+json"},
+        withCredentials: true,
+    })
+}
+
 function get_items(params) {
     return $http.get(`${API}s`, {
         headers: {Accept: "application/prs.helper.v2+json"},
@@ -32,4 +42,4 @@ function get_item_posts() {
     });
 }
 
-export {get_home_icons, get_items_count, get_items, get_item_posts};
+export {get_home_icons, get_items_count, get_item, get_items, get_item_posts};

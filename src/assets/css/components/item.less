@@ -1,48 +1,47 @@
 .m-item {
-  display: block;
-  margin: 0 0 10px;
-  padding: 0 10px 0 0;
-  vertical-align: top;
-
-  a:hover{
-    border-color:#49c10f;
+  .item-icon {
+    width: 36px;
+    border-radius: 5px
   }
 
-  a {
-    display: block;
-    padding: 10px 5px;
-    background: #fafbfc;
-    border: 1px solid #eee;
-    border-radius: 5px;
-    overflow: hidden;
-  }
-
-  .m-left {
-    float: left;
-    width: 60px;
-    text-align: center;
-
-    .u-icon {
-      width: 48px;
-      margin-right: 10px;
-    }
-  }
-
-  .m-right {
-    margin-left: 60px;
+  .item-detail {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    width: 280px;
+    margin-right: 5px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, .7);
     font-size: 14px;
+    color: #FFFFFF;
+    text-shadow: none;
+    transform: translate(0, -50%);
 
-    .u-name {
-      margin: 0;
-      font-size: inherit;
-      font-weight: bold;
-      vertical-align: top;
+    & > * {
+      display: block;
+      .mt(0);
+      .mb(4px);
+      line-height: 1.2em;
     }
 
-    .u-description {
-      margin-top: 5px;
-      color: #666666;
-      .fz(12px,1.8);
+    &:before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      width: calc(~"100% + 4px");
+      height: calc(~"100% + 4px");
+      border: 1px solid rgba(0, 0, 0, .7);
+      box-sizing: border-box;
     }
+
+    .level {
+      color: rgb(249, 161, 1)
+    }
+  }
+
+  &:hover .item-detail {
+    display: block;
   }
 }
