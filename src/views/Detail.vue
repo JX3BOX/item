@@ -17,8 +17,8 @@
       </el-col>
       <el-col :xs="24" :md="21">
         <el-row class="m-fields" :gutter="40">
-          <el-col :xs="24" :md="8" class="m-field">
-            <Item :item_id="item.id" />
+          <el-col v-if="$route.params.item_id" :xs="24" :md="8" class="m-field">
+            <Item :item_id="$route.params.item_id" />
           </el-col>
           <el-col :xs="24" :md="16">
             <el-row>
