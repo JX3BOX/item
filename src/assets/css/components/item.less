@@ -1,4 +1,6 @@
 .m-item {
+  @field-padding-right: 17px;
+
   * {
     box-sizing: border-box;
   }
@@ -27,6 +29,10 @@
 
     .u-title {
       font-weight: normal;
+    }
+
+    .u-desc {
+      padding-right: @field-padding-right;
     }
 
     .u-title, .u-desc {
@@ -66,6 +72,7 @@
 
     .m-attributes {
       .pr;
+      padding-right: @field-padding-right;
 
       .u-orange {
         color: #FF9600;
