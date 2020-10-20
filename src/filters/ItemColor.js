@@ -10,13 +10,13 @@ export default (quality) => {
         case 1:
             return 'rgb(255,255,255)';
         case 2:
-            return 'rgb(0,209,75)';
+            return 'rgb(0,210,75)';
         case 3 :
-            return 'rgb(0,126,254)';
+            return 'rgb(0,126,255)';
         case 4:
             return 'rgb(254,45,254)';
         case 5:
-            return 'rgb(249,161,1)';
+            return 'rgb(255,165,0)';
         default:
             return 'rgb(0,0,0)'
     }
