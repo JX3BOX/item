@@ -11,6 +11,8 @@
       <div v-if="item.BindType > 1" class="u-bind" v-text="$options.filters.item_bind(item.BindType)"></div>
       <!-- 唯一 -->
       <div v-if="parseInt(item.MaxExistAmount) === 1" class="unique" v-text="'唯一'"></div>
+      <!-- 物品类型文案 -->
+      <div v-if="item.TypeLabel" class="u-type-label" v-text="item.TypeLabel"></div>
       <!-- 装备属性 -->
       <div class="m-attributes" v-if="item.attributes.length">
         <div v-for="(attribute,key) in item.attributes" :key="key" class="m-field" :class="[`u-${attribute.color}`]">
@@ -48,6 +50,10 @@
       <div v-if="item.EquipmentRating" class="u-equipment-rating u-orange" v-text="'装备分数' + item.EquipmentRating"></div>
       <!-- 推荐门派心法 -->
       <div v-if="item.Recommend" class="u-equipment-recommend" v-text="'推荐门派：' + item.Recommend"></div>
+      <!-- 外观名称 -->
+      <div v-if="item.Appearance" class="u-appearance" v-text="'外观名称：' + item.Appearance"></div>
+      <!-- 可收集门派 -->
+      <div v-if="item.CanExterior" class="u-can-exterior" v-text="'外观：' + item.CanExterior"></div>
     </div>
   </div>
 </template>
