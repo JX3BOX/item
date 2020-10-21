@@ -16,8 +16,8 @@
       <!-- 装备属性 -->
       <div class="m-attributes" v-if="item.attributes.length">
         <div v-for="(attribute,key) in item.attributes" :key="key" class="m-field" :class="[`u-${attribute.color}`]">
-          <span v-if="attribute.type=='atMeleeWeaponAttackSpeedBase'" class="u-value u-speed"
-                v-text="attribute.label"></span>
+          <span v-if="attribute.type=='atMeleeWeaponAttackSpeedBase'||attribute.type=='atRangeWeaponAttackSpeedBase'"
+                class="u-value u-speed" v-text="attribute.label"></span>
           <span v-else class="u-value" v-text="attribute.label"></span>
         </div>
       </div>
