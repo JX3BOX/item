@@ -41,7 +41,7 @@
       <!-- 需要等级 -->
       <div v-if="item.Requires&&item.Requires[5]" class="u-require-level" v-text="item.Requires[5]"></div>
       <!-- 最大耐久度 -->
-      <div v-if="item.MaxDurability" class="u-max-durability" v-text="'最大耐久度' + item.MaxDurability"></div>
+      <div v-if="item.MaxDurability>=1&&item.MaxDurability<=3" class="u-max-durability" v-text="'最大耐久度' + item.MaxDurability"></div>
       <!-- 描述 -->
       <p v-if="item.DescHtml" class="u-desc u-yellow" v-html="item.DescHtml"></p>
       <!-- 品质等级 -->
