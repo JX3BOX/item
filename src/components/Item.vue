@@ -11,6 +11,8 @@
       <div v-if="item.BindType > 1" class="u-bind" v-text="$options.filters.item_bind(item.BindType)"></div>
       <!-- 唯一 -->
       <div v-if="parseInt(item.MaxExistAmount) === 1" class="unique" v-text="'唯一'"></div>
+      <!-- 最大拥有数 -->
+      <div v-if="parseInt(item.MaxExistAmount) !== 1 && item.MaxExistAmount" class="u-max-exist-amount" v-text="'最大拥有数：' + item.MaxExistAmount"></div>
       <!-- 物品类型文案 -->
       <div v-if="item.TypeLabel" class="u-type-label" v-text="item.TypeLabel"></div>
       <!-- 装备属性 -->
