@@ -25,6 +25,7 @@
       height: calc(~"100% + 4px");
       border: 1px solid #0F2222;
       box-sizing: border-box;
+      pointer-events: none;
     }
 
     .u-title {
@@ -70,6 +71,13 @@
       }
     }
 
+    .u-weapon-type-label {
+      & + .u-type-label {
+        .fr;
+        transform: translateY(-100%);
+      }
+    }
+
     .m-attributes {
       .pr;
       padding-right: @field-padding-right;
@@ -111,6 +119,10 @@
           margin-top: -1px;
         }
       }
+    }
+
+    .u-can-shared {
+      color: #4FFF6C;
     }
   }
 }
