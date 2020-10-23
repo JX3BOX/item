@@ -55,8 +55,7 @@
       <div v-if="item.AucGenre>=1&&item.AucGenre<=3" class="u-max-durability"
            v-text="'最大耐久度' + item.MaxDurability"></div>
       <!-- 描述 -->
-      <p v-if="item.DescHtml" class="u-desc u-yellow" v-html="item.DescHtml"
-         :class="{'u-yellow':item.AucGenre>=1&&item.AucGenre<=3,'u-green':!(item.AucGenre>=1&&item.AucGenre<=3)}"></p>
+      <p v-if="item.DescHtml" class="u-desc u-yellow" v-html="item.DescHtml"></p>
       <!-- 品质等级 -->
       <div v-if="item.Level" class="u-level u-yellow" v-text="'品质等级' + item.Level"></div>
       <!-- 装备分数 -->
