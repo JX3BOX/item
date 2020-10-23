@@ -35,7 +35,7 @@
                   <label class="u-title" v-text="$options.filters.item_require_1_type(item.Require1Type) + '：'"></label>
                   <span class="u-value" v-text="item.Require1Value"></span>
               </el-col>-->
-              <el-col :xs="12" :md="12" class="m-other-field">
+              <el-col :xs="12" :md="12" class="m-other-field" v-if="item.AucGenre>=1&&item.AucGenre<=3">
                 <span class="u-value" v-text="`耐久度 ${item.MaxDurability}/${item.MaxDurability}`"></span>
               </el-col>
               <!--<el-col :xs="12" :md="12" class="m-field">
