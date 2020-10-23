@@ -40,6 +40,6 @@
     };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
     @import '../assets/css/components/item_panel.less';
 </style>
