@@ -11,6 +11,9 @@
       <div v-if="item.BindType > 1" class="u-bind" v-text="$options.filters.item_bind(item.BindType)"></div>
       <!-- 唯一 -->
       <div v-if="parseInt(item.MaxExistAmount) === 1" class="unique" v-text="'唯一'"></div>
+      <!-- 存在时间 -->
+      <div v-if="parseInt(item.MaxExistTime) > 0" class="u-max-exist-time u-gray"
+           v-text="'存在时间：' + $options.filters.second_format(item.MaxExistTime)"></div>
       <!-- 最大拥有数 -->
       <div v-if="parseInt(item.MaxExistAmount) > 1" class="u-max-exist-amount"
            v-text="'最大拥有数：' + item.MaxExistAmount"></div>
@@ -66,7 +69,8 @@
       <!-- 推荐门派心法 -->
       <div v-if="item.Recommend" class="u-equipment-recommend" v-text="'推荐门派：' + item.Recommend"></div>
       <!-- 冷却时间 -->
-      <div v-if="item.CoolDown" class="u-equipment-recommend" v-text="'使用间隔' + $options.filters.second_format(item.CoolDown)"></div>
+      <div v-if="item.CoolDown" class="u-equipment-recommend"
+           v-text="'使用间隔' + $options.filters.second_format(item.CoolDown)"></div>
       <!-- 外观名称 -->
       <div v-if="item.Appearance" class="u-appearance" v-text="'外观名称：' + item.Appearance"></div>
       <!-- 可收集门派 -->
@@ -95,9 +99,9 @@ export default {
   },
   methods: {},
   watch: {
-    'item_id':{
+    'item_id': {
       immediate: true,
-      handler(){
+      handler() {
         get_item(this.item_id).then((res) => {
           let data = res.data;
           if (data.code === 200) {
