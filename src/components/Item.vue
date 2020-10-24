@@ -51,6 +51,8 @@
       <div v-if="item.Requires&&item.Requires[6]" class="u-require-school" v-text="item.Requires[6]"></div>
       <!-- 需要等级 -->
       <div v-if="item.Requires&&item.Requires[5]" class="u-require-level" v-text="item.Requires[5]"></div>
+      <!-- 需要阵营 -->
+      <div v-if="item.Requires&&item.Requires[100]" class="u-require-level" v-text="item.Requires[5]"></div>
       <!-- 最大耐久度 -->
       <div v-if="item.AucGenre>=1&&item.AucGenre<=3" class="u-max-durability"
            v-text="'最大耐久度' + item.MaxDurability"></div>
@@ -63,13 +65,15 @@
            v-text="'装备分数' + item.EquipmentRating"></div>
       <!-- 推荐门派心法 -->
       <div v-if="item.Recommend" class="u-equipment-recommend" v-text="'推荐门派：' + item.Recommend"></div>
+      <!-- 冷却时间 -->
+      <div v-if="item.CoolDown" class="u-equipment-recommend" v-text="'使用间隔' + $options.filters.second_format(item.CoolDown)"></div>
       <!-- 外观名称 -->
       <div v-if="item.Appearance" class="u-appearance" v-text="'外观名称：' + item.Appearance"></div>
       <!-- 可收集门派 -->
       <div v-if="item.CanExterior" class="u-can-exterior" v-text="'外观：' + item.CanExterior"></div>
       <!-- 储物箱共享 -->
-      <div v-if="item.CanShared&&!(item.AucGenre>=1&&item.AucGenre<=3)" class="u-can-shared">该物品可以放入账号储物箱共享。</div>
-      <div v-if="item.CanShared&&item.AucGenre>=1&&item.AucGenre<=3" class="u-can-shared">
+      <div v-if="item.CanShared&&!(item.AucGenre>=1&&item.AucGenre<=4)" class="u-can-shared">该物品可以放入账号储物箱共享。</div>
+      <div v-if="item.CanShared&&item.AucGenre>=1&&item.AucGenre<=4" class="u-can-shared">
         该装备未精炼、镶嵌、附魔、穿戴前可以放入账号储物箱共享。
       </div>
     </div>
@@ -90,16 +94,20 @@ export default {
     }
   },
   methods: {},
-  mounted() {
-    get_item(this.item_id).then((res) => {
-      let data = res.data;
-      if (data.code === 200) {
-        let item = data.data.item;
-        if (JSON.stringify(item) !== '{}') this.item = item;
+  watch: {
+    'item_id':{
+      immediate: true,
+      handler(){
+        get_item(this.item_id).then((res) => {
+          let data = res.data;
+          if (data.code === 200) {
+            let item = data.data.item;
+            if (JSON.stringify(item) !== '{}') this.item = item;
+          }
+        });
       }
-    });
-  },
-  components: {}
+    }
+  }
 };
 </script>
 

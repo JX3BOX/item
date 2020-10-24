@@ -1,4 +1,5 @@
 import date_format from './DateFormat'
+import second_format from './SecondFormat'
 import description from './Description.js'
 import icon_url from './IconUrl.js'
 import item_color from './ItemColor.js'
@@ -11,6 +12,7 @@ import star from './Star.js'
 
 export {
     date_format,
+    second_format,
     description,
     icon_url,
     item_color,
