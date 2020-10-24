@@ -4,17 +4,17 @@
   padding: 0 10px 0 0;
   vertical-align: top;
 
-  a:hover{
-    border-color:#49c10f;
-  }
-
-  a {
+  .m-link {
     display: block;
     padding: 10px 5px;
     background: #fafbfc;
     border: 1px solid #eee;
     border-radius: 5px;
     overflow: hidden;
+
+    &:hover {
+      border-color: #49c10f;
+    }
   }
 
   .m-left {
@@ -42,7 +42,7 @@
     .u-description {
       margin-top: 5px;
       color: #666666;
-      .fz(12px,1.8);
+      .fz(12px, 1.8);
     }
   }
 }
