@@ -12,7 +12,7 @@
       <!-- 唯一 -->
       <div v-if="parseInt(item.MaxExistAmount) === 1" class="unique" v-text="'唯一'"></div>
       <!-- 存在时间 -->
-      <div v-if="parseInt(item.MaxExistTime) > 0" class="u-max-exist-time u-gray"
+      <div v-if="parseInt(item.MaxExistTime) > 0" class="u-max-exist-time"
            v-text="'存在时间：' + $options.filters.second_format(item.MaxExistTime)"></div>
       <!-- 最大拥有数 -->
       <div v-if="parseInt(item.MaxExistAmount) > 1" class="u-max-exist-amount"
