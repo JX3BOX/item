@@ -17,7 +17,8 @@
                         </a>
                     </li>
                     <li class="qlink">
-                        <router-link :to="{ name: 'search', query: {ids:'5_24423,5_24424,5_24425,5_24426,5_24427,5_24428,5_24429,5_24430'} }">
+                        <router-link
+                                :to="{ name: 'search', query: {ids:'5_24423,5_24424,5_24425,5_24426,5_24427,5_24428,5_24429,5_24430'} }">
                             <i class="el-icon-edit-outline"></i>
                             <span> 五行石合成</span>
                         </router-link>
@@ -27,13 +28,14 @@
         </div>
 
         <div class="m-module">
-            <div class="u-head">
-                <h4>稀世物品</h4>
+            <div class="u-head" style="background-color:#666666;border-bottom:none">
+                <h4 style="color:#FFFFFF">神兵图鉴</h4>
             </div>
-            <div class="u-body">
+            <div class="u-body" style="background-color:#032222">
                 <div class="m-orange">
                     <a class="u-orange" :class="{'small':item.small,'big':item.big}" v-for="(item,key) in icon_items"
                        :key="key" :title="item.Name" :href="item.Link">
+                        <div class="u-border"></div>
                         <img :src="$options.filters.icon_url(item.IconID)">
                     </a>
                 </div>
@@ -118,29 +120,6 @@
                     this.newest_posts = data.data.newest;
                 }
             });
-
-            /*// 抖动动效
-            let indexes = [];
-            let is_small = true;
-            setInterval(() => {
-                if (this.icon_items.length) {
-                    let _indexes = [];
-                    let length = Math.floor(this.icon_items.length * 0.15);
-                    for (let i = 0; i < length; i++) {
-                        let index = Math.floor(Math.random() * this.icon_items.length);
-                        if (indexes.indexOf(index) === -1) _indexes.push(index);
-                    }
-                    // 去重
-                    indexes = Array.from(new Set(_indexes));
-                    for (let i in indexes) this.$set(this.icon_items[indexes[i]], is_small ? 'small' : 'big', true);
-                    ((is_small) => {
-                        setTimeout(() => {
-                            for (let i in indexes) this.$set(this.icon_items[indexes[i]], is_small ? 'small' : 'big', false);
-                        }, 300);
-                    })(is_small);
-                    is_small = !is_small;
-                }
-            }, 600)*/
         },
         components: {},
         filters: {
