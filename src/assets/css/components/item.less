@@ -1,15 +1,21 @@
 .m-item {
+  @max-width: 345px;
   @field-padding-right: 0px;
 
+  .pr;
+  padding: 2px;
   font-family: 'SimHei', 'STHeiti', 'Microsoft YaHei';
+
+  &.m-item-equipment {
+    width: @max-width;
+  }
 
   * {
     box-sizing: border-box;
   }
 
-  .item-detail {
-    position: relative;
-    max-width: 345px;
+  .m-item-wrapper {
+    max-width: @max-width;
     padding: 9px 10px 10px;
     background-color: #0F2222;
     color: #FFFFFF;
@@ -20,11 +26,11 @@
 
     &:before {
       content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      width: calc(~"100% + 4px");
-      height: calc(~"100% + 4px");
+      .pa;
+      top: 0;
+      left: 0;
+      .w(100%);
+      .h(100%);
       border: 1px solid #0F2222;
       box-sizing: border-box;
       pointer-events: none;

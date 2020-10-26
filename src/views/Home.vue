@@ -31,14 +31,8 @@
             <div class="u-head" style="background-color:#666666;border-bottom:none">
                 <h4 style="color:#FFFFFF">神兵图鉴</h4>
             </div>
-            <div class="u-body" style="background-color:#032222">
-                <div class="m-orange">
-                    <a class="u-orange" :class="{'small':item.small,'big':item.big}" v-for="(item,key) in icon_items"
-                       :key="key" :title="item.Name" :href="item.Link">
-                        <div class="u-border"></div>
-                        <img :src="$options.filters.icon_url(item.IconID)">
-                    </a>
-                </div>
+            <div class="u-body" style="background-color:#032222;font-size:0">
+              <ItemIcon v-for="(item,key) in icon_items" :key="key" :item="item" />
             </div>
         </div>
 
@@ -84,6 +78,7 @@
 <script>
     const {JX3BOX} = require("@jx3box/jx3box-common");
     import {get_home_icons, get_item_posts} from "../service/item.js";
+    import ItemIcon from "@/components/ItemIcon.vue";
 
     export default {
         name: 'Home',
@@ -95,7 +90,6 @@
                 feedback: JX3BOX.feedback,
             }
         },
-        computed: {},
         methods: {
             img_error_handle(e) {
                 e.target.src = `${JX3BOX.__imgPath}image/common/nullicon.png`;
@@ -121,7 +115,9 @@
                 }
             });
         },
-        components: {},
+        components: {
+          ItemIcon,
+        },
         filters: {
             resolveAvatarPath: function (val) {
                 return val.replace(JX3BOX.__ossRoot, JX3BOX.__ossMirror);
