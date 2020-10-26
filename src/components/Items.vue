@@ -5,7 +5,7 @@
       <el-col v-if="JSON.stringify(item) !== '{}'" :key="key" :xs="24" :md="24" class="m-item-container">
         <router-link class="m-link" :target="target_filter()" :to="url_filter(item.id)">
           <div class="m-left">
-            <img class="u-icon" :src="$options.filters.icon_url(item.IconID)">
+            <ItemIcon :item="item" />
           </div>
           <div class="m-right">
             <h6 class="u-name" :class="{white:item.Quality==1}" v-text="item.Name"
@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import ItemIcon from "@/components/ItemIcon.vue";
+
 export default {
   name: "Items",
   props: ['items'],
@@ -35,6 +37,7 @@ export default {
     },
   },
   components: {
+    ItemIcon,
   }
 };
 </script>

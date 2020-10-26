@@ -1,7 +1,9 @@
 <template>
-  <el-popover v-if="source" placement="bottom-start" width="auto" trigger="hover" :disabled="dishoverable" @show="show">
+  <el-popover v-if="source" placement="bottom-start" width="auto" :trigger="click_trigger?'click':'hover'"
+              :disabled="dishoverable" @show="show">
     <div slot="reference" class="m-item-icon">
-      <div class="u-border" :style="{backgroundImage:$options.filters.item_border(source)}"></div>
+      <div class="u-border"
+           :style="{backgroundImage:$options.filters.item_border(source),'opacity':item.Quality==5?0.9:1}"></div>
       <div class="u-border-quest" :style="{backgroundImage:$options.filters.item_border_quest(source)}"></div>
       <img class="u-item-icon" :src="$options.filters.icon_url(source.IconID)">
     </div>
@@ -17,7 +19,7 @@ const {JX3BOX} = require("@jx3box/jx3box-common");
 
 export default {
   name: "ItemIcon",
-  props: ['item', 'item_id', 'dishoverable'],
+  props: ['item', 'item_id', 'dishoverable', 'click_trigger'],
   data() {
     return {
       source: null,
@@ -47,7 +49,7 @@ export default {
   watch: {
     'item': {
       immediate: true,
-      handler(){
+      handler() {
         this.source = this.item;
       }
     },
