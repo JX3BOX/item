@@ -222,8 +222,22 @@
 }
 
 @media screen and (max-width: @ipad) {
-  #m-cj-view {
-    .m-cj-post {
+  #m-item-view {
+    .m-left, .m-right {
+      float: none;
+      .w(100%);
+      margin-left: 0;
+      margin-right: 0;
+      padding-left: 0;
+      padding-right: 0;
+      border-right: none;
+    }
+
+    .m-right {
+      margin-top: 10px;
+    }
+
+    .m-item-post {
       img {
         height: auto;
       }
@@ -261,46 +275,6 @@
         & > .comments {
           padding: 8px 15px;
         }
-      }
-    }
-  }
-}
-
-.m-cj-relations {
-  .u-head {
-    em {
-      .ml(10px);
-      font-size: 12px;
-      opacity: 0.5;
-    }
-  }
-
-  .u-body {
-    padding: 0;
-  }
-
-  .u-boss {
-    .fr;
-    .fz(13px);
-    background-color: #3b6460;
-    color: #fff;
-    font-weight: normal;
-    padding: 2px 5px;
-    .mr(15px);
-    .mt(9px);
-    .r(2px);
-    letter-spacing: 0.5px;
-    .pointer;
-    user-select: none;
-
-    &:before {
-      content: "▶";
-      .mr(2px);
-    }
-
-    &.on {
-      &::before {
-        content: "▼";
       }
     }
   }
