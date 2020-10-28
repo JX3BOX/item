@@ -70,7 +70,7 @@
         <br>
         <ul class="u-set-attributes u-gray">
           <li v-for="(attribute,key) in source.Set.attributes" :key="key"
-              v-text="`[${attribute.total}]${attribute.label}`"></li>
+              v-text="`[${key}]${attribute}`"></li>
         </ul>
         <br>
       </div>
