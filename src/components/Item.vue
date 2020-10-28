@@ -59,8 +59,25 @@
       <!-- 最大耐久度 -->
       <div v-if="source.AucGenre>=1&&source.AucGenre<=3" class="u-max-durability"
            v-text="'最大耐久度' + source.MaxDurability"></div>
+      <!-- 套装信息 -->
+      <div v-if="source.Set" class="u-set">
+        <br>
+        <div class="u-yellow" v-text="`${source.Set.name}(1/${source.Set.siblings.length})`"></div>
+        <ul class="u-set-siblings u-gray">
+          <li v-for="(sibling,key) in source.Set.siblings" :key="key" v-text="sibling"
+              :class="{'u-yellow':sibling==source.Name}"></li>
+        </ul>
+        <br>
+        <ul class="u-set-attributes u-gray">
+          <li v-for="(attribute,key) in source.Set.attributes" :key="key"
+              v-text="`[${attribute.total}]${attribute.label}`"></li>
+        </ul>
+        <br>
+      </div>
       <!-- 描述 -->
       <p v-if="source.DescHtml" class="u-desc u-yellow" v-html="source.DescHtml"></p>
+      <!-- 五彩石属性 -->
+      <p v-if="source.WuCaiHtml" class="u-desc" v-html="source.WuCaiHtml"></p>
       <!-- 品质等级 -->
       <div v-if="source.Level" class="u-level u-yellow" v-text="'品质等级' + source.Level"></div>
       <!-- 装备分数 -->
@@ -100,7 +117,7 @@ export default {
   watch: {
     'item': {
       immediate: true,
-      handler(){
+      handler() {
         this.source = this.item;
       }
     },
