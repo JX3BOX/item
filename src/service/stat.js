@@ -1,12 +1,8 @@
-import axios from "axios";
-import { __next } from "@jx3box/jx3box-common/js/jx3box.json";
-
-const stat = __next + 'api/summary-any/'    //TODO:
-// const stat = "/api/summary-any/";
+import { $next } from "@jx3box/jx3box-common/js/axios";
 
 function getStat(id) {
-    return axios
-        .get(stat + id + "/stat")
+    return $next
+        .get("api/summary-any/" + id + "/stat")
         .then((res) => {
             return res.data;
         })
@@ -15,24 +11,22 @@ function getStat(id) {
         });
 }
 function postStat(id) {
-    return axios.get(stat + 'item-' + id, {
+    return $next.get("api/summary-any/" + "item-" + id, {
         params: {
-            type: 'item',
+            type: "item",
             actions: "views",
         },
     });
 }
 
-const rank = __next + 'api/summary/visit/rank';
-// const rank = "/api/summary/visit/rank";
 function getRank() {
-    return axios.get(rank,{
-        params : {
-            postType : 'item',
-            postAction : 'views',
-            sort : '7days',
-            pageSize : 15
-        }
+    return $next.get("api/summary/visit/rank", {
+        params: {
+            postType: "item",
+            postAction: "views",
+            sort: "7days",
+            pageSize: 15,
+        },
     });
 }
 
