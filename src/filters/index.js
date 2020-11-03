@@ -3,6 +3,7 @@ import second_format from './SecondFormat'
 import description from './Description.js'
 import icon_url from './IconUrl.js'
 import item_color from './ItemColor.js'
+import item_attribute_percent from './ItemAttributePercent.js'
 import item_bind from './ItemBind.js'
 import item_border from './ItemBorder.js'
 import item_border_quest from './ItemBorderQuest.js'
@@ -17,6 +18,7 @@ export {
     description,
     icon_url,
     item_color,
+    item_attribute_percent,
     item_bind,
     item_border,
     item_border_quest,

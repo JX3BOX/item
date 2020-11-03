@@ -32,7 +32,10 @@
             <img v-if="attribute.icon_id>0" class="u-horse-icon" :src="$options.filters.icon_url(attribute.icon_id)">
             <div class="u-horse-desc" v-html="attribute.label"></div>
           </span>
-          <span v-else class="u-value" v-text="attribute.label"></span>
+          <span v-else class="u-value">
+            <span v-text="attribute.label"></span>
+            <span class="u-yellow" v-text="$options.filters.item_attribute_percent(attribute.type, attribute.value)"></span>
+          </span>
         </div>
       </div>
       <!-- 镶嵌 -->
