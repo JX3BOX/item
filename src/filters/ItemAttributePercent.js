@@ -6,6 +6,7 @@
 
 export default (type, value) => {
     let label = '';
+    value = value ? parseInt(value) : 0;
     switch (type) {
         case 'atAllTypeCriticalStrike':
         case 'atLunarCriticalStrike':
@@ -30,8 +31,9 @@ export default (type, value) => {
         case 'atToughnessBase':
             label = `+${(value / 35737.5 * 100).toFixed(2)}% +${(value / 9588.75 * 100).toFixed(2)}%会心减害`;
             break;
+        // 化劲
         case 'atDecriticalDamagePowerBase':
-            label = `+${(value / 5175 * 100).toFixed(2)}%`;
+            label = `+${(value / (5175 + value) * 100).toFixed(2)}%`;
             break;
         case 'atAllTypeHitValue':
         case 'atLunarHitValue':
@@ -43,11 +45,13 @@ export default (type, value) => {
         case 'atSolarHitValue':
             label = `+${(value / 25991.25 * 100).toFixed(2)}%`;
             break;
+        // 闪避
         case 'atDodge':
-            label = `+${(value / 17355 * 100).toFixed(2)}%`;
+            label = `+${(value / (17355 + value) * 100).toFixed(2)}%`;
             break;
+        // 招架
         case 'atParryBase':
-            label = `+${(value / 16293.75 * 100).toFixed(2)}%`;
+            label = `+${(value / (16293.75 + value) * 100).toFixed(2)}%`;
             break;
         case 'atStrainBase':
             label = `+${(value / 34458.75 * 100).toFixed(2)}%`;
@@ -55,14 +59,14 @@ export default (type, value) => {
         case 'atPhysicsDefenceAdd':
         case 'atPhysicsShieldAdditional':
         case 'atPhysicsShieldBase':
-            label = `+${(value / 19091.25 * 100).toFixed(2)}%`;
+            label = `+${(value / (19091.25 + value) * 100).toFixed(2)}%`;
             break;
         case 'atLunarMagicShieldBase':
         case 'atMagicShield':
         case 'atNeutralMagicShieldBase':
         case 'atPoisonMagicShieldBase':
         case 'atSolarMagicShieldBase':
-            label = `+${(value / 19091.25 * 100).toFixed(2)}%`;
+            label = `+${(value / (19091.25 + value) * 100).toFixed(2)}%`;
             break;
         case 'atLunarOvercomeBase':
         case 'atMagicOvercome':
@@ -75,9 +79,6 @@ export default (type, value) => {
             break;
         case 'atHasteBase':
             label = `+${(value / 43856.25 * 100).toFixed(2)}%`;
-            break;
-        case 'atSurplusValueBase':
-            label = `+${(value / 60435 * 100).toFixed(2)}%`;
             break;
         default:
             break;
