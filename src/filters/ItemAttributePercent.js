@@ -33,7 +33,7 @@ export default (type, value) => {
             break;
         // 化劲
         case 'atDecriticalDamagePowerBase':
-            label = `+${(value / (5175 + value) * 100).toFixed(2)}%`;
+            label = '';// `+${(value / (5175 + value) * 100).toFixed(2)}%`;
             break;
         case 'atAllTypeHitValue':
         case 'atLunarHitValue':
@@ -47,11 +47,11 @@ export default (type, value) => {
             break;
         // 闪避
         case 'atDodge':
-            label = `+${(value / (17355 + value) * 100).toFixed(2)}%`;
+            label = '';// `+${(value / (17355 + value) * 100).toFixed(2)}%`;
             break;
         // 招架
         case 'atParryBase':
-            label = `+${(value / (16293.75 + value) * 100).toFixed(2)}%`;
+            label = '';// `+${(value / (16293.75 + value) * 100).toFixed(2)}%`;
             break;
         case 'atStrainBase':
             label = `+${(value / 34458.75 * 100).toFixed(2)}%`;
@@ -59,14 +59,14 @@ export default (type, value) => {
         case 'atPhysicsDefenceAdd':
         case 'atPhysicsShieldAdditional':
         case 'atPhysicsShieldBase':
-            label = `+${(value / (19091.25 + value) * 100).toFixed(2)}%`;
+            label = '';// `+${(value / (19091.25 + value) * 100).toFixed(2)}%`;
             break;
         case 'atLunarMagicShieldBase':
         case 'atMagicShield':
         case 'atNeutralMagicShieldBase':
         case 'atPoisonMagicShieldBase':
         case 'atSolarMagicShieldBase':
-            label = `+${(value / (19091.25 + value) * 100).toFixed(2)}%`;
+            label = '';// `+${(value / (19091.25 + value) * 100).toFixed(2)}%`;
             break;
         case 'atLunarOvercomeBase':
         case 'atMagicOvercome':
