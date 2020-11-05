@@ -8,6 +8,7 @@
             <ItemIcon :item="item" />
           </div>
           <div class="m-right">
+            <span class="u-uiid" v-html="`UiID:${item.UiID}`"></span>
             <h6 class="u-name" :class="{white:item.Quality==1}" v-text="item.Name"
                 :style="{color:$options.filters.item_color(item.Quality)}"></h6>
             <div class="u-description" v-html="item.DescHtml"></div>

@@ -1,36 +1,56 @@
 #m-item-view {
   @panel-width: 380px;
+
   overflow: hidden;
 
-  .m-left, .m-right {
+  .w-item, .w-post {
     box-sizing: border-box;
   }
 
-  .m-left {
-    float: left;
-    width: @panel-width;
-    padding-right: 15px;
-    border-right: 1px solid #EEEEEE;
+  .w-item {
+    .w-left {
+      .fl;
+      .w(@panel-width);
+    }
 
-    .m-item {
-      margin: 5px 0 0;
+    .w-right {
+      margin-left: @panel-width;
+
+      .m-other-fields {
+        margin: 0;
+        padding: 0;
+        font-size: 13px;
+        list-style: none;
+        overflow: hidden;
+
+        li {
+          .fl;
+          .w(33.33333333%);
+          margin: 5px 0;
+          padding-right: 15px;
+          box-sizing: border-box;
+        }
+      }
     }
   }
 
-  .m-right {
-    margin-left: @panel-width;
-    padding-left: 15px;
+  .w-post {
+    .mt(10px);
   }
 
   .m-item-viewer {
+    margin: 0;
     padding: 10px;
     background-color: #FAFBFC;
     border: 1px solid #EEEEEE;
     border-radius: 5px;
+    overflow: hidden;
   }
 
   .m-name {
-    padding: 5px 0;
+    .mb(10px);
+    .pb(10px);
+    border-bottom: 1px solid #DDDDDD;
 
     .u-item-icon,
     .u-name {
@@ -40,11 +60,6 @@
 
     .u-name {
       margin: 0 0 0 10px;
-    }
-
-    .u-description {
-      margin-top: 15px;
-      font-size: 12px;
     }
   }
 
@@ -223,9 +238,7 @@
 
 @media screen and (max-width: @ipad) {
   #m-item-view {
-    .m-left, .m-right {
-      float: none;
-      .w(100%);
+    .w-item, .w-post {
       margin-left: 0;
       margin-right: 0;
       padding-left: 0;
@@ -233,7 +246,7 @@
       border-right: none;
     }
 
-    .m-right {
+    .w-post {
       margin-top: 10px;
     }
 

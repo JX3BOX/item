@@ -1,119 +1,108 @@
 <template>
   <div id="m-item-view">
-    <div v-if="item && JSON.stringify(item) !== '{}'" class="m-left">
+    <div v-if="item && JSON.stringify(item) !== '{}'" class="w-item">
       <div class="m-item-viewer">
-        <div class="m-name">
-          <item-icon :item="item" :dishoverable="true"/>
-          <h6 class="u-name" :class="{ white: item.Quality == 1 }" v-text="item.Name"
-              :style="{color: $options.filters.item_color(item.Quality)}"></h6>
+        <div class="w-left">
+          <Item :item="item"/>
         </div>
-        <Item :item="item"/>
+        <div class="w-right">
+          <div class="m-name">
+            <item-icon :item="item" :dishoverable="true"/>
+            <h6 class="u-name" :class="{ white: item.Quality == 1 }" v-text="item.Name"
+                :style="{color: $options.filters.item_color(item.Quality)}"></h6>
+          </div>
+          <!-- 其余属性 -->
+          <ul class="m-other-fields">
+            <li v-if="item.Price">
+              <span class="u-value" v-text="'回购价格 '+$options.filters.item_price(item.Price)"></span>
+            </li>
+            <li v-if="item.Level">
+              <span class="u-value" v-text="'品质等级'+item.Level"></span>
+            </li>
+            <li class="m-other-field">
+              <span class="u-value" v-text="$options.filters.item_bind(item.BindType)"></span>
+            </li>
+            <!--<li v-if="item.Require1Type">
+            <label class="u-title" v-text="$options.filters.item_require_1_type(item.Require1Type) + '：'"></label>
+            <span class="u-value" v-text="item.Require1Value"></span>
+            </li>-->
+            <li v-if="item.AucGenre>=1&&item.AucGenre<=3">
+              <span class="u-value" v-text="`耐久度 ${item.MaxDurability}/${item.MaxDurability}`"></span>
+            </li>
+            <!--<li class="m-field">
+            <label class="u-title">磨损率：</label>
+            <span class="u-value" v-text="item.AbradeRate"></span>
+            </li>-->
+            <li v-if="item.MaxExistTime>0">
+              <span class="u-value" v-text="'存放时间：'+item.MaxExistTime"></span>
+            </li>
+            <li v-if="item.MaxExistAmount>0">
+              <span class="u-value" v-text="'最大拥有数'+item.MaxExistAmount"></span>
+            </li>
+            <li class="m-other-field">
+              <span class="u-value" v-text="item.CanTrade ? '可交易' : '不可交易'"></span>
+            </li>
+            <!--<li class="m-other-field">
+            <label class="u-title">能否丢弃：</label>
+            <span class="u-value" v-text="item.CanDestroy || item.CanDestroy === null? '✔️': '❌'"></span>
+            </li>-->
+            <li class="m-other-field">
+           <span class="u-value"
+                 v-html="`品质 <span style='color:${$options.filters.item_color(item.Quality)}'>${$options.filters.item_quality(item.Quality)}</span>`"></span>
+            </li>
+            <li v-if="item.BelongSchool">
+              <span class="u-value" v-text="'门派 '+item.BelongSchool"></span>
+            </li>
+            <li v-if="item.MagicKind">
+              <span class="u-value" v-text="'心法 '+item.MagicKind"></span>
+            </li>
+            <li v-if="item.MagicType">
+              <span class="u-value" v-text="'属性 '+item.MagicType"></span>
+            </li>
+            <li v-if="item.GetType">
+              <span class="u-value" v-text="'获得途径 '+item.GetType"></span>
+            </li>
+            <li v-if="item.CanSetColor">
+              <span class="u-value" v-text="'可以改色'"></span>
+            </li>
+            <li v-if="item.Requires&&item.Requires[100]">
+              <span class="u-value" v-text="item.Requires[100]"></span>
+            </li>
+            <li class="m-other-field">
+              <span class="u-value" v-text="item.CanApart ? '可以分解' : '不可分解'"></span>
+            </li>
+            <li v-if="item.CanExterior">
+              <span class="u-value" v-text="'可以收集'"></span>
+            </li>
+            <!--<li class="m-other-field">
+            <label class="u-title">能否附魔：</label>
+            <span class="u-value" v-text="item.CanChangeMagic"></span>
+            </li>-->
+            <li v-if="item.CanShared">
+              <span class="u-value" v-text="'可以分享'"></span>
+            </li>
+            <!--<li class="m-other-field">
+             <label class="u-title">修理费：</label>
+             <span class="u-value" v-text="item.RepairPriceRebate"></span>
+            </li>-->
+            <li class="m-other-field">
+              <span class="u-value" v-text="item.CanStack ? '可以堆叠' : '不可堆叠'"></span>
+            </li>
+            <li v-if="item.CanConsume">
+              <span class="u-value" v-text="'消耗品'"></span>
+            </li>
+          </ul>
+        </div>
       </div>
-      <!--      <el-row :gutter="40">
-
-              <el-col :xs="24" :md="16" class="m-right">
-                <div class="m-name">
-                  <item-icon :item_id="$route.params.item_id" :dishoverable="true"/>
-                  <h6 class="u-name" :class="{ white: item.Quality == 1 }" v-text="item.Name"
-                      :style="{color: $options.filters.item_color(item.Quality)}"></h6>
-                </div>
-                <el-row class="m-fields">
-                  <el-col :xs="24" :md="24" class="m-other-field" v-if="item.Price">
-                    <span class="u-value" v-text="'回购价格 '+$options.filters.item_price(item.Price)"></span>
-                  </el-col>
-                  <el-col :xs="24" :md="24" class="m-other-field" v-if="item.Level">
-                    <span class="u-value" v-text="'品质等级'+item.Level"></span>
-                  </el-col>
-                  <el-col :xs="24" :md="24" class="m-other-field">
-                    <span class="u-value" v-text="$options.filters.item_bind(item.BindType)"></span>
-                  </el-col>
-                  &lt;!&ndash;<el-col :xs="24" :md="24" class="m-other-field" v-if="item.Require1Type">
-                      <label class="u-title" v-text="$options.filters.item_require_1_type(item.Require1Type) + '：'"></label>
-                      <span class="u-value" v-text="item.Require1Value"></span>
-                  </el-col>&ndash;&gt;
-                  <el-col :xs="24" :md="24" class="m-other-field" v-if="item.AucGenre>=1&&item.AucGenre<=3">
-                    <span class="u-value" v-text="`耐久度 ${item.MaxDurability}/${item.MaxDurability}`"></span>
-                  </el-col>
-                  &lt;!&ndash;<el-col :xs="24" :md="24" class="m-field">
-                      <label class="u-title">磨损率：</label>
-                      <span class="u-value" v-text="item.AbradeRate"></span>
-                  </el-col>&ndash;&gt;
-                  <el-col :xs="24" :md="24" class="m-other-field" v-if="item.MaxExistTime>0">
-                    <span class="u-value" v-text="'存放时间：'+item.MaxExistTime"></span>
-                  </el-col>
-                  <el-col :xs="24" :md="24" class="m-other-field" v-if="item.MaxExistAmount>0">
-                    <span class="u-value" v-text="'最大拥有数'+item.MaxExistAmount"></span>
-                  </el-col>
-                  <el-col :xs="24" :md="24" class="m-other-field">
-                    <span class="u-value" v-text="item.CanTrade ? '可交易' : '不可交易'"></span>
-                  </el-col>
-                  &lt;!&ndash;<el-col :xs="24" :md="24" class="m-other-field">
-                      <label class="u-title">能否丢弃：</label>
-                      <span class="u-value" v-text="item.CanDestroy || item.CanDestroy === null? '✔️': '❌'"></span>
-                  </el-col>&ndash;&gt;
-                  <el-col :xs="24" :md="24" class="m-other-field">
-                      <span class="u-value"
-                            v-html="`品质 <span style='color:${$options.filters.item_color(item.Quality)}'>${$options.filters.item_quality(item.Quality)}</span>`"></span>
-                  </el-col>
-                  <el-col :xs="24" :md="24" class="m-other-field" v-if="item.BelongSchool">
-                    <span class="u-value" v-text="'门派 '+item.BelongSchool"></span>
-                  </el-col>
-                  <el-col :xs="24" :md="24" class="m-other-field" v-if="item.MagicKind">
-                    <span class="u-value" v-text="'心法 '+item.MagicKind"></span>
-                  </el-col>
-                  <el-col :xs="24" :md="24" class="m-other-field" v-if="item.MagicType">
-                    <span class="u-value" v-text="'属性 '+item.MagicType"></span>
-                  </el-col>
-                  <el-col :xs="24" :md="24" class="m-other-field" v-if="item.GetType">
-                    <span class="u-value" v-text="'获得途径 '+item.GetType"></span>
-                  </el-col>
-                  <el-col :xs="24" :md="24" class="m-other-field" v-if="item.CanSetColor">
-                    <span class="u-value" v-text="'可以改色'"></span>
-                  </el-col>
-                  <el-col :xs="24" :md="24" class="m-other-field" v-if="item.Requires&&item.Requires[100]">
-                    <span class="u-value" v-text="item.Requires[100]"></span>
-                  </el-col>
-                  <el-col :xs="24" :md="24" class="m-other-field">
-                    <span class="u-value" v-text="item.CanApart ? '可以分解' : '不可分解'"></span>
-                  </el-col>
-                  <el-col :xs="24" :md="24" class="m-other-field" v-if="item.CanExterior">
-                    <span class="u-value" v-text="'可以收集'"></span>
-                  </el-col>
-                  &lt;!&ndash;<el-col :xs="24" :md="24" class="m-other-field">
-                      <label class="u-title">能否附魔：</label>
-                      <span class="u-value" v-text="item.CanChangeMagic"></span>
-                  </el-col>&ndash;&gt;
-                  <el-col :xs="24" :md="24" class="m-other-field" v-if="item.CanShared">
-                    <span class="u-value" v-text="'可以分享'"></span>
-                  </el-col>
-                  &lt;!&ndash;<el-col :xs="24" :md="24" class="m-other-field">
-                      <label class="u-title">修理费：</label>
-                      <span class="u-value" v-text="item.RepairPriceRebate"></span>
-                  </el-col>&ndash;&gt;
-                  <el-col :xs="24" :md="24" class="m-other-field">
-                    <span class="u-value" v-text="item.CanStack ? '可以堆叠' : '不可堆叠'"></span>
-                  </el-col>
-                  <el-col :xs="24" :md="24" class="m-other-field" v-if="item.CanConsume">
-                    <span class="u-value" v-text="'消耗品'"></span>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>-->
     </div>
 
-    <div class="m-right">
-      <div
-          v-if="post && JSON.stringify(post) === '{}'"
-          class="m-item-view-null"
-      >
+    <div class="w-post">
+      <div v-if="post && JSON.stringify(post) === '{}'" class="m-item-view-null">
         <i class="el-icon-s-opportunity"></i>
         <span>暂无攻略，我要</span>
         <a class="s-link" :href="publish_url(`item/${item.id}`)">完善攻略</a>
       </div>
-      <div
-          v-if="post && JSON.stringify(post) !== '{}'"
-          class="m-archive-list"
-      >
+      <div v-if="post && JSON.stringify(post) !== '{}'" class="m-archive-list">
         <div class="m-module m-item-post">
           <div class="u-head">
             <a
