@@ -10,6 +10,16 @@
             <item-icon :item="item" :dishoverable="true"/>
             <h6 class="u-name" :class="{ white: item.Quality == 1 }" v-text="item.Name"
                 :style="{color: $options.filters.item_color(item.Quality)}"></h6>
+            <div class="m-buttons fr">
+              <el-button type="success" size="medium" class="u-collect" disabled>
+                <i class="u-el-icon el-icon-collection"></i>
+                <span class="u-text">收藏</span>
+              </el-button>
+              <el-button type="primary" size="medium" class="u-add-to-item-list" disabled>
+                <i class="u-el-icon el-icon-shopping-cart-full"></i>
+                <span class="u-text">加入清单</span>
+              </el-button>
+            </div>
           </div>
           <!-- 其余属性 -->
           <ul class="m-other-fields">
@@ -130,13 +140,7 @@
                 <img :src="post.user_avatar"/>
               </div>
               <div class="done" v-text="post.user_nickname"></div>
-              <div
-                  class="updated"
-                  v-text="
-                                  '最后编辑于 ' +
-                                      $options.filters.date_format(post.updated)
-                              "
-              ></div>
+              <div class="updated" v-text="'最后编辑于 ' + $options.filters.date_format(post.updated)"></div>
               <a
                   class="comment"
                   href="javascript:void(0)"

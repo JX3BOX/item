@@ -1,6 +1,4 @@
 #m-item-view {
-  @panel-width: 380px;
-
   overflow: hidden;
 
   .w-item, .w-post {
@@ -8,6 +6,8 @@
   }
 
   .w-item {
+    @panel-width: 380px;
+
     .w-left {
       .fl;
       .w(@panel-width);
@@ -29,7 +29,23 @@
           margin: 5px 0;
           padding-right: 15px;
           box-sizing: border-box;
+
+          @media screen and (max-width: @ipad) {
+            .w(50%);
+          }
         }
+      }
+    }
+
+    @media screen and (max-width: @ipad) {
+      .w-left {
+        float: none;
+        .w(100%);
+      }
+
+      .w-right {
+        .mt(15px);
+        .ml(0);
       }
     }
   }
@@ -51,6 +67,7 @@
     .mb(10px);
     .pb(10px);
     border-bottom: 1px solid #DDDDDD;
+    overflow: hidden;
 
     .u-item-icon,
     .u-name {
@@ -60,6 +77,14 @@
 
     .u-name {
       margin: 0 0 0 10px;
+    }
+
+    .m-buttons {
+      .el-button {
+        .u-el-icon, .u-text {
+          vertical-align: middle;
+        }
+      }
     }
   }
 
