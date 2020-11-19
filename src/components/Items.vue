@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import ItemIcon from "@/components/ItemIcon.vue";
+import ItemIcon from "@/components/ItemIcon";
 
 export default {
   name: "Items",

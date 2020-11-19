@@ -1,18 +1,19 @@
 <template>
-  <el-popover v-if="source" placement="bottom-start" width="auto" :trigger="click_trigger?'click':'hover'"
-              :disabled="dishoverable" @show="show">
+  <el-popover v-if="source" placement="right-start" width="auto" :trigger="click_trigger?'click':'hover'"
+              :disabled="dishoverable" popper-class="m-item-icon-popup" :visible-arrow="false"
+              transition="none" :close-delay="0" @show="show">
     <div slot="reference" class="m-item-icon">
       <div class="u-border"
            :style="{backgroundImage:$options.filters.item_border(source),'opacity':item.Quality==5?0.9:1}"></div>
       <div class="u-border-quest" :style="{backgroundImage:$options.filters.item_border_quest(source)}"></div>
       <img class="u-item-icon" :src="$options.filters.icon_url(source.IconID)">
     </div>
-    <Item :item="source" style="margin:-13px"/>
+    <jx3-item :item="source" />
   </el-popover>
 </template>
 
 <script>
-import Item from "@/components/Item.vue";
+import Item from "@jx3box/jx3box-editor/src/Item";
 import {get_item} from "../service/item.js";
 
 const {JX3BOX} = require("@jx3box/jx3box-common");
@@ -26,7 +27,7 @@ export default {
     };
   },
   components: {
-    Item
+    'jx3-item': Item,
   },
   methods: {
     get_data(item_id) {
@@ -63,6 +64,16 @@ export default {
 };
 </script>
 
+<style lang="less">
+  .m-item-icon-popup {
+    min-width: initial;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    transform: translateY(-10px);
+  }
+</style>
 <style lang="less" scoped>
 @import '../assets/css/components/item_icon.less';
 </style>

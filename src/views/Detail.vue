@@ -3,7 +3,7 @@
     <div v-if="item && JSON.stringify(item) !== '{}'" class="w-item">
       <div class="m-item-viewer">
         <div class="w-left">
-          <Item :item="item"/>
+          <jx3-item :item="item"/>
         </div>
         <div class="w-right">
           <div class="m-name">
@@ -187,7 +187,7 @@
 
 <script>
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
-import Item from "@/components/Item.vue";
+import Item from "@jx3box/jx3box-editor/src/Item.vue";
 import ItemIcon from "@/components/ItemIcon.vue";
 import Revisions from "@/components/Revisions.vue";
 import Comments from "@/components/Comments.vue";
@@ -208,7 +208,7 @@ export default {
     };
   },
   components: {
-    Item,
+    'jx3-item': Item,
     ItemIcon,
     Revisions,
     Comments,

@@ -22,7 +22,7 @@
             <router-link class="m-hot-item" v-for="(item, key) in hot_items" :key="key"
                          :to="{name:'view', params: {item_id: item.id}}">
                 <div class="u-icon">
-                    <img @error.once="img_error_handle" :src="$options.filters.icon_url(item.IconID)">
+                    <ItemIcon :item="item" />
                 </div>
                 <div class="m-content">
                     <span class="u-title" :style="{color:$options.filters.item_color(item.Quality)}">
@@ -44,6 +44,7 @@
 
 <script>
     const {JX3BOX} = require("@jx3box/jx3box-common");
+    import ItemIcon from "@/components/ItemIcon";
     import {getRank} from "../service/stat.js";
     import {get_items} from "../service/item.js";
 
@@ -56,7 +57,9 @@
                 hot_items: null,
             };
         },
-        computed: {},
+        components: {
+            ItemIcon,
+        },
         methods: {
             checkIsHome: function () {
                 this.isHome = this.$route.name == 'home' || !this.$route.name
