@@ -114,7 +114,7 @@
       </div>
       <div v-if="post && JSON.stringify(post) !== '{}'" class="m-archive-list">
         <div class="m-module m-item-post">
-          <div class="u-head">
+          <div class="m-head">
             <a
                 class="el-button el-button--primary u-publish s-link"
                 :href="publish_url(`item/${item.id}`)"
@@ -131,7 +131,7 @@
               <span>物品攻略</span>
             </h4>
           </div>
-          <div class="u-body">
+          <div class="m-body">
             <div class="content m-single-primary">
               <Article :content="post.content"/>
             </div>
@@ -155,19 +155,19 @@
         </div>
 
         <div class="m-module m-cj-revisions">
-          <div class="u-head">
+          <div class="m-head">
             <h4 class="u-title">📄 历史版本</h4>
           </div>
-          <div class="u-body">
+          <div class="m-body">
             <Revisions :item_id="item.id"/>
           </div>
         </div>
 
         <div class="m-module m-cj-comments">
-          <div class="u-head">
+          <div class="m-head">
             <h4 class="u-title">💖 评论</h4>
           </div>
-          <div class="u-body">
+          <div class="m-body">
             <Comments :item_id="item.id"/>
           </div>
         </div>

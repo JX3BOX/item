@@ -5,6 +5,7 @@ import VueRouter from "vue-router";
 const Home = () => import("./views/Home.vue");
 const Normal = () => import("./views/Normal.vue");
 const Detail = () => import("./views/Detail.vue");
+const PlanDetail = () => import("./views/PlanDetail.vue");
 const Search = () => import("./views/Search.vue");
 
 Vue.use(VueRouter);
@@ -16,6 +17,8 @@ const routes = [
     {name: 'normal', path: '/:AucGenre([empty|\\d]+)/:AucSubTypeID(\\d+)', component: Normal},
     // 单页
     {name: 'view', path: '/view/:item_id([_\\d]+)/:post_id(\\d+)?', component: Detail},
+    // 清单单页
+    {name: 'plan_view', path: '/plan_view/:plan_id(\\d+)', component: PlanDetail},
     // 搜索
     {name: 'search', path: '/search/:keyword(.+)?', component: Search},
     // 默认页重定向

@@ -1,14 +1,16 @@
 <template>
   <div class="m-item-index m-item-home">
     <div class="m-module no-border">
-      <div class="u-head">
-        <a class="other" target="_blank" :href="feedback">反馈建议 &raquo;</a>
-        <h4>
+      <div class="m-head">
+        <h4 class="u-title">
           <i class="el-icon-location-information"></i>
           <span> 便捷入口</span>
         </h4>
+        <div class="u-other">
+          <a class="u-feedback" target="_blank" :href="feedback">反馈建议 &raquo;</a>
+        </div>
       </div>
-      <div class="u-body">
+      <div class="m-body">
         <ul class="m-qlinks">
           <li class="qlink">
             <a style="background-color:#FE7979;" target="_blank" href="https://www.jx3box.com/tool/18151/">
@@ -28,23 +30,23 @@
     </div>
 
     <div class="m-module">
-      <div class="u-head" style="background-color:#666666;border-bottom:none">
-        <h4 style="color:#FFFFFF">神兵图鉴</h4>
+      <div class="m-head" style="background-color:#666666;border-bottom:none">
+        <h4 class="u-title" style="color:#FFFFFF">神兵图鉴</h4>
       </div>
-      <div class="u-body" style="background-color:#032222;font-size:0">
+      <div class="m-body" style="background-color:#032222;font-size:0">
         <ItemIcon v-for="(item,key) in icon_items" :key="key" :item="item" :click_trigger="true"
                   style="cursor: pointer"/>
       </div>
     </div>
 
     <div class="m-module">
-      <div class="u-head">
-        <h4>最近攻略</h4>
+      <div class="m-head">
+        <h4 class="u-title">最近攻略</h4>
       </div>
-      <div class="u-body">
+      <div class="m-body">
         <el-row class="wiki-post-list" v-if="newest_posts.length">
           <el-col class="wiki-post" v-for="(post, key) in newest_posts" :key="key">
-            <div class="m-head">
+            <div class="m-about-post">
               <div class="m-user">
                 <div class="u-author">
                   <img class="u-icon" :src="post.user_avatar | resolveAvatarPath"
@@ -64,9 +66,9 @@
                 <div class="u-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
               </div>
             </div>
-            <div class="m-body">
-                            <span class="u-excerpt" :to="{name: 'view',params: { item_id: post.source_id }}"
-                                  v-html="ellipsis(post.excerpt)"></span>
+            <div class="m-excerpt">
+              <span class="u-excerpt" :to="{name: 'view',params: { item_id: post.source_id }}"
+                    v-html="ellipsis(post.excerpt)"></span>
             </div>
           </el-col>
         </el-row>
