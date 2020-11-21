@@ -47,7 +47,7 @@
           </div>
         </router-link>
       </template>
-      <div class="u-tip" v-else-if="user.id">暂无物品清单记录</div>
+      <div class="u-tip" v-else-if="user.uid">暂无物品清单记录</div>
       <div class="u-tip" v-else>请先进行登录</div>
     </div>
 
