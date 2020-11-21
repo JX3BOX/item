@@ -19,7 +19,7 @@
       <h3 class="c-sidebar-right-title">
         <i class="u-icon el-icon-s-order"></i>
         <span>我的清单</span>
-        <a class="fr el-button el-button--primary el-button--mini" :href="publish_url(`item_plan`)">
+        <a class="fr el-button el-button--primary el-button--mini" :href="publish_url(`item/plan`)">
           <i class="el-icon-document-add"></i>
           <span>创建</span>
         </a>
@@ -103,7 +103,7 @@
     methods: {
       edit_plan($event, plan_id) {
         $event.preventDefault();
-        location.href = this.publish_url(`item_plan/${plan_id}`);
+        location.href = this.publish_url(`item/plan/${plan_id}`);
         return false;
       },
       delete_plan($event, plan_id) {

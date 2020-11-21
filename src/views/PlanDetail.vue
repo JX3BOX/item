@@ -125,7 +125,7 @@
         return `${JX3BOX.__Links.dashboard.publish}#/${val}`;
       },
       edit_plan(plan_id) {
-        location.href = this.publish_url(`item_plan/${plan_id}`);
+        location.href = this.publish_url(`item/plan/${plan_id}`);
       },
       delete_plan(plan_id) {
         this.$confirm('确认是否删除该物品清单？', '提示', {
