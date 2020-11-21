@@ -23,7 +23,7 @@ function get_item_plans(params) {
 }
 
 // 获取我的清单
-function get_my_item_plans() {
+function get_my_item_plans() { 
   let user = User.getInfo();
   if (user && user.uid) get_item_plans({user_id: user.uid}).then(
     (data) => {
