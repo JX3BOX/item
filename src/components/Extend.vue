@@ -19,20 +19,36 @@
       <h3 class="c-sidebar-right-title">
         <i class="u-icon el-icon-s-order"></i>
         <span>我的清单</span>
+        <a class="fr el-button el-button--primary el-button--mini" :href="publish_url(`item_plan`)">
+          <i class="el-icon-document-add"></i>
+          <span>创建</span>
+        </a>
       </h3>
-      <router-link class="m-my-item-plan" v-for="(plan, key) in my_item_plans" :key="key"
-                   :to="{name:'plan_view', params: {plan_id: plan.id}}">
-        <h5 class="u-title">
-          <span v-if="plan.type==1" class="u-type" style="background-color:#409EFF">道具清单</span>
-          <span v-if="plan.type==2" class="u-type" style="background-color:#F0787A">装备清单</span>
-          <span v-text="plan.title"></span>
-        </h5>
-        <p class="u-description" v-text="plan.description"></p>
-        <div>
-          <img class="u-avatar" :src="plan.user_avatar">
-          <span class="u-nickname" v-text="plan.user_nickname"></span>
-        </div>
-      </router-link>
+      <template v-if="$store.state.my_item_plans && $store.state.my_item_plans.length">
+        <router-link class="m-my-item-plan" v-for="(plan, key) in $store.state.my_item_plans" :key="key"
+                     :to="{name:'plan_view', params: {plan_id: plan.id}}">
+          <div class="fr m-ctrls">
+            <div @click="edit_plan($event, plan.id)">
+              <i class="el-icon-edit u-edit" title="编辑"></i>
+            </div>
+            <div @click="delete_plan($event, plan.id)">
+              <i class="el-icon-delete u-delete" title="删除"></i>
+            </div>
+          </div>
+          <h5 class="u-title">
+            <span v-if="plan.type==1" class="u-type" style="background-color:#409EFF">道具清单</span>
+            <span v-if="plan.type==2" class="u-type" style="background-color:#F0787A">装备清单</span>
+            <span v-text="plan.title"></span>
+          </h5>
+          <p class="u-description" v-text="plan.description"></p>
+          <div>
+            <img class="u-avatar" :src="plan.user_avatar">
+            <span class="u-nickname" v-text="plan.user_nickname"></span>
+          </div>
+        </router-link>
+      </template>
+      <div class="u-tip" v-else-if="user.id">暂无物品清单记录</div>
+      <div class="u-tip" v-else>请先进行登录</div>
     </div>
 
     <div class="m-hot-items">
@@ -69,7 +85,7 @@
   import ItemIcon from "@/components/ItemIcon";
   import {getRank} from "../service/stat.js";
   import {get_items} from "../service/item.js";
-  import {get_item_plans} from "../service/item_plan.js";
+  import {get_my_item_plans, delete_item_plan} from "../service/item_plan.js";
 
   export default {
     name: "Extend",
@@ -77,14 +93,41 @@
     data: function () {
       return {
         isHome: true,
-        my_item_plans: null,
         hot_items: null,
+        user: User.getInfo(),
       };
     },
     components: {
       ItemIcon,
     },
     methods: {
+      edit_plan($event, plan_id) {
+        $event.preventDefault();
+        location.href = this.publish_url(`item_plan/${plan_id}`);
+        return false;
+      },
+      delete_plan($event, plan_id) {
+        $event.preventDefault();
+        this.$confirm('确认是否删除该物品清单？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          delete_item_plan(plan_id).then(
+            (data) => {
+              data = data.data;
+              if (data.code === 200) {
+                this.$message.success(data.message);
+                // 获取我的清单
+                get_my_item_plans();
+              } else {
+                this.$message.error(data.message);
+              }
+            }
+          );
+        });
+        return false;
+      },
       checkIsHome: function () {
         this.isHome = this.$route.name == 'home' || !this.$route.name
       },
@@ -98,6 +141,9 @@
       img_error_handle(e) {
         e.target.src = `${JX3BOX.__ossRoot}image/common/nullicon.png`;
       },
+      publish_url(val) {
+        return `${JX3BOX.__Links.dashboard.publish}#/${val}`;
+      },
     },
     watch: {
       '$route.name': function (newpath) {
@@ -106,15 +152,7 @@
     },
     mounted: function () {
       // 获取我的清单
-      let user = User.getInfo();
-      if (5 || user && user.uid) get_item_plans({user_id: 5/*user.uid*/}).then(
-        (data) => {
-          data = data.data;
-          if (data.code === 200) {
-            this.my_item_plans = data.data;
-          }
-        }
-      );
+      get_my_item_plans();
 
       // 获取热门物品
       getRank().then((data) => {

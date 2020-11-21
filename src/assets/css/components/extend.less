@@ -8,8 +8,13 @@
   .c-sidebar-right-title {
     .mb(0);
 
-    * {
+    & > * {
       vertical-align: middle;
+    }
+
+    .el-button {
+      padding: 5px 8px;
+      font-size: 12px;
     }
   }
 }
@@ -20,6 +25,14 @@
     font-size: 20px;
     line-height: 24px;
     color: #0366D6;
+  }
+
+  .u-tip {
+    padding: 10px 0;
+    font-size: 14px;
+    text-align: center;
+    opacity: .6;
+    border-bottom: 1px solid #ebeef5;
   }
 }
 
@@ -45,6 +58,7 @@
 
   .u-description {
     margin: 5px 0;
+    .pr(10px);
     opacity: .6;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -63,6 +77,20 @@
 
   .u-nickname {
     opacity: .7;
+  }
+
+  .u-edit, .u-delete {
+    .mr(8px);
+    font-size: 20px;
+  }
+
+  .u-edit {
+    .mb(8px);
+    color: #0366D6;
+  }
+
+  .u-delete {
+    color: #FC3C3C;
   }
 
   &:hover {

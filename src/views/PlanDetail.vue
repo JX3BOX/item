@@ -8,13 +8,14 @@
             <span v-if="plan.type==2" style="background-color:#F0787A" class="u-type">装备清单</span>
             <span v-text="plan.title"></span>
           </h4>
-          <div class="u-other">
-            <el-button type="primary" icon="el-icon-edit" size="small">编辑</el-button>
-            <el-button type="danger" icon="el-icon-delete" size="small">删除</el-button>
+          <div class="u-other" v-if="user.id == plan.user_id || user.group >= 64">
+            <el-button type="primary" icon="el-icon-edit" size="small" @click="edit_plan(plan.id)">编辑</el-button>
+            <el-button type="danger" icon="el-icon-delete" size="small" @click="delete_plan(plan.id)">删除</el-button>
           </div>
         </div>
         <div class="m-body">
-          <el-alert v-if="plan.description" class="u-plan-description" :title="plan.description" type="warning" :closable="false"></el-alert>
+          <el-alert v-if="plan.description" class="u-plan-description" :title="plan.description" type="warning"
+                    :closable="false"></el-alert>
           <!-- 道具清单 -->
           <ul class="m-positions" v-if="plan.type==1">
             <li class="m-position" v-for="(position,key) in plan.relation_items" :key="key">
@@ -72,7 +73,8 @@
   import ItemSimple from "@jx3box/jx3box-editor/src/ItemSimple";
 
   const {JX3BOX} = require("@jx3box/jx3box-common");
-  import {get_item_plan} from "../service/item_plan.js";
+  import User from "@jx3box/jx3box-common/js/user.js";
+  import {get_item_plan, get_my_item_plans, delete_item_plan} from "../service/item_plan";
 
   export default {
     name: "PlanDetail",
@@ -81,6 +83,7 @@
     },
     data: function () {
       return {
+        user: User.getInfo(),
         plan: null,
         positions: {
           '1': {label: '武器'},
@@ -116,6 +119,36 @@
           }
         }
       }
+    },
+    methods: {
+      publish_url(val) {
+        return `${JX3BOX.__Links.dashboard.publish}#/${val}`;
+      },
+      edit_plan(plan_id) {
+        location.href = this.publish_url(`item_plan/${plan_id}`);
+      },
+      delete_plan(plan_id) {
+        this.$confirm('确认是否删除该物品清单？', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          delete_item_plan(plan_id).then(
+            (data) => {
+              data = data.data;
+              if (data.code === 200) {
+                this.$message.success(data.message);
+                // 获取我的清单
+                get_my_item_plans();
+                // 返回主页
+                this.$router.push({name: "home"});
+              } else {
+                this.$message.error(data.message);
+              }
+            }
+          );
+        });
+      },
     }
   };
 </script>
