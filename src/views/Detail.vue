@@ -139,7 +139,9 @@
               <div v-if="post.user_avatar" class="avatar">
                 <img :src="post.user_avatar"/>
               </div>
-              <div class="done" v-text="post.user_nickname"></div>
+              <div class="done">
+                <a :href="post.user_id | author_url" v-text="post.user_nickname"></a>
+              </div>
               <div class="updated" v-text="'最后编辑于 ' + $options.filters.date_format(post.updated)"></div>
               <a
                   class="comment"
@@ -191,7 +193,7 @@ import Item from "@jx3box/jx3box-editor/src/Item.vue";
 import ItemIcon from "@/components/ItemIcon.vue";
 import Revisions from "@/components/Revisions.vue";
 import Comments from "@/components/Comments.vue";
-import {postStat} from "@/service/stat.js";
+import {post_item_stat} from "../service/stat.js";
 import {get_item} from "../service/item.js";
 
 const {JX3BOX} = require("@jx3box/jx3box-common");
@@ -276,7 +278,7 @@ export default {
     },
   },
   mounted: function () {
-    postStat(this.$route.params.item_id);
+    post_item_stat(this.$route.params.item_id);
   },
   watch: {
     "$route.params.item_id": {
@@ -292,7 +294,7 @@ export default {
       immediate: true,
       handler() {
         // 获取物品攻略
-        // this.get_item_post();
+        this.get_item_post();
       },
     },
   },

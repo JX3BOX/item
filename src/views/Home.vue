@@ -43,7 +43,7 @@
                     <div class="u-author">
                       <img class="u-icon" :src="post.user_avatar | resolveAvatarPath"
                            :alt="post.user_nickname"/>
-                      <span class="u-name" v-text="post.user_nickname"></span>
+                      <a :href="post.user_id | author_url" class="u-name" v-text="post.user_nickname"></a>
                     </div>
                     <div class="u-updated" v-text="$options.filters.date_format(post.updated)"></div>
                   </div>
@@ -59,7 +59,8 @@
                   </div>
                 </div>
                 <div class="m-excerpt">
-              <span class="u-excerpt" v-html="ellipsis(post.excerpt)"></span>
+                  <router-link class="u-excerpt" v-html="ellipsis(post.excerpt)"
+                               :to="{name: 'view',params: { item_id: post.source_id }}"></router-link>
                 </div>
               </div>
             </div>
@@ -79,7 +80,7 @@
                   <div class="m-user">
                     <div class="u-author">
                       <img class="u-icon" :src="plan.user_avatar | resolveAvatarPath" :alt="plan.user_nickname"/>
-                      <span class="u-name" v-text="plan.user_nickname"></span>
+                      <a :href="plan.user_id | author_url" class="u-name" v-text="plan.user_nickname"></a>
                     </div>
                     <div class="u-updated" v-text="$options.filters.date_format(plan.updated)"></div>
                   </div>
@@ -93,7 +94,8 @@
                   </div>
                 </div>
                 <div class="m-excerpt">
-                  <span class="u-excerpt" v-html="ellipsis(plan.description)"></span>
+                  <router-link class="u-excerpt" v-html="ellipsis(plan.description)"
+                               :to="{name: 'plan_view',params: { plan_id: plan.id }}"></router-link>
                 </div>
               </div>
             </div>

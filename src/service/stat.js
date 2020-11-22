@@ -10,10 +10,22 @@ function getStat(id) {
             console.log(err);
         });
 }
-function postStat(id) {
+
+function post_item_stat(id) {
+    if (!id) return null;
     return $next.get("api/summary-any/" + "item-" + id, {
         params: {
             type: "item",
+            actions: "views",
+        },
+    });
+}
+
+function post_item_plan_stat(id) {
+    if (!id) return null;
+    return $next.get("api/summary-any/" + "item_plan-" + id, {
+        params: {
+            type: "item_plan",
             actions: "views",
         },
     });
@@ -30,4 +42,4 @@ function getRank() {
     });
 }
 
-export { getStat, postStat, getRank };
+export { getStat, post_item_stat, post_item_plan_stat, getRank };

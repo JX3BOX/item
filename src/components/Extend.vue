@@ -42,8 +42,7 @@
           </h5>
           <p class="u-description" v-text="plan.description"></p>
           <div>
-            <img class="u-avatar" :src="plan.user_avatar">
-            <span class="u-nickname" v-text="plan.user_nickname"></span>
+            <span class="u-updated" v-text="'编辑于 ' + $options.filters.date_format(plan.updated)"></span>
           </div>
         </router-link>
       </template>

@@ -18,7 +18,7 @@
                         :to="{
                             name: 'view',
                             params: {
-                                item_id: ver.item_id,
+                                item_id: ver.source_id,
                                 post_id: ver.id,
                             },
                         }"
@@ -26,7 +26,9 @@
                     ></router-link>
                 </td>
                 <td>{{ ver.updated | date_format }}</td>
-                <td v-text="ver.user_nickname"></td>
+                <td>
+                    <a :href="ver.user_id | author_url" v-text="ver.user_nickname"></a>
+                </td>
                 <td v-text="ver.remark"></td>
             </tr>
         </table>

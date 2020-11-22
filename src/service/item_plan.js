@@ -26,6 +26,18 @@ function get_item_plans(params) {
 function get_my_item_plans(params) {
   return $http({
     method: "GET",
+    url: `${__helperUrl}api/item_plans`,
+    headers: {Accept: "application/prs.helper.v2+json"},
+    params: {user_id:5},
+  }).then(
+      (data) => {
+        data = data.data;
+        if (data.code === 200) store.state.my_item_plans = data.data.data;
+      }
+  );
+
+  return $http({
+    method: "GET",
     url: `${__helperUrl}api/my/item_plans`,
     headers: {Accept: "application/prs.helper.v2+json"},
     params: params,
