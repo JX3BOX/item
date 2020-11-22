@@ -58,6 +58,11 @@
       <el-alert v-else center title="暂无相关物品清单信息" class="m-plan-null" type="info" :closable="false"></el-alert>
     </div>
 
+    <div class="m-comments">
+      <el-divider content-position="left"><span style="color:#999999">讨论</span></el-divider>
+      <jx3-comment v-if="plan && JSON.stringify(plan) !== '{}'" :id="plan.id" category="item_plan"/>
+    </div>
+
     <ins
         class="adsbygoogle"
         style="display:block;max-width:100%;overflow:hidden;margin:10px;"
@@ -70,6 +75,7 @@
 </template>
 
 <script>
+  import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
   import ItemSimple from "@jx3box/jx3box-editor/src/ItemSimple";
 
   const {JX3BOX} = require("@jx3box/jx3box-common");
@@ -80,6 +86,7 @@
     name: "PlanDetail",
     components: {
       'jx3-item-simple': ItemSimple,
+      'jx3-comment': Comment,
     },
     data: function () {
       return {
@@ -107,14 +114,14 @@
         handler() {
           if (this.$route.params.plan_id) {
             get_item_plan(this.$route.params.plan_id).then(
-              (data) => {
-                data = data.data;
-                if (data.code === 200) {
-                  this.plan = data.data.plan;
-                } else {
-                  this.$message.error('获取物品清单异常，请联系管理员');
+                (data) => {
+                  data = data.data;
+                  if (data.code === 200) {
+                    this.plan = data.data.plan;
+                  } else {
+                    this.$message.error('获取物品清单异常，请联系管理员');
+                  }
                 }
-              }
             );
           }
         }
@@ -134,18 +141,18 @@
           type: 'warning'
         }).then(() => {
           delete_item_plan(plan_id).then(
-            (data) => {
-              data = data.data;
-              if (data.code === 200) {
-                this.$message.success(data.message);
-                // 获取我的清单
-                get_my_item_plans();
-                // 返回主页
-                this.$router.push({name: "home"});
-              } else {
-                this.$message.error(data.message);
+              (data) => {
+                data = data.data;
+                if (data.code === 200) {
+                  this.$message.success(data.message);
+                  // 获取我的清单
+                  get_my_item_plans();
+                  // 返回主页
+                  this.$router.push({name: "home"});
+                } else {
+                  this.$message.error(data.message);
+                }
               }
-            }
           );
         });
       },

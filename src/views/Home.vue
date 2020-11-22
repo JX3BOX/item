@@ -29,106 +29,133 @@
       </div>
     </div>
 
-    <div class="m-module">
-      <div class="m-head" style="background-color:#666666;border-bottom:none">
-        <h4 class="u-title" style="color:#FFFFFF">神兵图鉴</h4>
-      </div>
-      <div class="m-body" style="background-color:#032222;font-size:0">
-        <ItemIcon v-for="(item,key) in icon_items" :key="key" :item="item" :click_trigger="true"
-                  style="cursor: pointer"/>
-      </div>
-    </div>
-
-    <div class="m-module">
-      <div class="m-head">
-        <h4 class="u-title">最近攻略</h4>
-      </div>
-      <div class="m-body">
-        <el-row class="wiki-post-list" v-if="newest_posts.length">
-          <el-col class="wiki-post" v-for="(post, key) in newest_posts" :key="key">
-            <div class="m-about-post">
-              <div class="m-user">
-                <div class="u-author">
-                  <img class="u-icon" :src="post.user_avatar | resolveAvatarPath"
-                       :alt="post.user_nickname"/>
-                  <span class="u-name" v-text="post.user_nickname"></span>
+    <el-row :gutter="15">
+      <el-col :xs="24" :md="12">
+        <div class="m-module">
+          <div class="m-head">
+            <h4 class="u-title">最新攻略</h4>
+          </div>
+          <div class="m-body">
+            <div class="wiki-post-list" v-if="newest_posts.length">
+              <div class="wiki-post" v-for="(post, key) in newest_posts" :key="key">
+                <div class="m-about-post">
+                  <div class="m-user">
+                    <div class="u-author">
+                      <img class="u-icon" :src="post.user_avatar | resolveAvatarPath"
+                           :alt="post.user_nickname"/>
+                      <span class="u-name" v-text="post.user_nickname"></span>
+                    </div>
+                    <div class="u-updated" v-text="$options.filters.date_format(post.updated)"></div>
+                  </div>
+                  <div class="m-wiki">
+                    <div class="u-wiki">
+                      <img class="u-icon" @error.once="img_error_handle"
+                           :src="$options.filters.icon_url(post.source_icon_id)"/>
+                      <router-link class="u-name" v-text="post.title"
+                                   :to="{name: 'view',params: { item_id: post.source_id }}"></router-link>
+                    </div>
+                    <div class="u-level" v-text="'综合难度：' + $options.filters.star(post.level)"></div>
+                    <div class="u-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
+                  </div>
                 </div>
-                <div class="u-updated" v-text="$options.filters.date_format(post.updated)"></div>
-              </div>
-              <div class="m-wiki">
-                <div class="u-wiki">
-                  <img class="u-icon" @error.once="img_error_handle"
-                       :src="$options.filters.icon_url(post.source_icon_id)"/>
-                  <router-link class="u-name" v-text="post.title"
-                               :to="{name: 'view',params: { item_id: post.source_id }}"></router-link>
+                <div class="m-excerpt">
+              <span class="u-excerpt" v-html="ellipsis(post.excerpt)"></span>
                 </div>
-                <div class="u-level" v-text="'综合难度：' + $options.filters.star(post.level)"></div>
-                <div class="u-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
               </div>
             </div>
-            <div class="m-excerpt">
-              <span class="u-excerpt" :to="{name: 'view',params: { item_id: post.source_id }}"
-                    v-html="ellipsis(post.excerpt)"></span>
+            <div v-else style="text-align:center">😂 暂无攻略</div>
+          </div>
+        </div>
+      </el-col>
+      <el-col :xs="24" :md="12">
+        <div class="m-module">
+          <div class="m-head">
+            <h4 class="u-title">最新物品清单</h4>
+          </div>
+          <div class="m-body">
+            <div class="wiki-post-list" v-if="newest_plans.length">
+              <div class="wiki-post" v-for="(plan, key) in newest_plans" :key="key">
+                <div class="m-about-post">
+                  <div class="m-user">
+                    <div class="u-author">
+                      <img class="u-icon" :src="plan.user_avatar | resolveAvatarPath" :alt="plan.user_nickname"/>
+                      <span class="u-name" v-text="plan.user_nickname"></span>
+                    </div>
+                    <div class="u-updated" v-text="$options.filters.date_format(plan.updated)"></div>
+                  </div>
+                  <div class="m-wiki">
+                    <div class="u-wiki">
+                      <span v-if="plan.type==1" class="u-type" style="background-color:#409EFF">道具清单</span>
+                      <span v-if="plan.type==2" class="u-type" style="background-color:#F0787A">装备清单</span>
+                      <router-link class="u-name" v-text="plan.title"
+                                   :to="{name: 'plan_view',params: { plan_id: plan.id }}"></router-link>
+                    </div>
+                  </div>
+                </div>
+                <div class="m-excerpt">
+                  <span class="u-excerpt" v-html="ellipsis(plan.description)"></span>
+                </div>
+              </div>
             </div>
-          </el-col>
-        </el-row>
-        <el-row v-else style="text-align:center">😂 暂无攻略</el-row>
-      </div>
-    </div>
+            <div v-else style="text-align:center">😂 暂无物品清单</div>
+          </div>
+        </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
-const {JX3BOX} = require("@jx3box/jx3box-common");
-import {get_home_icons, get_item_posts} from "../service/item.js";
-import ItemIcon from "@/components/ItemIcon.vue";
+  const {JX3BOX} = require("@jx3box/jx3box-common");
+  import {get_item_posts} from "../service/item.js";
+  import {get_item_plans} from "../service/item_plan.js";
 
-export default {
-  name: 'Home',
-  props: [],
-  data: function () {
-    return {
-      icon_items: [],
-      newest_posts: [],
-      feedback: JX3BOX.feedback,
-    }
-  },
-  methods: {
-    img_error_handle(e) {
-      e.target.src = `${JX3BOX.__imgPath}image/common/nullicon.png`;
-    },
-    ellipsis(value) {
-      value = value ? value.trim() : "";
-      if (value.length > 100) {
-        return value.slice(0, 100) + "...";
+  export default {
+    name: 'Home',
+    props: [],
+    data: function () {
+      return {
+        newest_posts: [],
+        newest_plans: [],
+        feedback: JX3BOX.feedback,
       }
-      return value;
     },
-  },
-  mounted: function () {
-    get_home_icons().then((res) => {
-      res = res.data;
-      if (res.code === 200) this.icon_items = res.data.data;
-    });
+    methods: {
+      img_error_handle(e) {
+        e.target.src = `${JX3BOX.__imgPath}image/common/nullicon.png`;
+      },
+      ellipsis(value) {
+        value = value ? value.trim() : "";
+        if (value.length > 100) {
+          return value.slice(0, 100) + "...";
+        }
+        return value;
+      },
+    },
+    mounted: function () {
+      get_item_posts().then((data) => {
+        data = data.data;
+        if (data.code === 200) {
+          this.newest_posts = data.data.newest;
+        }
+      });
 
-    get_item_posts().then((data) => {
-      data = data.data;
-      if (data.code === 200) {
-        this.newest_posts = data.data.newest;
-      }
-    });
-  },
-  components: {
-    ItemIcon,
-  },
-  filters: {
-    resolveAvatarPath: function (val) {
-      return val.replace(JX3BOX.__ossRoot, JX3BOX.__ossMirror);
+      get_item_plans().then((data) => {
+        data = data.data;
+        if (data.code === 200) {
+          this.newest_plans = data.data.data;
+        }
+      });
     },
-  },
-}
+    components: {},
+    filters: {
+      resolveAvatarPath: function (val) {
+        return val.replace(JX3BOX.__ossRoot, JX3BOX.__ossMirror);
+      },
+    },
+  }
 </script>
 
 <style lang="less">
-@import '../assets/css/views/home.less';
+  @import '../assets/css/views/home.less';
 </style>
