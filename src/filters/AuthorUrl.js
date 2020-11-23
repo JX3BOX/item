@@ -1,6 +1,6 @@
 /**
- * 获取用户主页链接
- * @param {*} icon_id IconID
+ * 鐢ㄦ埛涓婚〉閾炬帴
+ * @param {*} user_id 鐢ㄦ埛ID
  */
 
 const {__Root} = require("@jx3box/jx3box-common/js/jx3box.json");

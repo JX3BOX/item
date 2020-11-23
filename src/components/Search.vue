@@ -13,7 +13,7 @@
                 class="u-search-input"
                 v-model="keyword"
                 @keydown.enter.native="search_handle"
-                placeholder="输入物品名称/物品描述「回车」进行搜索"
+                placeholder="输入物品名称（可适配中括号形式）/物品描述「回车」进行搜索"
             >
             <span slot="prepend">关键词</span>
             </el-input>
