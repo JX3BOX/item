@@ -18,34 +18,39 @@
           <el-alert v-if="plan.description" class="u-plan-description" :title="plan.description" type="warning"
                     :closable="false"></el-alert>
           <!-- 道具清单 -->
-          <ul class="m-positions" v-if="plan.type==1">
-            <li class="m-position" v-for="(position,key) in plan.relation_items" :key="key">
-              <h5 v-if="position.title" class="u-title" v-text="position.title">
-                <span v-text="position.title"></span>
-              </h5>
-              <ul class="m-items">
-                <li v-for="(item,k) in position.data" :key="k">
-                  <jx3-item-simple :item="item"/>
-                </li>
-                <li v-if="!position.data || !position.data.length" class="u-items-null">暂无物品</li>
-              </ul>
-            </li>
-          </ul>
+          <el-row gutter="15" class="m-positions" v-if="plan.type==1">
+            <el-col :xs="24" :md="6" v-for="(position,key) in plan.relation_items" :key="key">
+              <div class="m-position">
+                <h5 v-if="position.title" class="u-title" v-text="position.title">
+                  <span v-text="position.title"></span>
+                </h5>
+                <ul class="m-items">
+                  <li v-for="(item,k) in position.data" :key="k">
+                    <jx3-item-simple :item="item"/>
+                  </li>
+                  <li v-if="!position.data || !position.data.length" class="u-items-null">暂无物品</li>
+                </ul>
+              </div>
+            </el-col>
+          </el-row>
           <!-- 装备清单 -->
-          <ul class="m-positions" v-if="plan.type==2">
-            <li class="m-position" v-for="(position,key) in positions" :key="key">
-              <h5 v-if="position.label" class="u-title">
-                <span v-text="position.label"></span>
-              </h5>
-              <ul class="m-items">
-                <li v-for="(item,k) in plan.relation_items[key]" :key="k">
-                  <jx3-item-simple :item="item"/>
-                  <span v-if="k==0" class="u-main">主</span>
-                </li>
-                <li v-if="!plan.relation_items[key] || !plan.relation_items[key].length" class="u-items-null">暂无物品</li>
-              </ul>
-            </li>
-          </ul>
+          <el-row gutter="15" class="m-positions" v-if="plan.type==2">
+            <el-col :xs="24" :md="6" v-for="(_positions,index) in positions" :key="index">
+              <div class="m-position" v-for="(position,key) in _positions" :key="key">
+                <h5 v-if="position.label" class="u-title">
+                  <span v-text="position.label"></span>
+                </h5>
+                <ul class="m-items">
+                  <li v-for="(item,k) in plan.relation_items[key]" :key="k">
+                    <jx3-item-simple :item="item"/>
+                    <span v-if="k==0" class="u-main">主</span>
+                  </li>
+                  <li v-if="!plan.relation_items[key] || !plan.relation_items[key].length" class="u-items-null">暂无物品
+                  </li>
+                </ul>
+              </div>
+            </el-col>
+          </el-row>
 
           <div class="m-other">
             <div v-if="plan.user_avatar" class="avatar">
@@ -96,20 +101,28 @@
       return {
         user: User.getInfo(),
         plan: null,
-        positions: {
-          '1': {label: '武器'},
-          '2': {label: '暗器'},
-          '3_1': {label: '上衣'},
-          '3_2': {label: '帽子'},
-          '3_3': {label: '腰带'},
-          '3_4': {label: '下装'},
-          '3_5': {label: '鞋子'},
-          '3_6': {label: '护腕'},
-          '4_1': {label: '项链'},
-          '4_3': {label: '腰坠'},
-          '4_2_1': {label: '戒指'},
-          '4_2_2': {label: '戒指'},
-        },
+        positions: [
+          {
+            '1': {label: '武器'},
+            '2': {label: '暗器'},
+          },
+          {
+            '3_2': {label: '帽子'},
+            '3_1': {label: '上衣'},
+            '3_3': {label: '腰带'},
+          },
+          {
+            '3_6': {label: '护腕'},
+            '3_4': {label: '下装'},
+            '3_5': {label: '鞋子'},
+          },
+          {
+            '4_1': {label: '项链'},
+            '4_3': {label: '腰坠'},
+            '4_2_1': {label: '戒指'},
+            '4_2_2': {label: '戒指'},
+          },
+        ],
       };
     },
     mounted: function () {
@@ -121,14 +134,14 @@
         handler() {
           if (this.$route.params.plan_id) {
             get_item_plan(this.$route.params.plan_id).then(
-                (data) => {
-                  data = data.data;
-                  if (data.code === 200) {
-                    this.plan = data.data.plan;
-                  } else {
-                    this.$message.error('获取物品清单异常，请联系管理员');
-                  }
+              (data) => {
+                data = data.data;
+                if (data.code === 200) {
+                  this.plan = data.data.plan;
+                } else {
+                  this.$message.error('获取物品清单异常，请联系管理员');
                 }
+              }
             );
           }
         }
@@ -148,18 +161,18 @@
           type: 'warning'
         }).then(() => {
           delete_item_plan(plan_id).then(
-              (data) => {
-                data = data.data;
-                if (data.code === 200) {
-                  this.$message.success(data.message);
-                  // 获取我的清单
-                  get_my_item_plans();
-                  // 返回主页
-                  this.$router.push({name: "home"});
-                } else {
-                  this.$message.error(data.message);
-                }
+            (data) => {
+              data = data.data;
+              if (data.code === 200) {
+                this.$message.success(data.message);
+                // 获取我的清单
+                get_my_item_plans();
+                // 返回主页
+                this.$router.push({name: "home"});
+              } else {
+                this.$message.error(data.message);
               }
+            }
           );
         });
       },
