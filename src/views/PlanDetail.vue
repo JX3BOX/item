@@ -1,5 +1,6 @@
 <template>
   <div id="m-plan-view">
+    <el-divider content-position="left"><span style="color:#999999">物品清单</span></el-divider>
     <div class="c-plan">
       <div v-if="plan && JSON.stringify(plan) !== '{}'" class="m-module m-plan">
         <div class="m-head">
@@ -57,7 +58,7 @@
           </div>
         </div>
       </div>
-      <el-alert v-else center title="暂无相关物品清单信息" class="m-plan-null" type="info" :closable="false"></el-alert>
+      <el-alert v-else center title="😂 暂无相关物品清单信息" class="m-plan-null" type="info" :closable="false"></el-alert>
     </div>
 
     <div class="m-comments">

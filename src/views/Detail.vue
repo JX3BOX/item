@@ -1,5 +1,6 @@
 <template>
   <div id="m-item-view">
+    <Search />
     <div v-if="item && JSON.stringify(item) !== '{}'" class="w-item">
       <div class="m-item-viewer">
         <div class="w-left">
@@ -193,6 +194,7 @@ import Item from "@jx3box/jx3box-editor/src/Item.vue";
 import ItemIcon from "@/components/ItemIcon.vue";
 import Revisions from "@/components/Revisions.vue";
 import Comments from "@/components/Comments.vue";
+import Search from '@/components/Search.vue';
 import {post_item_stat} from "../service/stat.js";
 import {get_item} from "../service/item.js";
 
@@ -215,6 +217,7 @@ export default {
     Revisions,
     Comments,
     Article,
+    Search,
   },
   methods: {
     go_to_comment() {

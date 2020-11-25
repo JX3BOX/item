@@ -1,5 +1,6 @@
 <template>
   <div class="m-item-index m-item-home">
+    <Search />
     <div class="m-module no-border">
       <div class="m-head">
         <h4 class="u-title">
@@ -7,7 +8,7 @@
           <span> 便捷入口</span>
         </h4>
         <div class="u-other">
-          <a class="u-feedback" target="_blank" :href="feedback">反馈建议 &raquo;</a>
+          <a class="u-more" target="_blank" :href="feedback">反馈建议 &raquo;</a>
         </div>
       </div>
       <div class="m-body">
@@ -72,6 +73,9 @@
         <div class="m-module">
           <div class="m-head">
             <h4 class="u-title">最新物品清单</h4>
+            <div class="u-other">
+              <router-link :to="{name: 'plan_list'}" class="u-more">查看更多 &raquo;</router-link>
+            </div>
           </div>
           <div class="m-body">
             <div class="wiki-post-list" v-if="newest_plans.length">
@@ -94,7 +98,7 @@
                   </div>
                 </div>
                 <div class="m-excerpt">
-                  <router-link class="u-excerpt" v-html="ellipsis(plan.description)"
+                  <router-link class="u-excerpt" v-text="ellipsis(plan.description)"
                                :to="{name: 'plan_view',params: { plan_id: plan.id }}"></router-link>
                 </div>
               </div>
@@ -108,6 +112,7 @@
 </template>
 
 <script>
+  import Search from '../components/Search.vue';
   const {JX3BOX} = require("@jx3box/jx3box-common");
   import {get_item_posts} from "../service/item.js";
   import {get_item_plans} from "../service/item_plan.js";
@@ -121,6 +126,9 @@
         newest_plans: [],
         feedback: JX3BOX.feedback,
       }
+    },
+    components: {
+      Search,
     },
     methods: {
       img_error_handle(e) {
@@ -149,7 +157,6 @@
         }
       });
     },
-    components: {},
     filters: {
       resolveAvatarPath: function (val) {
         return val.replace(JX3BOX.__ossRoot, JX3BOX.__ossMirror);

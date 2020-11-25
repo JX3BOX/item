@@ -1,5 +1,6 @@
 <template>
     <div class="m-item-index m-item-normal">
+        <Search />
         <div class="m-items-list">
             <Items :items="items"></Items>
         </div>
@@ -20,6 +21,7 @@
 <script>
 const { JX3BOX } = require("@jx3box/jx3box-common");
 import Items from "@/components/Items.vue";
+import Search from '@/components/Search.vue';
 
 export default {
     name: "Normal",
@@ -36,6 +38,7 @@ export default {
     },
     components: {
         Items,
+        Search,
     },
     methods: {
         get_items(page) {

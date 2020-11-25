@@ -39,6 +39,7 @@
             <span v-if="plan.type==1" class="u-type" style="background-color:#409EFF">道具清单</span>
             <span v-if="plan.type==2" class="u-type" style="background-color:#F0787A">装备清单</span>
             <span v-text="plan.title"></span>
+            <span v-if="!plan.public" v-text="` - 私有`"></span>
           </h5>
           <p class="u-description" v-text="plan.description"></p>
           <div>

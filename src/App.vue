@@ -11,7 +11,6 @@
             <Sidebar :sidebar="$store.state.sidebar" />
         </LeftSidebar>
         <Main :withoutRight="false">
-            <Search/>
             <!-- 路由页面内容 -->
             <router-view/>
             <!-- 右侧咨询 -->
@@ -26,7 +25,6 @@
 <script>
     import ItemBreadcrumb from "@/components/ItemBreadcrumb.vue";
     import Sidebar from '@/components/Sidebar.vue';
-    import Search from '@/components/Search.vue';
     import Extend from '@/components/Extend.vue';
 
     export default {
@@ -42,7 +40,6 @@
         components: {
             ItemBreadcrumb,
             Sidebar,
-            Search,
             Extend,
         },
         watch: {

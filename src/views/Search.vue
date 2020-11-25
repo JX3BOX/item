@@ -1,5 +1,6 @@
 <template>
     <div class="m-cj-index">
+        <Search />
         <Items :items="items" />
         <el-pagination
             background
@@ -17,7 +18,7 @@
 
 <script>
 import Items from "@/components/Items.vue";
-
+import Search from '@/components/Search.vue';
 const { JX3BOX } = require("@jx3box/jx3box-common");
 
 export default {
@@ -67,6 +68,7 @@ export default {
     mounted: function() {},
     components: {
         Items,
+        Search,
     },
     watch: {
         $route: {

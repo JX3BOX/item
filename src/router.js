@@ -6,6 +6,7 @@ const Home = () => import("./views/Home.vue");
 const Normal = () => import("./views/Normal.vue");
 const Detail = () => import("./views/Detail.vue");
 const PlanDetail = () => import("./views/PlanDetail.vue");
+const PlanList = () => import("./views/PlanList.vue");
 const Search = () => import("./views/Search.vue");
 
 Vue.use(VueRouter);
@@ -19,6 +20,8 @@ const routes = [
     {name: 'view', path: '/view/:item_id([_\\d]+)/:post_id(\\d+)?', component: Detail},
     // 清单单页
     {name: 'plan_view', path: '/plan_view/:plan_id(\\d+)', component: PlanDetail},
+    // 清单列表
+    {name: 'plan_list', path: '/plan_list', component: PlanList},
     // 搜索
     {name: 'search', path: '/search/:keyword(.+)?', component: Search},
     // 默认页重定向
