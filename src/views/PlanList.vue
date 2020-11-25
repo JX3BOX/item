@@ -20,7 +20,6 @@
         </div>
       </template>
       <el-alert v-else center title="😂 暂无物品清单" class="m-plan-null" type="info" :closable="false"></el-alert>
-
     </div>
     <el-pagination
         background
