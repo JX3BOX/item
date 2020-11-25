@@ -66,7 +66,7 @@
       <el-alert v-else center title="😂 暂无相关物品清单信息" class="m-plan-null" type="info" :closable="false"></el-alert>
     </div>
 
-    <div class="m-comments">
+    <div class="m-comments" v-if="!(plan && JSON.stringify(plan) !== '{}')">
       <el-divider content-position="left"><span style="color:#999999">讨论</span></el-divider>
       <jx3-comment v-if="plan && JSON.stringify(plan) !== '{}'" :id="plan.id" category="item_plan"/>
     </div>
