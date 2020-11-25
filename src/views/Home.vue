@@ -26,9 +26,10 @@
                         </a>
                     </li>
                     <li class="qlink">
-                      <router-link :to="{ name: 'plan_list' }"
-                        ><i class="el-icon-document"></i> 物品清单</router-link
-                    >
+                        <router-link :to="{ name: 'plan_list' }"
+                            ><i class="el-icon-document"></i>
+                            物品清单</router-link
+                        >
                     </li>
                     <li class="qlink">
                         <router-link
@@ -71,14 +72,16 @@
                                 v-if="plan.type == 1"
                                 class="u-type"
                                 :class="'u-type-' + plan.type"
-                                ><img :src="plan_1_icon"></span
-                            >
+                                ><img :src="plan_1_icon"
+                            /></span>
+
                             <span
                                 v-if="plan.type == 2"
                                 class="u-type"
                                 :class="'u-type-' + plan.type"
-                                ><img :src="plan_2_icon"></span
-                            >
+                                ><img :src="plan_2_icon"
+                            /></span>
+
                             <router-link
                                 class="u-name"
                                 v-text="plan.title"
@@ -205,6 +208,8 @@
 <script>
 import Search from "../components/Search.vue";
 const { JX3BOX } = require("@jx3box/jx3box-common");
+import { getThumbnail,resolveImagePath } from "@jx3box/jx3box-common/js/utils";
+import { default_avatar } from "@jx3box/jx3box-common/js/jx3box.json";
 import { get_item_posts } from "../service/item.js";
 import { get_item_plans } from "../service/item_plan.js";
 export default {
@@ -215,8 +220,8 @@ export default {
             newest_posts: [],
             newest_plans: [],
             feedback: JX3BOX.feedback,
-            plan_2_icon : JX3BOX.__iconPath + 'icon/2410.png',
-            plan_1_icon : JX3BOX.__iconPath + 'icon/3089.png',
+            plan_2_icon: JX3BOX.__iconPath + "icon/2410.png",
+            plan_1_icon: JX3BOX.__iconPath + "icon/3089.png",
         };
     },
     components: {
@@ -251,7 +256,7 @@ export default {
     },
     filters: {
         resolveAvatarPath: function(val) {
-            return val.replace(JX3BOX.__ossRoot, JX3BOX.__ossMirror);
+            return resolveImagePath(val)
         },
     },
 };
