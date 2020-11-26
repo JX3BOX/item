@@ -39,32 +39,26 @@
                     :key="key"
                     :to="{ name: 'plan_view', params: { plan_id: plan.id } }"
                 >
-                    <div class="fr m-ctrls">
-                        <div @click="edit_plan($event, plan.id)">
-                            <i class="el-icon-edit u-edit" title="编辑"></i>
-                        </div>
-                        <div @click="delete_plan($event, plan.id)">
-                            <i class="el-icon-delete u-delete" title="删除"></i>
-                        </div>
-                    </div>
+                    <!-- <div class="fr m-ctrls">
+                        
+                    </div> -->
                     <h5 class="u-title">
                         <span
                             v-if="plan.type == 1"
                             class="u-type"
                             style="background-color:#409EFF"
-                            >道具清单</span
+                            ><i v-if="!plan.public" class="el-icon-lock"></i> 道具清单</span
                         >
                         <span
                             v-if="plan.type == 2"
                             class="u-type"
                             style="background-color:#F0787A"
-                            >装备清单</span
+                            ><i v-if="!plan.public" class="el-icon-lock"></i>装备清单</span
                         >
                         <span v-text="plan.title"></span>
-                        <span v-if="!plan.public" v-text="` - 私有`"></span>
                     </h5>
                     <p class="u-description" v-text="plan.description"></p>
-                    <div>
+                    <div class="u-misc">
                         <span
                             class="u-updated"
                             v-text="
@@ -72,6 +66,12 @@
                                     $options.filters.date_format(plan.updated)
                             "
                         ></span>
+                        <div @click="delete_plan($event, plan.id)">
+                            <i class="el-icon-delete u-delete" title="删除"></i>
+                        </div>
+                        <div @click="edit_plan($event, plan.id)">
+                            <i class="el-icon-edit u-edit" title="编辑"></i>
+                        </div>
                     </div>
                 </router-link>
                 <div class="u-more">

@@ -92,18 +92,21 @@
                                     },
                                 }"
                             ></router-link>
-                            <div class="u-author">
-                                <!-- <img
+                            <span class="u-desc">
+                                {{plan.description}}
+                            </span>
+                            <!-- <div class="u-author">
+                                <img
                                     class="u-icon"
                                     :src="plan.user_avatar | resolveAvatarPath"
                                     :alt="plan.user_nickname"
-                                /> -->
+                                />
                                 <a
                                     :href="plan.user_id | author_url"
                                     class="u-name"
                                     v-text="'@' + plan.user_nickname"
                                 ></a>
-                            </div>
+                            </div> -->
                         </div>
                     </el-col>
                 </el-row>

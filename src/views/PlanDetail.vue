@@ -43,13 +43,13 @@
                     </div>
                 </div>
                 <div class="m-body">
-                    <el-alert
+                    <div
                         v-if="plan.description"
                         class="u-plan-description"
                         :title="plan.description"
                         type="warning"
                         :closable="false"
-                    ></el-alert>
+                    >{{plan.description}}</div>
                     <!-- 道具清单 -->
                     <el-row
                         gutter="15"
