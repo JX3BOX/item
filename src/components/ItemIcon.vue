@@ -4,7 +4,7 @@
               transition="none" :close-delay="0" @show="show">
     <div slot="reference" class="m-item-icon">
       <div class="u-border"
-           :style="{backgroundImage:$options.filters.item_border(source),'opacity':item.Quality==5?0.9:1}"></div>
+           :style="{backgroundImage:$options.filters.item_border(source),'opacity':source.Quality==5?0.9:1}"></div>
       <div class="u-border-quest" :style="{backgroundImage:$options.filters.item_border_quest(source)}"></div>
       <img class="u-item-icon" :src="$options.filters.icon_url(source.IconID)">
     </div>

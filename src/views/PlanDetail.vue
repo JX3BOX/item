@@ -202,6 +202,8 @@ import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import ItemSimple from "@jx3box/jx3box-editor/src/ItemSimple";
 import Equip from "@jx3box/jx3box-editor/src/Equip";
 
+const $_ = require("lodash");
+import EquipPosition from '@jx3box/jx3box-editor/service/enum/EquipPosition';
 const { JX3BOX } = require("@jx3box/jx3box-common");
 import User from "@jx3box/jx3box-common/js/user.js";
 import PlanSearch from "../components/PlanSearch";
@@ -221,31 +223,27 @@ export default {
         PlanSearch,
     },
     data: function() {
+        let positions = [
+            [EquipPosition.MELEE_WEAPON, EquipPosition.RANGE_WEAPON],
+            [EquipPosition.HELM, EquipPosition.CHEST, EquipPosition.WAIST],
+            [EquipPosition.BANGLE, EquipPosition.PANTS, EquipPosition.BOOTS],
+            [EquipPosition.AMULET, EquipPosition.PENDANT, EquipPosition.RING_1, EquipPosition.RING_2],
+        ];
+        // 重置键名
+        let all_positions = EquipPosition.all();
+        for (let i in positions){
+            let _output = {}
+            for (let key in positions[i]){
+                let type = $_.get(positions, `${i}.${key}`);
+                _output[type] = all_positions[type];
+            }
+            $_.set(positions, i, _output);
+        }
+
         return {
             user: User.getInfo(),
             plan: null,
-            positions: [
-                {
-                    "1": { label: "武器" },
-                    "2": { label: "暗器" },
-                },
-                {
-                    "3_2": { label: "帽子" },
-                    "3_1": { label: "上衣" },
-                    "3_3": { label: "腰带" },
-                },
-                {
-                    "3_6": { label: "护腕" },
-                    "3_4": { label: "下装" },
-                    "3_5": { label: "鞋子" },
-                },
-                {
-                    "4_1": { label: "项链" },
-                    "4_3": { label: "腰坠" },
-                    "4_2_1": { label: "戒指" },
-                    "4_2_2": { label: "戒指" },
-                },
-            ],
+            positions: positions,
         };
     },
     mounted: function() {
