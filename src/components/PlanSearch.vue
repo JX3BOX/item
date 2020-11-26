@@ -1,7 +1,7 @@
 <template>
     <div
         class="c-search-bar"
-        :class="$route.name == 'view' ? 'can-return' : ''"
+        :class="$route.name == 'plan_view' ? 'can-return' : ''"
     >
         <div class="m-return">
             <el-button class="u-return-btn" @click="return_handle"
@@ -13,7 +13,7 @@
                 class="u-search-input"
                 v-model="keyword"
                 @keydown.enter.native="search_handle"
-                placeholder="输入物品名称（可适配中括号形式）/物品描述「回车」进行搜索"
+                placeholder="输入物品清单名称「回车」进行搜索"
             >
             <span slot="prepend">关键词</span>
             </el-input>
@@ -30,7 +30,7 @@
 
 <script>
 export default {
-    name: "Search",
+    name: "PlanSearch",
     data() {
         return {
             keyword: "",
@@ -42,7 +42,7 @@ export default {
         },
         search_handle() {
             this.$router.push({
-                name: "search",
+                name: "plan_list",
                 params: { keyword: this.keyword },
             });
         },

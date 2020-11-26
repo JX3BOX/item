@@ -1,8 +1,6 @@
 <template>
     <div id="m-plan-view">
-        <el-divider content-position="left"
-            ><span style="color:#999999">物品清单</span></el-divider
-        >
+        <PlanSearch />
         <div class="c-plan">
             <div
                 v-if="plan && JSON.stringify(plan) !== '{}'"
@@ -77,7 +75,9 @@
                                         v-for="(item, k) in position.data"
                                         :key="k"
                                     >
-                                        <jx3-item-simple :item="item" />
+                                        <router-link :to="{name: 'view', params: { item_id: item.id }}">
+                                            <jx3-item-simple :item="item" />
+                                        </router-link>
                                     </li>
                                     <li
                                         v-if="
@@ -122,10 +122,12 @@
                                         ]"
                                         :key="k"
                                     >
-                                        <jx3-item-simple :item="item" />
-                                        <span v-if="k == 0" class="u-main"
-                                            >主</span
-                                        >
+                                        <router-link :to="{name: 'view', params: { item_id: item.id }}">
+                                            <jx3-item-simple :item="item" />
+                                            <span v-if="k == 0" class="u-main"
+                                                >主</span
+                                            >
+                                        </router-link>
                                     </li>
                                     <li
                                         v-if="
@@ -202,6 +204,7 @@ import Equip from "@jx3box/jx3box-editor/src/Equip";
 
 const { JX3BOX } = require("@jx3box/jx3box-common");
 import User from "@jx3box/jx3box-common/js/user.js";
+import PlanSearch from "../components/PlanSearch";
 import { post_item_plan_stat } from "../service/stat.js";
 import {
     get_item_plan,
@@ -215,6 +218,7 @@ export default {
         "jx3-item-simple": ItemSimple,
         "jx3-comment": Comment,
         Equip,
+        PlanSearch,
     },
     data: function() {
         return {

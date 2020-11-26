@@ -21,7 +21,7 @@ const routes = [
     // 清单单页
     {name: 'plan_view', path: '/plan_view/:plan_id(\\d+)', component: PlanDetail},
     // 清单列表
-    {name: 'plan_list', path: '/plan_list', component: PlanList},
+    {name: 'plan_list', path: '/plan_list/:keyword(.+)?', component: PlanList},
     // 搜索
     {name: 'search', path: '/search/:keyword(.+)?', component: Search},
     // 默认页重定向
