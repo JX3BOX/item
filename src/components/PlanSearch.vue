@@ -83,6 +83,10 @@ export default {
     @media screen and (max-width: @ipad) {
         .m-search {
             .mr(0);
+
+            .el-input-group__prepend {
+                .none;
+            }
         }
 
         .m-add {
