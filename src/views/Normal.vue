@@ -53,8 +53,6 @@
         });
       },
     },
-    mounted: function () {
-    },
     watch: {
       $route: {
         immediate: true,

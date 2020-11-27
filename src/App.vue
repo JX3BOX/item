@@ -49,15 +49,20 @@
                     if (
                         typeof this.$route.params.AucGenre === 'undefined' &&
                         typeof this.$route.params.AucSubTypeID === 'undefined' &&
+                        typeof this.$route.query.auc_genre === 'undefined' &&
+                        typeof this.$route.query.auc_sub_type_id === 'undefined' &&
                         !this.$route.params.item_id
                     ) {
                         this.$store.state.sidebar.AucGenre = null;
                         this.$store.state.sidebar.AucSubTypeID = null;
                     } else {
-                        if (typeof this.$route.params.AucGenre !== 'undefined')
-                            this.$store.state.sidebar.AucGenre = this.$route.params.AucGenre === 'empty' ? '' : this.$route.params.AucGenre;
-                        if (typeof this.$route.params.AucSubTypeID !== 'undefined')
+                        this.$store.state.sidebar.AucGenre = this.$route.query.auc_genre ? this.$route.query.auc_genre : '';
+                        this.$store.state.sidebar.AucSubTypeID = this.$route.query.auc_sub_type_id ? this.$route.query.auc_sub_type_id : '';
+                        // 如存在路由参数，优先使用路由参数
+                        if (this.$route.params.AucGenre) {
+                            this.$store.state.sidebar.AucGenre = this.$route.params.AucGenre;
                             this.$store.state.sidebar.AucSubTypeID = this.$route.params.AucSubTypeID ? this.$route.params.AucSubTypeID : '';
+                        }
                     }
                 }
             },

@@ -41,9 +41,15 @@ export default {
             history.back();
         },
         search_handle() {
+            let query = {page: 1};
+            // 菜单筛选
+            if (this.$store.state.sidebar.AucGenre) query.auc_genre = this.$store.state.sidebar.AucGenre;
+            if (this.$store.state.sidebar.AucSubTypeID) query.auc_sub_type_id = this.$store.state.sidebar.AucSubTypeID;
+
             this.$router.push({
                 name: "search",
                 params: { keyword: this.keyword },
+                query: query,
             });
         },
     },
