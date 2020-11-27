@@ -45,7 +45,11 @@ export default {
     },
     methods: {
         return_handle() {
-            history.back();
+            if(history.length <= 1) {
+                this.$router.push({name: "plan_list"});
+            } else {
+                history.back();
+            }
         },
         add_handle() {
             location.href = `${JX3BOX.__Links.dashboard.publish}#/item/plan`;
