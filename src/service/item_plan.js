@@ -24,13 +24,6 @@ function get_item_plans(params) {
 
 // 获取我的清单
 function get_my_item_plans(params = {}) {
-  return get_item_plans(params).then(
-    (data) => {
-      data = data.data;
-      if (data.code === 200) store.state.my_item_plans = data.data.data;
-    }
-  );
-
   params.limit = 5;
   return $http({
     method: "GET",
