@@ -8,11 +8,6 @@
                 >返回</el-button
             >
         </div>
-        <div class="m-add">
-            <el-button class="u-add-btn" @click="add_handle" type="primary" icon="el-icon-plus"
-            >创建清单</el-button
-            >
-        </div>
         <div class="m-search">
             <el-input
                 class="u-search-input"
@@ -28,6 +23,11 @@
                 plain
                 @click="search_handle"
                 >搜索</el-button
+            >
+        </div>
+        <div class="m-add">
+            <el-button class="u-add-btn" @click="add_handle" type="primary" icon="el-icon-plus"
+            >创建清单</el-button
             >
         </div>
     </div>
@@ -66,11 +66,32 @@ export default {
 
 <style lang="less">
     @import "../assets/css/components/search.less";
+    .m-search-bar {
+        .pr;
+    }
+
     .m-search {
         .mr(130px);
     }
 
     .m-add {
-        .fr;
+        .pa;
+        top: 10px;
+        right: 0;
+    }
+
+    @media screen and (max-width: @ipad) {
+        .m-search {
+            .mr(0);
+        }
+
+        .m-add {
+            .ps;
+            .mt(10px);
+
+            .el-button {
+                .w(100%);
+            }
+        }
     }
 </style>
