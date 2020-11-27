@@ -59,6 +59,12 @@
                     </h5>
                     <p class="u-description" v-text="plan.description"></p>
                     <div class="u-misc">
+                        <div @click="delete_plan($event, plan.id)">
+                            <i class="el-icon-delete u-delete" title="删除"></i>
+                        </div>
+                        <div @click="edit_plan($event, plan.id)">
+                            <i class="el-icon-edit u-edit" title="编辑"></i>
+                        </div>
                         <span
                             class="u-updated"
                             v-text="
@@ -66,12 +72,6 @@
                                     $options.filters.date_format(plan.updated)
                             "
                         ></span>
-                        <div @click="delete_plan($event, plan.id)">
-                            <i class="el-icon-delete u-delete" title="删除"></i>
-                        </div>
-                        <div @click="edit_plan($event, plan.id)">
-                            <i class="el-icon-edit u-edit" title="编辑"></i>
-                        </div>
                     </div>
                 </router-link>
                 <div class="u-more">

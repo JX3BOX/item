@@ -250,7 +250,7 @@ export default {
             }
         });
 
-        get_item_plans().then((data) => {
+        get_item_plans({limit:16}).then((data) => {
             data = data.data;
             if (data.code === 200) {
                 this.newest_plans = data.data.data;

@@ -1,6 +1,6 @@
 <template>
     <div
-        class="c-search-bar"
+        class="m-search-bar"
         :class="$route.name == 'view' ? 'can-return' : ''"
     >
         <div class="m-return">
