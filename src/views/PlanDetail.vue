@@ -22,25 +22,6 @@
                         >
                         <span v-text="plan.title"></span>
                     </h4>
-                    <div
-                        class="u-other"
-                        v-if="user.id == plan.user_id || user.group >= 64"
-                    >
-                        <el-button
-                            type="primary"
-                            icon="el-icon-edit"
-                            size="small"
-                            @click="edit_plan(plan.id)"
-                            >编辑</el-button
-                        >
-                        <el-button
-                            type="danger"
-                            icon="el-icon-delete"
-                            size="small"
-                            @click="delete_plan(plan.id)"
-                            >删除</el-button
-                        >
-                    </div>
                 </div>
                 <div class="m-body">
                     <div
@@ -49,7 +30,9 @@
                         :title="plan.description"
                         type="warning"
                         :closable="false"
-                    >{{plan.description}}</div>
+                    >
+                        {{ plan.description }}
+                    </div>
                     <!-- 道具清单 -->
                     <el-row
                         gutter="15"
@@ -75,7 +58,12 @@
                                         v-for="(item, k) in position.data"
                                         :key="k"
                                     >
-                                        <router-link :to="{name: 'view', params: { item_id: item.id }}">
+                                        <router-link
+                                            :to="{
+                                                name: 'view',
+                                                params: { item_id: item.id },
+                                            }"
+                                        >
                                             <jx3-item-simple :item="item" />
                                         </router-link>
                                     </li>
@@ -94,7 +82,7 @@
                     </el-row>
                     <!-- 装备清单 -->
                     <div class="m-equip-plan" v-if="plan.type == 2">
-                        <Equip :data="plan"/>
+                        <Equip :data="plan" />
                     </div>
                     <el-row
                         :gutter="15"
@@ -122,7 +110,12 @@
                                         ]"
                                         :key="k"
                                     >
-                                        <router-link :to="{name: 'view', params: { item_id: item.id }}">
+                                        <router-link
+                                            :to="{
+                                                name: 'view',
+                                                params: { item_id: item.id },
+                                            }"
+                                        >
                                             <jx3-item-simple :item="item" />
                                             <span v-if="k == 0" class="u-main"
                                                 >主</span
@@ -161,6 +154,25 @@
                             "
                         ></div>
                     </div>
+                </div>
+                <div
+                    class="m-plan-op"
+                    v-if="user.id == plan.user_id || user.group >= 64"
+                >
+                    <el-button
+                        type="primary"
+                        icon="el-icon-edit"
+                        size="small"
+                        @click="edit_plan(plan.id)"
+                        >编辑</el-button
+                    >
+                    <el-button
+                        type="danger"
+                        icon="el-icon-delete"
+                        size="small"
+                        @click="delete_plan(plan.id)"
+                        >删除</el-button
+                    >
                 </div>
             </div>
             <el-alert
@@ -203,7 +215,7 @@ import ItemSimple from "@jx3box/jx3box-editor/src/ItemSimple";
 import Equip from "@jx3box/jx3box-editor/src/Equip";
 
 const $_ = require("lodash");
-import EquipPosition from '@jx3box/jx3box-editor/service/enum/EquipPosition';
+import EquipPosition from "@jx3box/jx3box-editor/service/enum/EquipPosition";
 const { JX3BOX } = require("@jx3box/jx3box-common");
 import User from "@jx3box/jx3box-common/js/user.js";
 import PlanSearch from "../components/PlanSearch";
@@ -227,13 +239,18 @@ export default {
             [EquipPosition.MELEE_WEAPON, EquipPosition.RANGE_WEAPON],
             [EquipPosition.HELM, EquipPosition.CHEST, EquipPosition.WAIST],
             [EquipPosition.BANGLE, EquipPosition.PANTS, EquipPosition.BOOTS],
-            [EquipPosition.AMULET, EquipPosition.PENDANT, EquipPosition.RING_1, EquipPosition.RING_2],
+            [
+                EquipPosition.AMULET,
+                EquipPosition.PENDANT,
+                EquipPosition.RING_1,
+                EquipPosition.RING_2,
+            ],
         ];
         // 重置键名
         let all_positions = EquipPosition.all();
-        for (let i in positions){
-            let _output = {}
-            for (let key in positions[i]){
+        for (let i in positions) {
+            let _output = {};
+            for (let key in positions[i]) {
                 let type = $_.get(positions, `${i}.${key}`);
                 _output[type] = all_positions[type];
             }
