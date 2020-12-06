@@ -61,7 +61,6 @@ function get_item_posts() {
 }
 
 export {
-  get_home_icons,
   get_items_count,
   get_item,
   get_item_relation_plans,
