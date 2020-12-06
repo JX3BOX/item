@@ -1,6 +1,6 @@
 <template>
   <div id="m-item-view">
-    <Search />
+    <Search/>
     <div v-if="item && JSON.stringify(item) !== '{}'" class="w-item">
       <div class="m-item-viewer">
         <div class="w-left">
@@ -107,6 +107,8 @@
       </div>
     </div>
 
+    <relation-plans :item_id="item.id"/>
+
     <div class="w-post">
       <div v-if="post && JSON.stringify(post) === '{}'" class="m-item-view-null">
         <i class="el-icon-s-opportunity"></i>
@@ -157,7 +159,7 @@
           </div>
         </div>
 
-        <div class="m-module m-cj-revisions">
+        <div class="m-module">
           <div class="m-head">
             <h4 class="u-title">📄 历史版本</h4>
           </div>
@@ -189,121 +191,121 @@
 </template>
 
 <script>
-import Article from "@jx3box/jx3box-editor/src/Article.vue";
-import Item from "@jx3box/jx3box-editor/src/Item.vue";
-import ItemIcon from "@/components/ItemIcon.vue";
-import Revisions from "@/components/Revisions.vue";
-import Comments from "@/components/Comments.vue";
-import Search from '@/components/Search.vue';
-import {post_item_stat} from "../service/stat.js";
-import {get_item} from "../service/item.js";
+  import Article from "@jx3box/jx3box-editor/src/Article.vue";
+  import Item from "@jx3box/jx3box-editor/src/Item.vue";
+  import ItemIcon from "@/components/ItemIcon.vue";
+  import Revisions from "@/components/Revisions.vue";
+  import Comments from "@/components/Comments.vue";
+  import Search from '@/components/Search.vue';
+  import RelationPlans from '@/components/RelationPlans.vue';
+  import {post_item_stat} from "../service/stat.js";
+  import {get_item} from "../service/item.js";
 
-const {JX3BOX} = require("@jx3box/jx3box-common");
+  const {JX3BOX} = require("@jx3box/jx3box-common");
 
-export default {
-  name: "Detail",
-  props: [],
-  data: function () {
-    return {
-      item: {},
-      post: null,
-      show_relations: false,
-      show_relations_primary: true,
-    };
-  },
-  components: {
-    'jx3-item': Item,
-    ItemIcon,
-    Revisions,
-    Comments,
-    Article,
-    Search,
-  },
-  methods: {
-    go_to_comment() {
-      let target = document.querySelector("#m-reply-form");
-      target.scrollIntoView(true);
+  export default {
+    name: "Detail",
+    props: [],
+    data: function () {
+      return {
+        item: {},
+        post: null,
+      };
     },
-    publish_url: function (val) {
-      return JX3BOX.__Links.dashboard.publish + "#/" + val;
+    components: {
+      'jx3-item': Item,
+      ItemIcon,
+      Revisions,
+      Comments,
+      Article,
+      Search,
+      'relation-plans': RelationPlans,
     },
-    // 获取物品
-    get_data: function () {
-      if (!this.$route.params.item_id) return;
-      get_item(this.$route.params.item_id).then((data) => {
-        data = data.data;
-        if (data.code === 200) {
-          this.item = data.data.item;
-          this.$store.state.sidebar.AucGenre = parseInt(
-              this.item.AucGenre
-          );
-          this.$store.state.sidebar.AucSubTypeID = parseInt(
-              this.item.AucSubTypeID
-          );
-        }
-      }).catch((e) => {
-        this.item = false;
-      });
+    methods: {
+      go_to_comment() {
+        let target = document.querySelector("#m-reply-form");
+        target.scrollIntoView(true);
+      },
+      publish_url: function (val) {
+        return JX3BOX.__Links.dashboard.publish + "#/" + val;
+      },
+      // 获取物品
+      get_data: function () {
+        if (!this.$route.params.item_id) return;
+        get_item(this.$route.params.item_id).then((data) => {
+          data = data.data;
+          if (data.code === 200) {
+            this.item = data.data.item;
+            this.$store.state.sidebar.AucGenre = parseInt(
+                this.item.AucGenre
+            );
+            this.$store.state.sidebar.AucSubTypeID = parseInt(
+                this.item.AucSubTypeID
+            );
+          }
+        }).catch((e) => {
+          this.item = false;
+        });
+      },
+      // 获取物品最新攻略
+      get_item_newest_post() {
+        if (!this.$route.params.item_id) return;
+        this.$http({
+          url: `${JX3BOX.__helperUrl}api/wiki/post`,
+          headers: {Accept: "application/prs.helper.v2+json"},
+          params: {
+            type: "item",
+            source_id: this.$route.params.item_id,
+          },
+          withCredentials: true,
+        })
+            .then((res) => {
+              this.post = res.data.data.post || {};
+            })
+            .catch((err) => {
+              this.post = null;
+            });
+      },
+      // 获取物品攻略
+      get_item_post() {
+        if (!this.$route.params.post_id) return;
+        this.$http({
+          url: `${JX3BOX.__helperUrl}api/wiki/post/${this.$route.params.post_id}`,
+          headers: {Accept: "application/prs.helper.v2+json"},
+          withCredentials: true,
+        })
+            .then((res) => {
+              this.post = res.data.data.post || {};
+            })
+            .catch((err) => {
+              this.post = null;
+            });
+      },
     },
-    // 获取物品最新攻略
-    get_item_newest_post() {
-      if (!this.$route.params.item_id) return;
-      this.$http({
-        url: `${JX3BOX.__helperUrl}api/wiki/post`,
-        headers: {Accept: "application/prs.helper.v2+json"},
-        params: {
-          type: "item",
-          source_id: this.$route.params.item_id,
+    mounted: function () {
+      post_item_stat(this.$route.params.item_id);
+    },
+    watch: {
+      "$route.params.item_id": {
+        immediate: true,
+        handler() {
+          // 获取物品
+          this.get_data();
+          // 获取物品最新攻略
+          if (!this.$route.params.post_id) this.get_item_newest_post();
         },
-        withCredentials: true,
-      })
-          .then((res) => {
-            this.post = res.data.data.post || {};
-          })
-          .catch((err) => {
-            this.post = null;
-          });
-    },
-    // 获取物品攻略
-    get_item_post() {
-      if (!this.$route.params.post_id) return;
-      this.$http({
-        url: `${JX3BOX.__helperUrl}api/wiki/post/${this.$route.params.post_id}`,
-        headers: {Accept: "application/prs.helper.v2+json"},
-        withCredentials: true,
-      })
-          .then((res) => {
-            this.post = res.data.data.post || {};
-          })
-          .catch((err) => {
-            this.post = null;
-          });
-    },
-  },
-  mounted: function () {
-    post_item_stat(this.$route.params.item_id);
-  },
-  watch: {
-    "$route.params.item_id": {
-      immediate: true,
-      handler() {
-        // 获取物品
-        this.get_data();
-        // 获取物品最新攻略
-        if (!this.$route.params.post_id) this.get_item_newest_post();
+      },
+      "$route.params.post_id": {
+        immediate: true,
+        handler() {
+          // 获取物品攻略
+          this.get_item_post();
+        },
       },
     },
-    "$route.params.post_id": {
-      immediate: true,
-      handler() {
-        // 获取物品攻略
-        this.get_item_post();
-      },
-    },
-  },
-};
+  };
 </script>
 
 <style lang="less">
-@import "../assets/css/views/detail.less";
+  @import "../assets/css/views/detail.less";
 </style>

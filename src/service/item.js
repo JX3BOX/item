@@ -26,6 +26,17 @@ function get_item(item_id) {
   })
 }
 
+// 相关物品清单
+function get_item_relation_plans(item_id, params) {
+  if (!item_id) return;
+  return $http({
+    url: `${__helperUrl}api/item/${item_id}/relation_plans`,
+    headers: {Accept: "application/prs.helper.v2+json"},
+    withCredentials: true,
+    params: params,
+  })
+}
+
 function get_items(params) {
   return $http.get(`${__helperUrl}api/items`, {
     headers: {Accept: "application/prs.helper.v2+json"},
@@ -56,4 +67,13 @@ function get_item_posts() {
   });
 }
 
-export {get_home_icons, get_items_count, get_item, get_items, get_items_search, get_menu_items, get_item_posts};
+export {
+  get_home_icons,
+  get_items_count,
+  get_item,
+  get_item_relation_plans,
+  get_items,
+  get_items_search,
+  get_menu_items,
+  get_item_posts
+};
