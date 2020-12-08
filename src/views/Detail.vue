@@ -12,14 +12,13 @@
             <h6 class="u-name" :class="{ white: item.Quality == 1 }" v-text="item.Name"
                 :style="{color: $options.filters.item_color(item.Quality)}"></h6>
             <div class="m-buttons fr">
-              <el-button type="success" size="small" class="u-collect" disabled>
-                <i class="u-el-icon el-icon-collection"></i>
-                <span class="u-text">收藏</span>
-              </el-button>
-              <el-button type="primary" size="small" class="u-add-to-item-list" disabled>
+              <!-- 收藏按钮 -->
+              <Fav class="u-collect" post-type="item" :post-id="item.id" />
+              <!-- 加入清单 -->
+              <!--<el-button type="success" size="small" class="u-add-to-item-list" disabled>
                 <i class="u-el-icon el-icon-shopping-cart-full"></i>
                 <span class="u-text">加入清单</span>
-              </el-button>
+              </el-button>-->
             </div>
           </div>
           <!-- 其余属性 -->
@@ -192,6 +191,7 @@
 
 <script>
   import Article from "@jx3box/jx3box-editor/src/Article.vue";
+  import Fav from "@jx3box/jx3box-common-ui/src/Fav.vue";
   import Item from "@jx3box/jx3box-editor/src/Item.vue";
   import ItemIcon from "@/components/ItemIcon.vue";
   import Revisions from "@/components/Revisions.vue";
@@ -219,6 +219,7 @@
       Comments,
       Article,
       Search,
+      Fav,
       'relation-plans': RelationPlans,
     },
     methods: {

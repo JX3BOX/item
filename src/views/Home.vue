@@ -49,7 +49,7 @@
             </div>
         </div>
 
-        <div class="m-module">
+        <div class="m-module no-border">
             <div class="m-head">
                 <h4 class="u-title">
                     <i class="el-icon-notebook-1"></i> 最新物品清单
@@ -116,7 +116,7 @@
             </div>
         </div>
 
-        <div class="m-module">
+        <div class="m-module no-border">
             <div class="m-head">
                 <h4 class="u-title">
                     <i class="el-icon-collection"></i> 最新攻略

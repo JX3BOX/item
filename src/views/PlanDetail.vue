@@ -22,6 +22,9 @@
                         >
                         <span v-text="plan.title"></span>
                     </h4>
+                    <div class="u-other">
+                        <Fav post-type="item_plan" :post-id="plan.id" />
+                    </div>
                 </div>
                 <div class="m-body">
                     <div
@@ -216,6 +219,7 @@ import Equip from "@jx3box/jx3box-editor/src/Equip";
 
 const $_ = require("lodash");
 import EquipPosition from "@jx3box/jx3box-editor/service/enum/EquipPosition";
+import Fav from "@jx3box/jx3box-common-ui/src/Fav.vue";
 const { JX3BOX } = require("@jx3box/jx3box-common");
 import User from "@jx3box/jx3box-common/js/user.js";
 import PlanSearch from "../components/PlanSearch";
@@ -233,6 +237,7 @@ export default {
         "jx3-comment": Comment,
         Equip,
         PlanSearch,
+        Fav,
     },
     data: function() {
         let positions = [

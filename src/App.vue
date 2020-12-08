@@ -60,7 +60,7 @@
                         this.$store.state.sidebar.AucSubTypeID = this.$route.query.auc_sub_type_id ? this.$route.query.auc_sub_type_id : '';
                         // 如存在路由参数，优先使用路由参数
                         if (this.$route.params.AucGenre) {
-                            this.$store.state.sidebar.AucGenre = this.$route.params.AucGenre;
+                            this.$store.state.sidebar.AucGenre = this.$route.params.AucGenre === 'empty' ? '' : this.$route.params.AucGenre;
                             this.$store.state.sidebar.AucSubTypeID = this.$route.params.AucSubTypeID ? this.$route.params.AucSubTypeID : '';
                         }
                     }
