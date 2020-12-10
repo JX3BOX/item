@@ -22,9 +22,6 @@
                         >
                         <span v-text="plan.title"></span>
                     </h4>
-                    <div class="u-other">
-                        <Fav post-type="item_plan" :post-id="plan.id" />
-                    </div>
                 </div>
                 <div class="m-body">
                     <div
@@ -158,24 +155,24 @@
                         ></div>
                     </div>
                 </div>
-                <div
-                    class="m-plan-op"
-                    v-if="user.id == plan.user_id || user.group >= 64"
-                >
-                    <el-button
-                        type="primary"
-                        icon="el-icon-edit"
-                        size="small"
-                        @click="edit_plan(plan.id)"
-                        >编辑</el-button
-                    >
-                    <el-button
-                        type="danger"
-                        icon="el-icon-delete"
-                        size="small"
-                        @click="delete_plan(plan.id)"
-                        >删除</el-button
-                    >
+                <div class="m-plan-op">
+                    <Fav post-type="item_plan" :post-id="plan.id" />
+                    <template v-if="user.id == plan.user_id || user.group >= 64">
+                        <el-button
+                            type="primary"
+                            icon="el-icon-edit"
+                            size="small"
+                            @click="edit_plan(plan.id)"
+                            >编辑</el-button
+                        >
+                        <el-button
+                            type="danger"
+                            icon="el-icon-delete"
+                            size="small"
+                            @click="delete_plan(plan.id)"
+                            >删除</el-button
+                        >
+                    </template>
                 </div>
             </div>
             <el-alert
