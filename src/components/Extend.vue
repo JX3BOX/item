@@ -208,7 +208,7 @@ export default {
                     ranks[item_id] = this.$_.get(data, `${i}.value`, {});
                 }
             }
-            item_ids = item_ids.slice(1, 15);
+            item_ids = item_ids.slice(0, 15);
 
             get_items({ ids: item_ids, limit: item_ids.length }).then(
                 (data) => {
