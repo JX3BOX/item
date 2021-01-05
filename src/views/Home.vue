@@ -63,6 +63,7 @@
             <div class="m-body m-plan-list">
                 <el-row :gutter="20" v-if="newest_plans.length">
                     <el-col
+                        :xs="24"
                         :span="12"
                         v-for="(plan, key) in newest_plans"
                         :key="key"
