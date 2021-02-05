@@ -24,18 +24,18 @@ module.exports = {
     //❤️ Porxy ~
     devServer: {
         proxy: {
-            // "/api": {
-            //     "target": "https://next.jx3box.com",
-            //     "onProxyReq": function (request) {
-            //         request.setHeader("origin", "");
-            //     }
-            // },
             "/api": {
-                "target": "https://helper.jx3box.com",
+                "target": "https://next.jx3box.com",
                 "onProxyReq": function (request) {
                     request.setHeader("origin", "");
                 }
-            }
+            },
+            // "/api": {
+            //     "target": "https://helper.jx3box.com",
+            //     "onProxyReq": function (request) {
+            //         request.setHeader("origin", "");
+            //     }
+            // }
         },
         disableHostCheck: true
     },

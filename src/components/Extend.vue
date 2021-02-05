@@ -7,53 +7,18 @@
             </strong>
         </RightSideMsg>
 
+        <MyItems />
         <MyPlans />
 
-        <div class="m-hot-items">
-            <h3 class="c-sidebar-right-title">
-                <img class="u-icon" svg-inline src="../assets/img/rank.svg" />
-                <span>热门物品</span>
-            </h3>
-            <router-link
-                class="m-hot-item"
-                v-for="(item, key) in hot_items"
-                :key="key"
-                :to="{ name: 'view', params: { item_id: item.id } }"
-            >
-                <div class="u-icon">
-                    <ItemIcon :item="item" />
-                </div>
-                <div class="m-content">
-                    <span
-                        class="u-title"
-                        :style="{
-                            color: $options.filters.item_color(item.Quality),
-                        }"
-                    >
-                        <i class="el-icon-medal"></i>
-                        <span v-text="` ${item.Name}`"></span>
-                    </span>
-                    <span class="u-desc" v-html="` ${item.DescHtml}`"></span>
-                    <span class="u-rank" v-if="item.rank">
-                        <i class="el-icon-grape"></i>
-                        <span v-text="`七天 - ${item.rank['7days']}`"></span>
-                        <i class="el-icon-pear"></i>
-                        <span v-text="`三十天 - ${item.rank['30days']}`"></span>
-                    </span>
-                </div>
-            </router-link>
-        </div>
     </div>
 </template>
 
 <script>
 const { JX3BOX } = require("@jx3box/jx3box-common");
 import User from "@jx3box/jx3box-common/js/user.js";
-import ItemIcon from "@/components/ItemIcon";
-import { getRank } from "../service/stat.js";
-import { get_items } from "../service/item.js";
 import { get_my_item_plans, delete_item_plan } from "../service/item_plan.js";
 import MyPlans from '@/components/MyPlans.vue'
+import MyItems from '@/components/MyItems.vue'
 export default {
     name: "Extend",
     props: [],
@@ -65,8 +30,8 @@ export default {
         };
     },
     components: {
-        ItemIcon,
-        MyPlans
+        MyPlans,
+        MyItems
     },
     methods: {
         edit_plan($event, plan_id) {
@@ -117,50 +82,6 @@ export default {
         },
     },
     mounted: function() {
-
-        // 获取热门物品
-        getRank().then((data) => {
-            data = data.data;
-
-            let ranks = [],
-                item_ids = [];
-            for (let i in data) {
-                let name = this.$_.get(data, `${i}.name`, "-");
-                let item_id = this.$_.get(name.split("-"), 1, "");
-                if (item_id) {
-                    item_ids.push(item_id);
-                    ranks[item_id] = this.$_.get(data, `${i}.value`, {});
-                }
-            }
-            item_ids = item_ids.slice(0, 15);
-
-            get_items({ ids: item_ids, limit: item_ids.length }).then(
-                (data) => {
-                    data = data.data;
-                    if (data.code === 200) {
-                        data = data.data.data;
-
-                        // 使用id作为键值
-                        let items = {};
-                        for (let i in data) items[data[i].id] = data[i];
-
-                        // 数据填充保持原有排序
-                        let output = [];
-                        for (let i in item_ids) {
-                            let id = item_ids[i];
-                            let item = items[id];
-                            if (item) {
-                                item.rank = ranks[id];
-                                output.push(item);
-                            }
-                        }
-
-                        this.hot_items = output;
-                    }
-                }
-            );
-        });
-
         this.checkIsHome();
     },
 };

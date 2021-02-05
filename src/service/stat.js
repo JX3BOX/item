@@ -37,7 +37,7 @@ function getRank() {
             postType: "item",
             postAction: "views",
             sort: "7days",
-            pageSize: 15,
+            pageSize: 24,
         },
     });
 }
