@@ -2,25 +2,31 @@
     margin-top: 10px;
 }
 
-.m-my-item-plans,
-.m-hot-items {
-    padding: 10px 15px;
+.c-sidebar-right-title {
+    .mb(0);
 
-    .c-sidebar-right-title {
-        .mb(0);
+    .u-icon {
+        .mr(5px);
+        .dbi;
+        .y;
+        padding: 0 2px;
+        box-sizing: border-box;
+        // .h(auto);
+    }
 
-        & > * {
-            vertical-align: middle;
-        }
+    & > * {
+        vertical-align: middle;
+        line-height: initial;
+    }
 
-        .el-button {
-            padding: 5px 8px;
-            font-size: 12px;
-        }
+    .el-button {
+        padding: 3px 8px;
+        font-size: 12px;
     }
 }
 
 .m-my-item-plans {
+    margin: 15px;
     .u-icon.el-icon-s-order {
         text-align: center;
         font-size: 20px;
@@ -29,81 +35,67 @@
     }
 
     .u-tip {
-        padding: 10px 0;
+        padding: 20px;
         font-size: 14px;
         text-align: center;
         opacity: 0.6;
-        border-bottom: 1px solid #ebeef5;
     }
 
     .u-more {
-        .x;
-        .fz(12px);
-        .mt(10px);
+        display: block;
+        text-align: center;
+        font-size: 12px;
+        color: #888;
+        border-bottom: 1px solid #ebeef5;
+        padding: 10px 0;
+        &:hover {
+            color: @pink;
+        }
     }
 }
 
 .m-my-item-plan {
-    .db;
-    .pt(10px);
-    .pb(10px);
-    border-bottom: 2px solid #eeeeee;
-    color: @bg-black;
+    display: block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #eee;
+    color: #24292e;
     font-size: 12px;
-
-    .u-type {
-        .mr(5px);
-        padding: 2px 4px;
-        color: white;
-        font-weight: normal;
-        border-radius: 2px;
-
-        i{
-          .mr(2px);
-        }
-    }
-
-    .u-title,
-    .u-description {
-        margin: 0;
-    }
-
-    .u-description {
-        margin: 5px 0;
-        .pr(10px);
-        opacity: 0.75;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-    }
-
-    .u-avatar,
-    .u-nickname {
-        vertical-align: middle;
-    }
-
-    .u-updated {
-        opacity: 0.35;
-    }
-
-    .u-edit,
-    .u-delete {
-        .mr(8px);
-        font-size: 14px;
-        float: right;
-    }
-
-    .u-edit {
-        .mb(8px);
-        color: #0366d6;
-    }
-
-    .u-delete {
-        color: #fc3c3c;
-    }
-
     &:hover {
         background-color: #f5f7fa;
+    }
+
+    .u-title {
+        margin: 0;
+        line-height: 2;
+        white-space: nowrap;
+        word-wrap: normal;
+        word-break: keep-all;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
+        i {
+            .fz(14px);
+            .mr(3px);
+            color: #ff8c03;
+        }
+    }
+    .u-updated {
+        color: #bbb;
+    }
+    .u-delete,
+    .u-edit {
+        .fr;
+        margin-right: 8px;
+        font-size: 14px;
+        float: right;
+        color: #aaa;
+    }
+    .u-edit:hover {
+        color: @color-link;
+    }
+    .u-delete:hover {
+        color: #fc3c3c;
     }
 }
 
@@ -179,6 +171,33 @@
 
     &:hover {
         background-color: #f5f7fa;
+    }
+}
+
+.m-items-my{
+    margin: 15px;
+    .u-tip {
+        padding: 20px;
+        font-size: 14px;
+        text-align: center;
+        opacity: 0.6;
+    }
+}
+.m-items-my-list{
+    .mt(10px);
+    .clearfix;
+    .u-item{
+        .fl;
+        .mr(5px);
+    }
+    .u-more{
+        text-align: center;
+        font-size: 12px;
+        color: #888;
+        padding: 10px 0;
+        &:hover {
+            color: @pink;
+        }
     }
 }
 

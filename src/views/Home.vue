@@ -13,7 +13,7 @@
                     >
                 </div>
             </div>
-            <div class="m-body">
+            <div class="m-body m-panel-body">
                 <ul class="m-qlinks">
                     <li class="qlink">
                         <a
@@ -61,56 +61,60 @@
                 </div>
             </div>
             <div class="m-body m-plan-list">
-                <el-row :gutter="20" v-if="newest_plans.length">
-                    <el-col
-                        :xs="24"
-                        :span="12"
-                        v-for="(plan, key) in newest_plans"
+                <el-carousel
+                    height="66px"
+                    direction="vertical"
+                    indicator-position="none"
+                    v-if="newest_plans && newest_plans.length"
+                >
+                    <el-carousel-item
+                        v-for="(items, key) in newest_plans"
                         :key="key"
+                        class="m-carousel m-hot"
                     >
-                        <div class="u-plan">
-                            <span
-                                v-if="plan.type == 1"
-                                class="u-type"
-                                :class="'u-type-' + plan.type"
-                                ><img :src="plan_1_icon"
-                            /></span>
+                        <el-row :gutter="20">
+                            <template v-for="(item, k) in items">
+                                <el-col :md="8" v-if="item" :key="k">
+                                    <router-link
+                                        class="u-item"
+                                        :class="`u-item-${k}`"
+                                        :to="'/plan_view/' + item.id"
+                                    >
+                                        <div class="u-icon">
+                                            <span
+                                                v-if="item.type == 1"
+                                                class="u-type"
+                                                :class="'u-type-' + item.type"
+                                                ><img :src="plan_1_icon"
+                                            /></span>
 
-                            <span
-                                v-if="plan.type == 2"
-                                class="u-type"
-                                :class="'u-type-' + plan.type"
-                                ><img :src="plan_2_icon"
-                            /></span>
-
-                            <router-link
-                                class="u-name"
-                                v-text="plan.title"
-                                :to="{
-                                    name: 'plan_view',
-                                    params: {
-                                        plan_id: plan.id,
-                                    },
-                                }"
-                            ></router-link>
-                            <span class="u-desc">
-                                {{plan.description}}
-                            </span>
-                            <!-- <div class="u-author">
-                                <img
-                                    class="u-icon"
-                                    :src="plan.user_avatar | resolveAvatarPath"
-                                    :alt="plan.user_nickname"
-                                />
-                                <a
-                                    :href="plan.user_id | author_url"
-                                    class="u-name"
-                                    v-text="'@' + plan.user_nickname"
-                                ></a>
-                            </div> -->
-                        </div>
-                    </el-col>
-                </el-row>
+                                            <span
+                                                v-if="item.type == 2"
+                                                class="u-type"
+                                                :class="'u-type-' + item.type"
+                                                ><img :src="plan_2_icon"
+                                            /></span>
+                                        </div>
+                                        <div class="m-carousel-content">
+                                            <span class="u-title">
+                                                <i class="el-icon-medal"></i>
+                                                <span
+                                                    v-text="item.title"
+                                                ></span>
+                                            </span>
+                                            <span class="u-desc">
+                                                <i class="el-icon-mic"></i>
+                                                <span
+                                                    v-html="item.description"
+                                                ></span>
+                                            </span>
+                                        </div>
+                                    </router-link>
+                                </el-col>
+                            </template>
+                        </el-row>
+                    </el-carousel-item>
+                </el-carousel>
                 <div v-else style="text-align:center">
                     😂 暂无物品清单
                 </div>
@@ -212,7 +216,7 @@
 <script>
 import Search from "../components/Search.vue";
 const { JX3BOX } = require("@jx3box/jx3box-common");
-import { getThumbnail,resolveImagePath } from "@jx3box/jx3box-common/js/utils";
+import { getThumbnail, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
 import { default_avatar } from "@jx3box/jx3box-common/js/jx3box.json";
 import { get_item_posts } from "../service/item.js";
 import { get_item_plans } from "../service/item_plan.js";
@@ -251,7 +255,7 @@ export default {
             }
         });
 
-        get_item_plans({limit:16}).then((data) => {
+        get_item_plans({ limit: 15 }).then((data) => {
             data = data.data;
             if (data.code === 200) {
                 this.newest_plans = data.data.data;
@@ -260,7 +264,7 @@ export default {
     },
     filters: {
         resolveAvatarPath: function(val) {
-            return resolveImagePath(val)
+            return resolveImagePath(val);
         },
     },
 };
