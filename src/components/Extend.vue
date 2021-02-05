@@ -1,13 +1,5 @@
 <template>
     <div class="m-extend" :class="{ isHome: isHome }">
-        <!-- <ins
-        class="adsbygoogle"
-        style="display:block;width:100%;overflow:hidden;"
-        data-ad-client="ca-pub-4388499329141185"
-        data-ad-slot="9773281887"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-    ></ins> -->
         <RightSideMsg>
             <em>官方反馈交流Q群</em> :
             <strong>
@@ -15,74 +7,7 @@
             </strong>
         </RightSideMsg>
 
-        <div class="m-my-item-plans">
-            <h3 class="c-sidebar-right-title">
-                <i class="u-icon el-icon-s-order"></i>
-                <span>我的清单</span>
-                <a
-                    class="fr el-button el-button--primary el-button--mini"
-                    :href="publish_url(`item/plan`)"
-                >
-                    <i class="el-icon-document-add"></i>
-                    <span>创建</span>
-                </a>
-            </h3>
-            <template
-                v-if="
-                    $store.state.my_item_plans &&
-                        $store.state.my_item_plans.length
-                "
-            >
-                <router-link
-                    class="m-my-item-plan"
-                    v-for="(plan, key) in $store.state.my_item_plans"
-                    :key="key"
-                    :to="{ name: 'plan_view', params: { plan_id: plan.id } }"
-                >
-                    <!-- <div class="fr m-ctrls">
-                        
-                    </div> -->
-                    <h5 class="u-title">
-                        <span
-                            v-if="plan.type == 1"
-                            class="u-type"
-                            style="background-color:#409EFF"
-                            ><i v-if="!plan.public" class="el-icon-lock"></i> 道具清单</span
-                        >
-                        <span
-                            v-if="plan.type == 2"
-                            class="u-type"
-                            style="background-color:#F0787A"
-                            ><i v-if="!plan.public" class="el-icon-lock"></i>装备清单</span
-                        >
-                        <span v-text="plan.title"></span>
-                    </h5>
-                    <p class="u-description" v-text="plan.description"></p>
-                    <div class="u-misc">
-                        <div @click="delete_plan($event, plan.id)">
-                            <i class="el-icon-delete u-delete" title="删除"></i>
-                        </div>
-                        <div @click="edit_plan($event, plan.id)">
-                            <i class="el-icon-edit u-edit" title="编辑"></i>
-                        </div>
-                        <span
-                            class="u-updated"
-                            v-text="
-                                '编辑于 ' +
-                                    $options.filters.date_format(plan.updated)
-                            "
-                        ></span>
-                    </div>
-                </router-link>
-                <div class="u-more">
-                    <a href="/dashboard/#/other" target="_blank"
-                        >查看更多 &raquo;</a
-                    >
-                </div>
-            </template>
-            <div class="u-tip" v-else-if="user.uid">暂无物品清单记录</div>
-            <div class="u-tip" v-else>请先进行登录</div>
-        </div>
+        <MyPlans />
 
         <div class="m-hot-items">
             <h3 class="c-sidebar-right-title">
@@ -128,7 +53,7 @@ import ItemIcon from "@/components/ItemIcon";
 import { getRank } from "../service/stat.js";
 import { get_items } from "../service/item.js";
 import { get_my_item_plans, delete_item_plan } from "../service/item_plan.js";
-
+import MyPlans from '@/components/MyPlans.vue'
 export default {
     name: "Extend",
     props: [],
@@ -141,6 +66,7 @@ export default {
     },
     components: {
         ItemIcon,
+        MyPlans
     },
     methods: {
         edit_plan($event, plan_id) {
@@ -191,8 +117,6 @@ export default {
         },
     },
     mounted: function() {
-        // 获取我的清单
-        get_my_item_plans();
 
         // 获取热门物品
         getRank().then((data) => {

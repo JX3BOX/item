@@ -138,7 +138,7 @@
 
                     <div class="m-other">
                         <div v-if="plan.user_avatar" class="avatar">
-                            <img :src="plan.user_avatar" />
+                            <img :src="plan.user_avatar | showAvatar" />
                         </div>
                         <div class="done">
                             <a
@@ -221,6 +221,7 @@ const { JX3BOX } = require("@jx3box/jx3box-common");
 import User from "@jx3box/jx3box-common/js/user.js";
 import PlanSearch from "../components/PlanSearch";
 import { post_item_plan_stat } from "../service/stat.js";
+import {getThumbnail} from '@jx3box/jx3box-common/js/utils'
 import {
     get_item_plan,
     get_my_item_plans,
@@ -315,6 +316,11 @@ export default {
             });
         },
     },
+    filters : {
+        showAvatar : function (val){
+            return getThumbnail(val,24,true)
+        }
+    }
 };
 </script>
 
