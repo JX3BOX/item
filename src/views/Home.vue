@@ -4,7 +4,7 @@
 
     <WikiPanel border-none="true">
       <template slot="head-title">
-        <i class="el-icon-location-information"></i>
+        <i class="el-icon-location-information"></i> 
         <span>便捷入口</span>
       </template>
       <template slot="head-actions">
@@ -48,8 +48,8 @@
 
     <WikiPanel border-none="true">
       <template slot="head-title">
-        <i class="el-icon-notebook-1"></i>
-        <span>最新物品清单</span>
+        <i class="el-icon-notebook-1"></i> 
+        <span>最新清单</span>
       </template>
       <template slot="head-actions">
         <router-link :to="{ name: 'plan_list' }" class="u-more">查看更多 &raquo;</router-link>
@@ -102,7 +102,7 @@
 
     <WikiPanel border-none="true">
       <template slot="head-title">
-        <i class="el-icon-collection"></i>
+        <i class="el-icon-collection"></i> 
         <span>最新攻略</span>
       </template>
       <template slot="body">
