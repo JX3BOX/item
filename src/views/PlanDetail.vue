@@ -16,7 +16,7 @@
                         >
                         <span
                             v-if="plan.type == 2"
-                            style="background-color:#F0787A"
+                            style="background-color:#3cbfda"
                             class="u-type"
                             >装备清单</span
                         >
@@ -192,20 +192,10 @@
                 ></el-divider
             >
             <jx3-comment
-                v-if="plan && JSON.stringify(plan) !== '{}'"
                 :id="plan.id"
                 category="item_plan"
             />
         </div>
-
-        <ins
-            class="adsbygoogle"
-            style="display:block;max-width:100%;overflow:hidden;margin:10px;"
-            data-ad-client="ca-pub-4388499329141185"
-            data-ad-slot="1787190081"
-            data-ad-format="auto"
-            data-full-width-responsive="true"
-        ></ins>
     </div>
 </template>
 
