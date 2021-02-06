@@ -18,13 +18,13 @@
               target="_blank"
               href="https://www.jx3box.com/tool/18151/"
             >
-              <i class="el-icon-trophy"></i>
+              <i class="el-icon-trophy"></i> 
               <span>游戏内看百科</span>
             </a>
           </li>
           <li class="qlink">
             <router-link :to="{ name: 'plan_list' }">
-              <i class="el-icon-document"></i>
+              <i class="el-icon-document"></i> 
               物品清单
             </router-link>
           </li>
@@ -38,7 +38,7 @@
           </li>
           <li class="qlink">
             <a style="cursor:not-allowed;background-color:#CCCCCC;">
-              <i class="el-icon-lollipop"></i>
+              <i class="el-icon-lollipop"></i> 
               <span>宠物图鉴</span>
             </a>
           </li>
