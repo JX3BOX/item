@@ -84,9 +84,9 @@
                           <!-- <i class="el-icon-tickets"></i>  -->
                           <span v-text="item.title"></span>
                         </span>
-                        <span class="u-desc" v-if="item.description">
-                          <i class="el-icon-mic"></i>
-                          <span v-html="item.description"></span>
+                        <span class="u-desc">
+                          <i class="el-icon-mic"></i> 
+                          <span>{{item.description || 'By ' + item.user_nickname}}</span>
                         </span>
                       </div>
                     </router-link>
