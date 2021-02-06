@@ -31,13 +31,13 @@ function post_item_plan_stat(id) {
     });
 }
 
-function getRank() {
+function getRank(length=24) {
     return $next.get("api/summary/visit/rank", {
         params: {
             postType: "item",
             postAction: "views",
             sort: "7days",
-            pageSize: 24,
+            pageSize: length,
         },
     });
 }

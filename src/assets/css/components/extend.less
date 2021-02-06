@@ -46,7 +46,7 @@
         text-align: center;
         font-size: 12px;
         color: #888;
-        border-bottom: 1px solid #ebeef5;
+        // border-bottom: 1px solid #ebeef5;
         padding: 10px 0;
         &:hover {
             color: @pink;
@@ -185,12 +185,15 @@
 }
 .m-items-my-list{
     .mt(10px);
-    .clearfix;
+    .u-list{
+        .clearfix;
+    }
     .u-item{
         .fl;
         .mr(5px);
     }
     .u-more{
+        .db;
         text-align: center;
         font-size: 12px;
         color: #888;
