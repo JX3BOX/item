@@ -49,7 +49,7 @@
                             >
                         </div>
                     </router-link>
-                    <a class="u-more" href="/dashboard/#/other" target="_blank"
+                    <a class="u-more" href="/dashboard/#/other/item_plan" target="_blank"
                         >查看更多 &raquo;</a
                     >
                 </template>
