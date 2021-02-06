@@ -81,7 +81,7 @@
                       </div>
                       <div class="m-carousel-content">
                         <span class="u-title">
-                          <i class="el-icon-tickets"></i> 
+                          <!-- <i class="el-icon-tickets"></i>  -->
                           <span v-text="item.title"></span>
                         </span>
                         <span class="u-desc" v-if="item.description">
