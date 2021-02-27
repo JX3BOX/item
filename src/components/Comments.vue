@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import Comment from "@/components/Comment.vue";
-
-const { JX3BOX, User } = require("@jx3box/jx3box-common");
 const qs = require("qs");
+import Comment from "@/components/Comment.vue";
+import JX3BOX from '@jx3box/jx3box-common/js/jx3box.json'
+import User from '@jx3box/jx3box-common/js/user.js'
 export default {
     name: "Comments",
     props: ["item_id"],
