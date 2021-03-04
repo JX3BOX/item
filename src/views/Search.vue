@@ -28,7 +28,7 @@
     props: [],
     data: function () {
       return {
-        items: [],
+        items: null,
         total: 0,
         page: 1,
         length: 15,
@@ -56,6 +56,7 @@
       $route: {
         immediate: true,
         handler() {
+          this.items = null;  // 加载中状态
           this.page = parseInt(this.$route.query.page);
           let params = {
             ids: this.$route.query.ids ? this.$route.query.ids.split(',') : [],
@@ -74,7 +75,7 @@
                 this.items = data.data.data;
                 this.total = data.data.total;
               } else {
-                this.items = null;
+                this.items = [];
                 this.total = 0;
               }
             }

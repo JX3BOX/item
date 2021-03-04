@@ -1,6 +1,7 @@
 <template>
   <el-row class="m-items">
-    <el-col :xs="24" :md="24" class="u-list-empty" v-if="!$_.get(items,'length')">👻 暂无记录</el-col>
+    <el-col :xs="24" :md="24" class="u-list-empty" v-if="items && !items.length">👻 暂无记录</el-col>
+    <el-col :xs="24" :md="24" class="u-list-empty" v-if="items === null">🐷 搜索记录中</el-col>
     <template v-for="(item, key) in items">
       <el-col v-if="JSON.stringify(item) !== '{}'" :key="key" :xs="24" :md="24" class="m-item-container">
         <router-link class="m-link" :target="target_filter()" :to="url_filter(item.id)">
@@ -39,7 +40,7 @@ export default {
   },
   components: {
     ItemIcon,
-  }
+  },
 };
 </script>
 
