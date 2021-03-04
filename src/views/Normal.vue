@@ -57,6 +57,7 @@
       $route: {
         immediate: true,
         handler() {
+          this.items = null;  // 加载中状态
           this.page = parseInt(this.$route.query.page);
           // 获取菜单物品列表
           get_menu_items({
@@ -70,10 +71,10 @@
               if (data.code === 200) {
                 this.items = data.data.data;
                 this.items_total = data.data.total;
+              } else {
+                this.items = [];
+                this.items_total = 0;
               }
-            },
-            () => {
-              this.items = false;
             }
           );
         },
