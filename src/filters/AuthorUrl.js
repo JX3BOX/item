@@ -3,8 +3,8 @@
  * @param {*} user_id 用户ID
  */
 
-const {__Root} = require("@jx3box/jx3box-common/js/jx3box.json");
+import { authorLink } from "@jx3box/jx3box-common/js/utils";
 
 export default (user_id) => {
-  return user_id ? `${__Root}author/?uid=${user_id}` : null;
-}
+    return authorLink(user_id);
+};
