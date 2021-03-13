@@ -216,7 +216,7 @@
                         </div>
                         <div class="other">
                             <div v-if="post.user_avatar" class="avatar">
-                                <img :src="post.user_avatar" />
+                                <img :src="post.user_avatar | showAvatar" />
                             </div>
                             <div class="done">
                                 <a
@@ -279,8 +279,8 @@ import Search from "@/components/Search.vue";
 import RelationPlans from "@/components/RelationPlans.vue";
 import { post_item_stat } from "../service/stat.js";
 import { get_item } from "../service/item.js";
-
-const { JX3BOX } = require("@jx3box/jx3box-common");
+import {getThumbnail} from '@jx3box/jx3box-common/js/utils'
+import {JX3BOX} from '@jx3box/jx3box-common'
 
 export default {
     name: "Detail",
@@ -385,6 +385,11 @@ export default {
             },
         },
     },
+    filters : {
+        showAvatar : function (val){
+            return val && getThumbnail(val,32,true) || getThumbnail(JX3BOX.default_avatar,32,true)
+        }
+    }
 };
 </script>
 

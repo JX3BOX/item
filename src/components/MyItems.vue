@@ -1,11 +1,31 @@
 <template>
     <div class="m-items-my">
-        <div>
+        <div class="m-items-hotItems">
             <h3 class="c-sidebar-right-title">
                 <i class="u-icon u-icon-mycollection"
                     ><img svg-inline src="../assets/img/my.svg"
                 /></i>
-                <span>{{ isLogin ? "收藏物品" : "热门物品" }}</span>
+                <span>热门物品</span>
+            </h3>
+            <div class="m-items-my-list">
+                <div class="u-list" v-if="hotitems && hotitems.length">
+                    <router-link
+                        class="u-item"
+                        v-for="(item, key) in hotitems"
+                        :key="key"
+                        :to="{ name: 'view', params: { item_id: item.id } }"
+                    >
+                        <ItemIcon :item="item" />
+                    </router-link>
+                </div>
+            </div>
+        </div>
+        <div class="m-items-myFav" v-if="isLogin">
+            <h3 class="c-sidebar-right-title">
+                <i class="u-icon u-icon-mycollection"
+                    ><img svg-inline src="../assets/img/my.svg"
+                /></i>
+                <span>收藏物品</span>
             </h3>
             <div class="m-items-my-list">
                 <div class="u-list" v-if="data && data.length">
@@ -40,16 +60,16 @@ export default {
     data: function() {
         return {
             isLogin: User.isLogin(),
+            // isLogin: true,
             data: [],
+            hotitems: [],
             length: 24,
         };
     },
     computed: {},
     methods: {
         loadItems: function(ids, limit) {
-            get_items({ ids: ids, limit: limit }).then((res) => {
-                this.data = res.data.data.data;
-            });
+            return get_items({ ids: ids, limit: limit });
         },
     },
     mounted: function() {
@@ -64,26 +84,31 @@ export default {
                     });
                 }
 
-                this.loadItems(ids, this.length);
-            });
-        } else {
-            // 获取热门物品
-            getRank().then((data) => {
-                data = data.data;
-
-                let ranks = [],
-                    item_ids = [];
-                for (let i in data) {
-                    let name = this.$_.get(data, `${i}.name`, "-");
-                    let item_id = this.$_.get(name.split("-"), 1, "");
-                    if (item_id) {
-                        item_ids.push(item_id);
-                        ranks[item_id] = this.$_.get(data, `${i}.value`, {});
-                    }
-                }
-                this.loadItems(item_ids, this.length);
+                this.loadItems(ids, this.length).then((res) => {
+                    this.data = res.data.data.data;
+                });
             });
         }
+        // 获取热门物品
+        getRank().then((data) => {
+            data = data.data;
+
+            let ranks = [],
+                item_ids = [];
+            for (let i in data) {
+                let name = this.$_.get(data, `${i}.name`, "-");
+                let item_id = this.$_.get(name.split("-"), 1, "");
+                if (item_id) {
+                    item_ids.push(item_id);
+                    ranks[item_id] = this.$_.get(data, `${i}.value`, {});
+                }
+            }
+
+            this.loadItems(item_ids, this.length).then((res) => {
+                this.hotitems = res.data.data.data;
+                // this.data = res.data.data.data;
+            });
+        });
     },
     components: {
         ItemIcon,

@@ -157,7 +157,9 @@
                 </div>
                 <div class="m-plan-op">
                     <Fav post-type="item_plan" :post-id="plan.id" />
-                    <template v-if="user.id == plan.user_id || user.group >= 64">
+                    <template
+                        v-if="user.id == plan.user_id || user.group >= 64"
+                    >
                         <el-button
                             type="primary"
                             icon="el-icon-edit"
@@ -191,10 +193,7 @@
                     ><i class="el-icon-chat-line-square"></i> 讨论</span
                 ></el-divider
             >
-            <jx3-comment
-                :id="plan.id"
-                category="item_plan"
-            />
+            <jx3-comment :id="plan.id" category="item_plan" />
         </div>
     </div>
 </template>
@@ -203,15 +202,14 @@
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import ItemSimple from "@jx3box/jx3box-editor/src/ItemSimple";
 import Equip from "@jx3box/jx3box-editor/src/Equip";
-
-const $_ = require("lodash");
+import $_ from "lodash";
 import EquipPosition from "@jx3box/jx3box-editor/service/enum/EquipPosition";
 import Fav from "@jx3box/jx3box-common-ui/src/Fav.vue";
-const { JX3BOX } = require("@jx3box/jx3box-common");
+import { JX3BOX } from "@jx3box/jx3box-common";
 import User from "@jx3box/jx3box-common/js/user.js";
 import PlanSearch from "../components/PlanSearch";
 import { post_item_plan_stat } from "../service/stat.js";
-import {getThumbnail} from '@jx3box/jx3box-common/js/utils'
+import { getThumbnail } from "@jx3box/jx3box-common/js/utils";
 import {
     get_item_plan,
     get_my_item_plans,
@@ -306,11 +304,14 @@ export default {
             });
         },
     },
-    filters : {
-        showAvatar : function (val){
-            return getThumbnail(val,24,true)
-        }
-    }
+    filters: {
+        showAvatar: function(val) {
+            return (
+                (val && getThumbnail(val, 32, true)) ||
+                getThumbnail(JX3BOX.default_avatar, 20, true)
+            );
+        },
+    },
 };
 </script>
 

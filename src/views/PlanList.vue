@@ -3,8 +3,7 @@
         <PlanSearch />
         <div class="m-plans">
             <template v-if="item_plans && item_plans.length">
-              
-                <router-link 
+                <router-link
                     :to="{
                         name: 'plan_view',
                         params: { plan_id: plan.id },
@@ -30,7 +29,9 @@
                         </span>
                     </div>
                     <div class="u-title">{{ plan.title }}</div>
-                    <div class="u-description">{{plan.description || 'By ' + plan.user_nickname}}</div>
+                    <div class="u-description">
+                        {{ plan.description || "By " + plan.user_nickname }}
+                    </div>
                     <div class="u-meta">
                         <!-- <span class="u-author">
                             <img
