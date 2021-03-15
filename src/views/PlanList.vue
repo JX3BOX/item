@@ -80,7 +80,7 @@ const { JX3BOX } = require("@jx3box/jx3box-common");
 import PlanSearch from "../components/PlanSearch";
 import { get_item_plans } from "../service/item_plan.js";
 import { getThumbnail, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
-import { default_avatar } from "@jx3box/jx3box-common/js/jx3box.json";
+import { default_avatar } from "@jx3box/jx3box-common/data/jx3box.json";
 
 export default {
     name: "PlanList",

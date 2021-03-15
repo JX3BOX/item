@@ -208,7 +208,7 @@ import Fav from "@jx3box/jx3box-common-ui/src/Fav.vue";
 import { JX3BOX } from "@jx3box/jx3box-common";
 import User from "@jx3box/jx3box-common/js/user.js";
 import PlanSearch from "../components/PlanSearch";
-import { post_item_plan_stat } from "../service/stat.js";
+import { postStat } from "@jx3box/jx3box-common/js/stat";
 import { getThumbnail } from "@jx3box/jx3box-common/js/utils";
 import {
     get_item_plan,
@@ -255,7 +255,7 @@ export default {
         };
     },
     mounted: function() {
-        post_item_plan_stat(this.$route.params.plan_id);
+        postStat("item_plan", this.$route.params.plan_id);
     },
     watch: {
         "$route.params.plan_id": {

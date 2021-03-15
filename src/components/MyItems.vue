@@ -52,7 +52,7 @@
 <script>
 import User from "@jx3box/jx3box-common/js/user";
 import ItemIcon from "@/components/ItemIcon";
-import { getRank } from "../service/stat.js";
+import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 import { get_items, getMyFavItems } from "@/service/item.js";
 export default {
     name: "",
@@ -90,7 +90,7 @@ export default {
             });
         }
         // 获取热门物品
-        getRank().then((data) => {
+        getStatRank('item').then((data) => {
             data = data.data;
 
             let ranks = [],

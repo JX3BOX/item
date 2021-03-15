@@ -68,7 +68,7 @@
 
 <script>
 import { get_my_item_plans } from "@/service/item_plan.js";
-import { __Links } from "@jx3box/jx3box-common/js/jx3box.json";
+import { __Links } from "@jx3box/jx3box-common/data/jx3box.json";
 import User from '@jx3box/jx3box-common/js/user'
 export default {
     name: "",

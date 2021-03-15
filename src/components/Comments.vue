@@ -27,7 +27,7 @@
 <script>
 const qs = require("qs");
 import Comment from "@/components/Comment.vue";
-import JX3BOX from '@jx3box/jx3box-common/js/jx3box.json'
+import JX3BOX from '@jx3box/jx3box-common/data/jx3box.json'
 import User from '@jx3box/jx3box-common/js/user.js'
 export default {
     name: "Comments",

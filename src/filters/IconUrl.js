@@ -8,7 +8,7 @@ const {
     __ossMirror,
     __imgPath,
     __iconPath
-} = require("@jx3box/jx3box-common/js/jx3box.json");
+} = require("@jx3box/jx3box-common/data/jx3box.json");
 
 export default (icon_id) => {
     if (isNaN(parseInt(icon_id))) {

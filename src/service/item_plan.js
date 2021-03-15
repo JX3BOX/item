@@ -1,5 +1,5 @@
 import { $http, $helper } from "./axios";
-import { __helperUrl } from "@jx3box/jx3box-common/js/jx3box.json";
+import { __helperUrl } from "@jx3box/jx3box-common/data/jx3box.json";
 import User from "@jx3box/jx3box-common/js/user";
 import store from "@/store";
 

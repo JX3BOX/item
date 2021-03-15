@@ -277,7 +277,7 @@ import Revisions from "@/components/Revisions.vue";
 import Comments from "@/components/Comments.vue";
 import Search from "@/components/Search.vue";
 import RelationPlans from "@/components/RelationPlans.vue";
-import { post_item_stat } from "../service/stat.js";
+import { postStat } from "@jx3box/jx3box-common/js/stat";
 import { get_item } from "../service/item.js";
 import {getThumbnail} from '@jx3box/jx3box-common/js/utils'
 import {JX3BOX} from '@jx3box/jx3box-common'
@@ -365,7 +365,7 @@ export default {
         },
     },
     mounted: function() {
-        post_item_stat(this.$route.params.item_id);
+        postStat('item',this.$route.params.item_id);
     },
     watch: {
         "$route.params.item_id": {
