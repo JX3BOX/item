@@ -45,9 +45,9 @@
                         </router-link>
                     </li>
                     <li class="qlink">
-                        <a style="cursor:not-allowed;background-color:#CCCCCC;">
+                        <a target="_blank" href="https://www.jx3box.com/knowledge/#/pet">
                             <i class="el-icon-lollipop"></i>
-                            <span>宠物图鉴</span>
+                            <span> 宠物密鉴</span>
                         </a>
                     </li>
                 </ul>
