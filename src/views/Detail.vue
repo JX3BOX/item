@@ -331,22 +331,28 @@ export default {
         },
         // 获取物品最新攻略
         get_item_newest_post() {
-            if (!this.$route.params.item_id) return;
-            this.$http({
-                url: `${JX3BOX.__helperUrl}api/wiki/post`,
-                headers: { Accept: "application/prs.helper.v2+json" },
-                params: {
-                    type: "item",
-                    source_id: this.$route.params.item_id,
-                },
-                withCredentials: true,
-            })
-                .then((res) => {
-                    this.post = res.data.data.post || {};
-                })
-                .catch((err) => {
-                    this.post = null;
-                });
+          if (!this.$route.params.item_id) return;
+          this.$http({
+            url: `${JX3BOX.__helperUrl}api/wiki/post`,
+            headers: {Accept: "application/prs.helper.v2+json"},
+            params: {
+              type: "item",
+              source_id: this.$route.params.item_id,
+            },
+            withCredentials: true,
+          }).then((res) => {
+            res = res.data;
+            if(res.code === 200) {
+              let wiki_post = res.data;
+              this.post = wiki_post.post;
+              if (wiki_post && wiki_post.source) {
+                let pet = wiki_post.source.pet;
+                if (pet.id) postStat('pet', pet.id);
+              }
+            }
+          }).catch((err) => {
+            this.post = null;
+          });
         },
         // 获取物品攻略
         get_item_post() {
