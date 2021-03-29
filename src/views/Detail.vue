@@ -347,7 +347,7 @@ export default {
               this.post = wiki_post.post;
               if (wiki_post && wiki_post.source) {
                 let pet = wiki_post.source.pet;
-                if (pet.id) postStat('pet', pet.id);
+                if (pet && pet.id) postStat('pet', pet.id);
               }
             }
           }).catch((err) => {
