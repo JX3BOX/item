@@ -204,7 +204,7 @@ import ItemSimple from "@jx3box/jx3box-editor/src/ItemSimple";
 import Equip from "@jx3box/jx3box-editor/src/Equip";
 import $_ from "lodash";
 import EquipPosition from "@jx3box/jx3box-editor/service/enum/EquipPosition";
-import Fav from "@jx3box/jx3box-common-ui/src/Fav.vue";
+import Fav from "@jx3box/jx3box-common-ui/src/interact/Fav.vue";
 import { JX3BOX } from "@jx3box/jx3box-common";
 import User from "@jx3box/jx3box-common/js/user.js";
 import PlanSearch from "../components/PlanSearch";

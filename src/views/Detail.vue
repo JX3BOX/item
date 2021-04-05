@@ -270,7 +270,7 @@
 
 <script>
 import Article from "@jx3box/jx3box-editor/src/Article.vue";
-import Fav from "@jx3box/jx3box-common-ui/src/Fav.vue";
+import Fav from "@jx3box/jx3box-common-ui/src/interact/Fav.vue";
 import Item from "@jx3box/jx3box-editor/src/Item.vue";
 import ItemIcon from "@/components/ItemIcon.vue";
 import Revisions from "@/components/Revisions.vue";
