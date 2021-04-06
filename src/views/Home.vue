@@ -156,7 +156,8 @@
                                         :href="post.user_id | author_url"
                                         class="u-name"
                                         v-text="post.user_nickname"
-                                    ></a>
+                                    v-if="post.user_id"></a>
+                                    <span v-else class="u-name">{{post.user_nickname}}</span>
                                 </div>
                                 <div
                                     class="u-updated"
