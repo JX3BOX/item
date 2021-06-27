@@ -179,7 +179,7 @@
 
         <div class="w-post">
             <div
-                v-if="post && JSON.stringify(post) === '{}'"
+                v-if="!post || post && JSON.stringify(post) === '{}'"
                 class="m-item-view-null"
             >
                 <i class="el-icon-s-opportunity"></i>
