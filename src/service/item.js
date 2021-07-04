@@ -37,6 +37,17 @@ function get_item_relation_plans(item_id, params) {
     });
 }
 
+// 物品价格
+function get_item_prices(item_id, params) {
+    if (!item_id) return;
+    return $http({
+        url: `${__helperUrl}api/item/${item_id}/prices`,
+        headers: { Accept: "application/prs.helper.v2+json" },
+        withCredentials: true,
+        params: params,
+    });
+}
+
 function get_items(params) {
     return $http.get(`${__helperUrl}api/items`, {
         headers: { Accept: "application/prs.helper.v2+json" },
@@ -71,6 +82,7 @@ export {
     get_items_count,
     get_item,
     get_item_relation_plans,
+    get_item_prices,
     get_items,
     get_items_search,
     get_menu_items,

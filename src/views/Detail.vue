@@ -177,6 +177,8 @@
 
         <relation-plans :item_id="item.id" />
 
+        <item-prices :item_id="item.id" />
+
         <div class="w-post">
             <div
                 v-if="!post || post && JSON.stringify(post) === '{}'"
@@ -277,6 +279,7 @@ import Revisions from "@/components/Revisions.vue";
 import Comments from "@/components/Comments.vue";
 import Search from "@/components/Search.vue";
 import RelationPlans from "@/components/RelationPlans.vue";
+import ItemPrices from "@/components/ItemPrices.vue";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 import { get_item } from "../service/item.js";
 import {getThumbnail} from '@jx3box/jx3box-common/js/utils'
@@ -300,6 +303,7 @@ export default {
         Search,
         Fav,
         "relation-plans": RelationPlans,
+        "item-prices": ItemPrices,
     },
     methods: {
         go_to_comment() {
