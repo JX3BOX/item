@@ -8,9 +8,7 @@
                 <span>便捷入口</span>
             </template>
             <template slot="head-actions">
-                <a class="u-more" target="_blank" :href="feedback"
-                    >反馈建议 &raquo;</a
-                >
+                <a class="u-more" target="_blank" :href="feedback">反馈建议 &raquo;</a>
             </template>
             <template slot="body">
                 <ul class="m-qlinks">
@@ -47,22 +45,22 @@
                     <li class="qlink">
                         <a target="_blank" href="https://www.jx3box.com/knowledge/#/pet">
                             <i class="el-icon-lollipop"></i>
-                            <span> 宠物密鉴</span>
+                            <span>宠物密鉴</span>
                         </a>
                     </li>
                 </ul>
             </template>
         </WikiPanel>
 
-        <WikiPanel border-none="true">
+        <SearchHottest />
+
+        <!-- <WikiPanel border-none="true">
             <template slot="head-title">
                 <i class="el-icon-notebook-1"></i>
                 <span>最新清单</span>
             </template>
             <template slot="head-actions">
-                <router-link :to="{ name: 'plan_list' }" class="u-more"
-                    >查看更多 &raquo;</router-link
-                >
+                <router-link :to="{ name: 'plan_list' }" class="u-more">查看更多 &raquo;</router-link>
             </template>
             <template slot="body">
                 <div class="m-plan-list">
@@ -107,18 +105,17 @@
                                             </div>
                                             <div class="m-carousel-content">
                                                 <span class="u-title">
-                                                    <!-- <i class="el-icon-tickets"></i>  -->
-                                                    <span
-                                                        v-text="item.title"
-                                                    ></span>
+                                                    <span v-text="item.title"></span>
                                                 </span>
                                                 <span class="u-desc">
                                                     <i class="el-icon-mic"></i>
-                                                    <span>{{
+                                                    <span>
+                                                        {{
                                                         item.description ||
-                                                            "By " +
-                                                                item.user_nickname
-                                                    }}</span>
+                                                        "By " +
+                                                        item.user_nickname
+                                                        }}
+                                                    </span>
                                                 </span>
                                             </div>
                                         </router-link>
@@ -130,9 +127,7 @@
                     <div v-else style="text-align:center">😂 暂无物品清单</div>
                 </div>
             </template>
-        </WikiPanel>
-
-        <SearchHottest />
+        </WikiPanel>-->
 
         <WikiPanel border-none="true">
             <template slot="head-title">
@@ -141,11 +136,7 @@
             </template>
             <template slot="body">
                 <div class="wiki-post-list" v-if="newest_posts.length">
-                    <div
-                        class="wiki-post"
-                        v-for="(post, key) in newest_posts"
-                        :key="key"
-                    >
+                    <div class="wiki-post" v-for="(post, key) in newest_posts" :key="key">
                         <div class="m-about-post">
                             <div class="m-user">
                                 <div class="u-author">
@@ -158,7 +149,8 @@
                                         :href="post.user_id | author_url"
                                         class="u-name"
                                         v-text="post.user_nickname"
-                                    v-if="post.user_id"></a>
+                                        v-if="post.user_id"
+                                    ></a>
                                     <span v-else class="u-name">{{post.user_nickname}}</span>
                                 </div>
                                 <div
@@ -279,7 +271,7 @@ export default {
         });
     },
     filters: {
-        showAvatar: function(val) {
+        showAvatar: function (val) {
             return (
                 (val && getThumbnail(val, 20, true)) ||
                 getThumbnail(JX3BOX.default_avatar, 20, true)

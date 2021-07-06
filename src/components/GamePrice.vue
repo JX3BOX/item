@@ -45,3 +45,12 @@ export default {
     mounted: function () {},
 };
 </script>
+
+<style scoped lang="less">
+    .m-game-price{
+        img{
+            .y;
+        }
+    }
+    
+</style>
