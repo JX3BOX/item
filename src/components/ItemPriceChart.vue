@@ -4,7 +4,7 @@
       <h4 class="u-title">📈 价格波动</h4>
     </div>
     <div class="m-body">
-      <div v-show="logs.length" id="m-item-price-chart"/>
+      <div v-show="!hidden" id="m-item-price-chart"/>
       <div v-show="!logs.length" style="text-align:center">🐖 暂无记录</div>
     </div>
   </div>
@@ -21,12 +21,14 @@
       return {
         logs: [],
         chart: null,
+        hidden: false,
       };
     },
     mounted() {
       this.chart = new Chart({
         container: 'm-item-price-chart',
         autoFit: true,
+        width: '100%',
         height: 500,
       });
 
@@ -72,6 +74,8 @@
           .position('date*price')
           .color('type')
           .shape('circle');
+
+      this.hidden = true;
     },
     methods: {
       get_data() {
@@ -87,6 +91,7 @@
                 output.push({date: log.date, price: log.max_price, type: '最高价'});
               }
               this.logs = output;
+              this.hidden = !(output.length > 0);
             }
           });
         }
