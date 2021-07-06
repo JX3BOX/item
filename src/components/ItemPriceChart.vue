@@ -92,7 +92,7 @@
                     container: 'm-item-price-chart',
                     autoFit: true,
                     width: '100%',
-                    height: 400,
+                    height: 300,
                 });
 
                 this.chart.scale({

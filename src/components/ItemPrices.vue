@@ -44,7 +44,7 @@
         methods: {
             get_data() {
                 if (this.item_id) {
-                    get_item_prices(this.item_id, {server: this.server, limit: 30}).then((data) => {
+                    get_item_prices(this.item_id, {server: this.server, limit: 15}).then((data) => {
                         data = data.data;
                         if (data.code === 200) {
                             this.item = data.data.item;
