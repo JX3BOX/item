@@ -290,7 +290,7 @@
                 post: null,
                 server: '',
                 servers: servers,
-                activeTab: this.item && this.item.BindType != 3 ? 'item-price-chart' : 'relation-plans',
+                activeTab: 'item-price-chart',
             };
         },
         components: {
@@ -328,6 +328,7 @@
                         data = data.data;
                         if (data.code === 200) {
                             this.item = data.data.item;
+                            this.activeTab = this.item && this.item.BindType != 3 ? 'item-price-chart' : 'relation-plans'
                             this.$store.state.sidebar.AucGenre = parseInt(
                                 this.item.AucGenre
                             );
