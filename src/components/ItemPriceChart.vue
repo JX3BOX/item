@@ -1,9 +1,41 @@
 <template>
-  <div class="m-module">
+  <div class="m-module m-item-price-logs">
     <div class="m-head">
       <h4 class="u-title">📈 价格波动</h4>
     </div>
     <div class="m-body">
+      <!-- 今日价格 -->
+      <el-row class="m-today" v-if="today">
+        <el-col :span="8">
+          <div class="u-label">今日均价</div>
+          <div class="u-value" v-text="$options.filters.item_price(today.price)"></div>
+        </el-col>
+        <el-col :span="8">
+          <div class="u-label">今日最低价</div>
+          <div class="u-value" v-text="$options.filters.item_price(today.min_price)"></div>
+        </el-col>
+        <el-col :span="8">
+          <div class="u-label">今日最高价</div>
+          <div class="u-value" v-text="$options.filters.item_price(today.max_price)"></div>
+        </el-col>
+      </el-row>
+
+      <!-- 昨日价格 -->
+      <el-row class="m-today" v-if="!today && yesterday">
+        <el-col :span="8">
+          <div class="u-label">昨日均价</div>
+          <div class="u-value" v-text="$options.filters.item_price(yesterday.price)"></div>
+        </el-col>
+        <el-col :span="8">
+          <div class="u-label">昨日最低价</div>
+          <div class="u-value" v-text="$options.filters.item_price(yesterday.min_price)"></div>
+        </el-col>
+        <el-col :span="8">
+          <div class="u-label">昨日最高价</div>
+          <div class="u-value" v-text="$options.filters.item_price(yesterday.max_price)"></div>
+        </el-col>
+      </el-row>
+
       <div v-show="!hidden" id="m-item-price-chart"/>
       <div v-show="!logs.length" style="text-align:center">🐖 暂无记录</div>
     </div>
@@ -19,6 +51,8 @@
     props: ['item_id', 'server'],
     data() {
       return {
+        today: null,
+        yesterday: null,
         logs: [],
         chart: null,
         hidden: false,
@@ -29,7 +63,7 @@
         container: 'm-item-price-chart',
         autoFit: true,
         width: '100%',
-        height: 500,
+        height: 400,
       });
 
       this.chart.scale({
@@ -40,7 +74,7 @@
           nice: true,
         },
       });
-      
+
       this.chart.axis('price', {
         label: {
           formatter: (val) => {
@@ -87,6 +121,8 @@
                 output.push({date: log.date, price: log.min_price, type: '最低价'});
                 output.push({date: log.date, price: log.max_price, type: '最高价'});
               }
+              this.today = data.data.today;
+              this.yesterday = data.data.yesterday;
               this.logs = output;
               this.hidden = !(output.length > 0);
             }
@@ -113,5 +149,5 @@
 </script>
 
 <style lang="less">
-  @import '../assets/css/components/item_prices.less';
+  @import '../assets/css/components/item_price_logs.less';
 </style>
