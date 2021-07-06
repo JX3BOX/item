@@ -189,7 +189,7 @@
                 <el-tab-pane label="💰 近期价格" name="item-prices" v-if="item && item.BindType != 3">
                     <item-prices :item_id="item.id" :server="server"/>
                 </el-tab-pane>
-                <el-tab-pane label="📜 相关物品清单" name="third">
+                <el-tab-pane label="📜 相关物品清单" name="relation-plans">
                     <relation-plans :item_id="item.id"/>
                 </el-tab-pane>
             </el-tabs>
@@ -290,7 +290,7 @@
                 post: null,
                 server: '',
                 servers: servers,
-                activeTab: 'item-price-chart',
+                activeTab: this.item && this.item.BindType != 3 ? 'item-price-chart' : 'relation-plans',
             };
         },
         components: {

@@ -1,6 +1,6 @@
 <template>
-  <div class="m-relation-plans" v-if="relation_plans.length">
-      <el-row :gutter="20">
+  <div class="m-relation-plans">
+      <el-row :gutter="20" v-if="relation_plans.length">
           <el-col :span="12" v-for="(plan, key) in relation_plans" :key="key">
               <div class="u-plan">
         <span v-if="plan.type == 1" class="u-type" :class="'u-type-' + plan.type">
@@ -18,6 +18,7 @@
               </div>
           </el-col>
       </el-row>
+      <div style="text-align:center">🐖 暂无记录</div>
   </div>
 </template>
 
