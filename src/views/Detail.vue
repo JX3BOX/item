@@ -175,7 +175,7 @@
             </div>
         </div>
 
-        <div class="m-tabs" v-if="item && item.CanTrade">
+        <div class="m-tabs">
             <el-select v-if="activeTab === 'item-price-chart' || activeTab === 'item-prices'"
                        class="u-server" v-model="server" placeholder="请选择服务器" size="mini">
                 <el-option key="" label="前五低价区服" value=""></el-option>
@@ -183,10 +183,10 @@
             </el-select>
 
             <el-tabs v-model="activeTab" type="border-card" @tab-click="active_tab_handle">
-                <el-tab-pane label="📈 价格波动" name="item-price-chart">
+                <el-tab-pane label="📈 价格波动" name="item-price-chart" v-if="item && item.BindType != 3">
                     <item-price-chart ref="item_price_chart" :item_id="item.id" :server="server"/>
                 </el-tab-pane>
-                <el-tab-pane label="💰 近期价格" name="item-prices">
+                <el-tab-pane label="💰 近期价格" name="item-prices" v-if="item && item.BindType != 3">
                     <item-prices :item_id="item.id" :server="server"/>
                 </el-tab-pane>
                 <el-tab-pane label="📜 相关物品清单" name="third">
