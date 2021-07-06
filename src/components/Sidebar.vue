@@ -1,9 +1,10 @@
 <template>
     <div class="m-cj-aside-left">
         <div class="m-menus">
-            <router-link class="el-tree-node__label" :to="{ name: 'search', params: {keyword:''} }"
-                         style="display: block;padding-left: 24px; line-height: 28px;">全部
-            </router-link>
+            <router-link
+                class="u-all el-tree-node__label"
+                :to="{ name: 'search', params: {keyword:''} }"
+            ><i class="el-icon-caret-right"></i>全部</router-link>
             <el-tree
                 class="filter-tree"
                 :data="menus"
@@ -17,11 +18,7 @@
                     :to="menu_url(data, node)"
                 >
                     <span class="u-name" v-text="data.label"></span>
-                    <em
-                        v-if="data.items_total"
-                        class="u-count"
-                        v-text="`(${data.items_total})`"
-                    ></em>
+                    <em v-if="data.items_total" class="u-count" v-text="`(${data.items_total})`"></em>
                 </router-link>
             </el-tree>
         </div>
@@ -34,7 +31,7 @@ import Bus from "@jx3box/jx3box-common-ui/service/bus";
 export default {
     name: "Sidebar",
     props: ["sidebar"],
-    data: function() {
+    data: function () {
         return {
             menus: null,
         };
