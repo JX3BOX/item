@@ -40,12 +40,7 @@
           nice: true,
         },
       });
-
-      this.chart.tooltip({
-        showCrosshairs: true,
-        shared: true,
-      });
-
+      
       this.chart.axis('price', {
         label: {
           formatter: (val) => {
@@ -55,6 +50,8 @@
       });
 
       this.chart.tooltip({
+        showCrosshairs: true,
+        shared: true,
         customItems: (items) => {
           for (let index = 0; index < items.length; index++) {
             items[index].value = this.$options.filters.item_price(items[index].value)
