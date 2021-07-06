@@ -18,7 +18,7 @@
               </div>
           </el-col>
       </el-row>
-      <div style="text-align:center">🐖 暂无记录</div>
+      <div v-else style="text-align:center">🐖 暂无记录</div>
   </div>
 </template>
 
