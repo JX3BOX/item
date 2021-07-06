@@ -1,6 +1,9 @@
 <template>
     <div class="m-cj-aside-left">
         <div class="m-menus">
+            <router-link class="el-tree-node__label" :to="{ name: 'search', params: {keyword:''} }"
+                         style="display: block;padding-left: 24px; line-height: 28px;">全部
+            </router-link>
             <el-tree
                 class="filter-tree"
                 :data="menus"

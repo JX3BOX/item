@@ -1,30 +1,23 @@
 <template>
-  <div class="m-module" v-if="relation_plans.length">
-    <div class="m-head">
-      <h4 class="u-title">📜 相关物品清单</h4>
-    </div>
-    <div class="m-body">
-      <div class="m-relation-plans">
-        <el-row :gutter="20">
+  <div class="m-relation-plans" v-if="relation_plans.length">
+      <el-row :gutter="20">
           <el-col :span="12" v-for="(plan, key) in relation_plans" :key="key">
-            <div class="u-plan">
-            <span v-if="plan.type == 1" class="u-type" :class="'u-type-' + plan.type">
-              <img :src="plan_1_icon"/>
-            </span>
-              <span v-if="plan.type == 2" class="u-type" :class="'u-type-' + plan.type">
-              <img :src="plan_2_icon"/>
-            </span>
-              <router-link
-                  class="u-name"
-                  v-text="plan.title"
-                  :to="{ name: 'plan_view', params: { plan_id: plan.id } }"
-              ></router-link>
-              <span class="u-desc" v-text="plan.description"></span>
-            </div>
+              <div class="u-plan">
+        <span v-if="plan.type == 1" class="u-type" :class="'u-type-' + plan.type">
+          <img :src="plan_1_icon"/>
+        </span>
+                  <span v-if="plan.type == 2" class="u-type" :class="'u-type-' + plan.type">
+          <img :src="plan_2_icon"/>
+        </span>
+                  <router-link
+                      class="u-name"
+                      v-text="plan.title"
+                      :to="{ name: 'plan_view', params: { plan_id: plan.id } }"
+                  ></router-link>
+                  <span class="u-desc" v-text="plan.description"></span>
+              </div>
           </el-col>
-        </el-row>
-      </div>
-    </div>
+      </el-row>
   </div>
 </template>
 
