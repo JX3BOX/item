@@ -7,7 +7,7 @@
                     <i class="el-icon-right u-avg"></i> 今日均价
                 </div>
                 <div class="u-value u-avg">
-                    <GamePrice :price="today.price"/>
+                    <GamePrice :price="today.price" />
                 </div>
             </el-col>
             <el-col :span="8">
@@ -15,7 +15,7 @@
                     <i class="el-icon-bottom u-min"></i> 今日最低价
                 </div>
                 <div class="u-value u-min">
-                    <GamePrice :price="today.min_price"/>
+                    <GamePrice :price="today.min_price" />
                 </div>
             </el-col>
             <el-col :span="8">
@@ -23,7 +23,7 @@
                     <i class="el-icon-top u-max"></i> 今日最高价
                 </div>
                 <div class="u-value u-max">
-                    <GamePrice :price="today.max_price"/>
+                    <GamePrice :price="today.max_price" />
                 </div>
             </el-col>
         </el-row>
@@ -31,16 +31,28 @@
         <!-- 昨日价格 -->
         <el-row class="m-today" v-if="!today && yesterday">
             <el-col :span="8">
-                <div class="u-label">昨日均价</div>
-                <div class="u-value" v-text="$options.filters.item_price(yesterday.price)"></div>
+                <div class="u-label">
+                    <i class="el-icon-right u-avg"></i> 今日均价
+                </div>
+                <div class="u-value u-avg">
+                    <GamePrice :price="yesterday.price" />
+                </div>
             </el-col>
             <el-col :span="8">
-                <div class="u-label">昨日最低价</div>
-                <div class="u-value" v-text="$options.filters.item_price(yesterday.min_price)"></div>
+                <div class="u-label">
+                    <i class="el-icon-bottom u-min"></i> 今日最低价
+                </div>
+                <div class="u-value u-min">
+                    <GamePrice :price="yesterday.min_price" />
+                </div>
             </el-col>
             <el-col :span="8">
-                <div class="u-label">昨日最高价</div>
-                <div class="u-value" v-text="$options.filters.item_price(yesterday.max_price)"></div>
+                <div class="u-label">
+                    <i class="el-icon-top u-max"></i> 今日最高价
+                </div>
+                <div class="u-value u-max">
+                    <GamePrice :price="yesterday.max_price" />
+                </div>
             </el-col>
         </el-row>
 
@@ -55,7 +67,7 @@ import {
     get_item_price_logs,
     get_item_servers_price_logs,
 } from "../service/item";
-import GamePrice from '@/components/GamePrice.vue'
+import GamePrice from "@/components/GamePrice.vue";
 
 export default {
     name: "ItemPriceChart",
@@ -185,9 +197,9 @@ export default {
             this.render();
         },
     },
-    components : {
-        GamePrice
-    }
+    components: {
+        GamePrice,
+    },
 };
 </script>
 
