@@ -4,6 +4,11 @@
             <i class="el-icon-notebook-1"></i>
             <span>热搜物品</span>
         </template>
+        <template slot="head-actions">
+            <el-select class="u-server" v-model="server" placeholder="请选择服务器" size="mini">
+                <el-option v-for="serve in servers" :key="serve" :label="serve" :value="serve"></el-option>
+            </el-select>
+        </template>
         <template slot="body">
             <div class="m--list">
                 <el-carousel
@@ -60,13 +65,15 @@
 <script>
     import WikiPanel from "@jx3box/jx3box-common-ui/src/WikiPanel";
     import {get_items_search_hottest} from "@/service/item";
+    import servers from '@jx3box/jx3box-data/data/server/server_list.json';
 
     export default {
         name: "SearchHottest",
-        props: ['server'],
         data() {
             return {
                 items: [],
+                server: '斗转星移',
+                servers: servers,
             };
         },
         components: {

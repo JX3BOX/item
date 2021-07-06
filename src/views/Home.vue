@@ -132,7 +132,7 @@
             </template>
         </WikiPanel>
 
-        <SearchHottest server="斗转星移" />
+        <SearchHottest />
 
         <WikiPanel border-none="true">
             <template slot="head-title">
