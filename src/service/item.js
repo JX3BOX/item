@@ -48,6 +48,17 @@ function get_item_prices(item_id, params) {
     });
 }
 
+// 物品价格日志
+function get_item_price_logs(item_id, params) {
+    if (!item_id) return;
+    return $http({
+        url: `${__helperUrl}api/item/${item_id}/price/logs`,
+        headers: { Accept: "application/prs.helper.v2+json" },
+        withCredentials: true,
+        params: params,
+    });
+}
+
 function get_items(params) {
     return $http.get(`${__helperUrl}api/items`, {
         headers: { Accept: "application/prs.helper.v2+json" },
@@ -83,6 +94,7 @@ export {
     get_item,
     get_item_relation_plans,
     get_item_prices,
+    get_item_price_logs,
     get_items,
     get_items_search,
     get_menu_items,

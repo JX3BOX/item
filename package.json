@@ -10,6 +10,7 @@
     "update": "npm install @jx3box/jx3box-common-ui@latest @jx3box/jx3box-common@latest @jx3box/jx3box-editor@latest @jx3box/jx3box-comment-ui@latest"
   },
   "dependencies": {
+    "@antv/g2": "^4.1.19",
     "@jx3box/jx3box-comment-ui": "^1.4.4",
     "@jx3box/jx3box-common": "^6.4.8",
     "@jx3box/jx3box-common-ui": "^4.6.7",

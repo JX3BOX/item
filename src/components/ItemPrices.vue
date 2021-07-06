@@ -1,12 +1,7 @@
 <template>
   <div class="m-module">
     <div class="m-head">
-      <div class="fr" style="margin-top:5px;margin-right:10px">
-        <el-select v-model="server" placeholder="请选择服务器" size="mini">
-          <el-option v-for="serve in servers" :key="serve" :label="serve" :value="serve"></el-option>
-        </el-select>
-      </div>
-      <h4 class="u-title">📜 交易行近期价格</h4>
+      <h4 class="u-title">💰 近期价格</h4>
     </div>
     <div class="m-body">
       <table class="m-item-prices" v-if="prices.length">
@@ -41,17 +36,14 @@
 
 <script>
   import {get_item_prices} from '../service/item';
-  import servers from '@jx3box/jx3box-data/data/server/server_list.json';
 
   export default {
     name: "ItemPrices",
-    props: ["item_id"],
+    props: ['item_id', 'server'],
     data() {
       return {
         item: null,
         prices: [],
-        server: '',
-        servers: servers,
       };
     },
     methods: {
