@@ -22,7 +22,7 @@
             <span class="u-name" v-text="item.Name" :class="{white:item.Quality==1}"
                   :style="{color:$options.filters.item_color(item.Quality)}"></span>
           </td>
-          <td v-text="price.RequireLevel?price.RequireLevel:1"></td>
+          <td v-text="item && item.RequireLevel?item.RequireLevel:1"></td>
           <td v-text="$options.filters.date_format(price.created)"></td>
           <td v-text="price.server"></td>
           <td style="text-align:right" v-text="$options.filters.item_price(price.n_money)"></td>
