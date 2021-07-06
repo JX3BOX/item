@@ -132,6 +132,8 @@
             </template>
         </WikiPanel>
 
+        <SearchHottest server="斗转星移" />
+
         <WikiPanel border-none="true">
             <template slot="head-title">
                 <i class="el-icon-collection"></i>
@@ -225,6 +227,7 @@
 <script>
 import WikiPanel from "@jx3box/jx3box-common-ui/src/WikiPanel";
 import Search from "../components/Search.vue";
+import SearchHottest from "../components/SearchHottest.vue";
 import { iconLink, getThumbnail } from "@jx3box/jx3box-common/js/utils";
 import { get_item_posts } from "../service/item.js";
 import { get_item_plans } from "../service/item_plan.js";
@@ -244,6 +247,7 @@ export default {
     components: {
         Search,
         WikiPanel,
+        SearchHottest,
     },
     methods: {
         icon_url: iconLink,
