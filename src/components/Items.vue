@@ -1,14 +1,11 @@
 <template>
     <el-row class="m-items">
         <el-col :xs="24" :md="24" class="u-list-empty" v-if="items && !items.length">
-            👻 暂无记录
-            <!-- TODO:根据条件显示重新搜索 -->
-            <span class="u-research">
-                ，在
-                <b>全部分类下搜索</b>
-            </span>
+            <slot name="empty-message">👻 暂无记录</slot>
         </el-col>
-        <el-col :xs="24" :md="24" class="u-list-empty" v-if="items === null">🐷 搜索记录中</el-col>
+        <el-col :xs="24" :md="24" class="u-list-empty" v-if="items === null">
+            <slot name="loading-message">🐷 搜索记录中</slot>
+        </el-col>
         <template v-for="(item, key) in items">
             <el-col
                 v-if="JSON.stringify(item) !== '{}'"
