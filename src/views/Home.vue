@@ -52,7 +52,7 @@
             </template>
         </WikiPanel>
 
-        <SearchHottest />
+        <StarMarkItems />
 
         <!-- <WikiPanel border-none="true">
             <template slot="head-title">
@@ -219,7 +219,7 @@
 <script>
 import WikiPanel from "@jx3box/jx3box-common-ui/src/WikiPanel";
 import Search from "../components/Search.vue";
-import SearchHottest from "../components/SearchHottest.vue";
+import StarMarkItems from "../components/StarMarkItems.vue";
 import { iconLink, getThumbnail } from "@jx3box/jx3box-common/js/utils";
 import { get_item_posts } from "../service/item.js";
 import { get_item_plans } from "../service/item_plan.js";
@@ -239,7 +239,7 @@ export default {
     components: {
         Search,
         WikiPanel,
-        SearchHottest,
+        StarMarkItems,
     },
     methods: {
         icon_url: iconLink,
