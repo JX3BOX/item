@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@antv/g2": "^4.1.20",
-    "@jx3box/jx3box-comment-ui": "^1.5.1",
-    "@jx3box/jx3box-common": "^6.4.8",
+    "@jx3box/jx3box-comment-ui": "^1.5.2",
+    "@jx3box/jx3box-common": "^6.4.9",
     "@jx3box/jx3box-common-ui": "^4.6.8",
     "@jx3box/jx3box-editor": "^0.6.5",
     "axios": "^0.19.2",
