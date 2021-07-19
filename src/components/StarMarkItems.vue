@@ -28,6 +28,7 @@
                                     <span v-text="item.label"></span>
                                 </span>
                                 <span class="u-price">
+                                    <span class="u-trending" :class="item | showItemTrendingClass">{{item | showItemTrending}}</span>
                                     <template v-if="item.sub_days_0_price">
                                         <span>今日：</span>
                                         <GamePrice :price="item.sub_days_0_price" />
@@ -59,7 +60,7 @@
 <script>
 import WikiPanel from "@jx3box/jx3box-common-ui/src/WikiPanel";
 import { get_item_groups_with_price } from "@/service/item_group";
-import servers from "@jx3box/jx3box-data/data/server/server_list.json";
+import servers from "@jx3box/jx3box-data/data/server/server_cn.json";
 import GamePrice from "./GamePrice.vue";
 import { getProfile } from "@/service/user";
 import User from "@jx3box/jx3box-common/js/user";
@@ -114,6 +115,30 @@ export default {
             });
         }
     },
+    filters :{
+        showItemTrending : function (item){
+            if(item.sub_days_0_price && item.sub_days_1_price){
+                if((item.sub_days_0_price - item.sub_days_1_price) > 0){
+                    return '▲'
+                }else if((item.sub_days_0_price - item.sub_days_1_price) < 0){
+                    return '▼'
+                }else{
+                    return ''
+                }
+            }
+        },
+        showItemTrendingClass : function (item){
+            if(item.sub_days_0_price && item.sub_days_1_price){
+                if((item.sub_days_0_price - item.sub_days_1_price) > 0){
+                    return 'up'
+                }else if((item.sub_days_0_price - item.sub_days_1_price) < 0){
+                    return 'down'
+                }else{
+                    return 'keep'
+                }
+            }
+        }
+    }
 };
 </script>
 
@@ -148,23 +173,35 @@ export default {
         .bold;
     }
 
-    .u-name {
+    .u-name{
+        .db;.fl;
+        max-width: 100px;
+        overflow: hidden;
+        .nobreak;
     }
 
     .u-price {
         .fr;
         color: @color;
     }
+
+    .u-trending{
+        &.up{color:#fc3c3c;}
+        &.down{color:#49c10f;}
+        &.keep{
+            color:#aaa;
+        }
+    }
 }
 
-@media screen and (max-width: 1920px) {
+@media screen and (max-width: 1980px) {
     .m-price-list {
         .el-col {
             .w(33%);
         }
     }
 }
-@media screen and (max-width: 1280px) {
+@media screen and (max-width: @smallpc) {
     .m-price-list {
         .el-col {
             .w(50%);
