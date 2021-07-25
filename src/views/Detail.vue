@@ -140,7 +140,7 @@
 
         <div class="m-tabs">
             <div class="m-price-server">
-                <i class="el-icon-s-shop"></i> 全服价格 
+                <i class="el-icon-s-shop"></i> 全服价格
                 <el-select
                     v-if="activeTab === 'item-price-chart' || activeTab === 'item-prices'"
                     class="u-server"

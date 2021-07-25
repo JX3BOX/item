@@ -175,7 +175,7 @@ export default {
 
     .u-name{
         .db;.fl;
-        max-width: 100px;
+        max-width: 80px;
         overflow: hidden;
         .nobreak;
     }
