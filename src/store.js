@@ -10,6 +10,7 @@ let store = {
             AucSubTypeID: null,
         },
         my_item_plans: null,
+        client : location.href.includes('origin') ? 'origin' : 'std',
     },
     mutations: {},
     getters: {},

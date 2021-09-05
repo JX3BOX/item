@@ -189,6 +189,15 @@
                     <template v-if="post && JSON.stringify(post) !== '{}'">
                         <div class="content m-single-primary">
                             <Article :content="post.content" />
+                            <Thx
+                                class="m-thx"
+                                slot="single-append"
+                                :postId="id"
+                                postType="item"
+                                :userId="author_id"
+                                :adminBoxcoinEnable="isRevision"
+                                :userBoxcoinEnable="isRevision"
+                            />
                         </div>
                         <div class="other">
                             <div v-if="post.user_avatar" class="avatar">
@@ -268,6 +277,17 @@ export default {
             servers: servers,
             activeTab: "item-price-chart",
         };
+    },
+    computed : {
+        id : function (){
+            return ~~this.$route.params.item_id
+        },
+        isRevision: function () {
+            return !!this.$route.params.post_id;
+        },
+        author_id: function () {
+            return ~~this.post.user_id;
+        },
     },
     components: {
         "jx3-item": Item,
