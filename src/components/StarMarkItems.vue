@@ -9,10 +9,11 @@
                 <el-option v-for="serve in servers" :key="serve" :label="serve" :value="serve"></el-option>
             </el-select>
         </template>
-        <template slot="body">
+        <div slot="body" class="m-index-price">
             <div class="m-price-list" v-if="groups && groups.length">
+                <div v-for="i in 2" :key="'wrapper' + i">
                 <el-row :gutter="20" v-for="(group, key) in groups" :key="key">
-                    <el-col class="u-group-title" v-text="group.label"></el-col>
+                    <div :span="24" class="u-group-title" v-text="group.label"></div>
                     <el-col :span="6" v-for="(item, k) in group.items" :key="k">
                         <router-link
                             v-if="item"
@@ -28,7 +29,10 @@
                                     <span v-text="item.label"></span>
                                 </span>
                                 <span class="u-price">
-                                    <span class="u-trending" :class="item | showItemTrendingClass">{{item | showItemTrending}}</span>
+                                    <span
+                                        class="u-trending"
+                                        :class="item | showItemTrendingClass"
+                                    >{{item | showItemTrending}}</span>
                                     <template v-if="item.sub_days_0_price">
                                         <span>今日：</span>
                                         <GamePrice :price="item.sub_days_0_price" />
@@ -51,9 +55,10 @@
                         </router-link>
                     </el-col>
                 </el-row>
+                </div>
             </div>
             <div v-else style="text-align:center">😂 暂无数据</div>
-        </template>
+        </div>
     </WikiPanel>
 </template>
 
@@ -73,6 +78,21 @@ export default {
             servers: servers,
         };
     },
+    computed: {
+        item_ids: function () {
+            return this.$store.state.client == "origin"
+                ? ["origin"]
+                : [
+                      "wuxingshi",
+                      "baoxiang",
+                      "teshucailiao",
+                      "caijincailiao",
+                      "paodingcailiao",
+                      "shennongcailiao",
+                      "anqi",
+                  ];
+        },
+    },
     components: {
         WikiPanel,
         GamePrice,
@@ -82,15 +102,7 @@ export default {
         get_data() {
             get_item_groups_with_price({
                 server: this.server,
-                keys: [
-                    "wuxingshi",
-                    "baoxiang",
-                    "teshucailiao",
-                    "caijincailiao",
-                    "paodingcailiao",
-                    "shennongcailiao",
-                    "anqi",
-                ],
+                keys: this.item_ids,
             }).then((data) => {
                 data = data.data;
                 if (data.code === 200)
@@ -115,39 +127,51 @@ export default {
             });
         }
     },
-    filters :{
-        showItemTrending : function (item){
-            if(item.sub_days_0_price && item.sub_days_1_price){
-                if((item.sub_days_0_price - item.sub_days_1_price) > 0){
-                    return '▲'
-                }else if((item.sub_days_0_price - item.sub_days_1_price) < 0){
-                    return '▼'
-                }else{
-                    return ''
+    filters: {
+        showItemTrending: function (item) {
+            if (item.sub_days_0_price && item.sub_days_1_price) {
+                if (item.sub_days_0_price - item.sub_days_1_price > 0) {
+                    return "▲";
+                } else if (item.sub_days_0_price - item.sub_days_1_price < 0) {
+                    return "▼";
+                } else {
+                    return "";
                 }
             }
         },
-        showItemTrendingClass : function (item){
-            if(item.sub_days_0_price && item.sub_days_1_price){
-                if((item.sub_days_0_price - item.sub_days_1_price) > 0){
-                    return 'up'
-                }else if((item.sub_days_0_price - item.sub_days_1_price) < 0){
-                    return 'down'
-                }else{
-                    return 'keep'
+        showItemTrendingClass: function (item) {
+            if (item.sub_days_0_price && item.sub_days_1_price) {
+                if (item.sub_days_0_price - item.sub_days_1_price > 0) {
+                    return "up";
+                } else if (item.sub_days_0_price - item.sub_days_1_price < 0) {
+                    return "down";
+                } else {
+                    return "keep";
                 }
             }
-        }
-    }
+        },
+    },
 };
 </script>
 
 <style scoped lang="less">
+.m-index-price{
+    .h(520px);
+    overflow: hidden;
+}
+@keyframes priceAni{
+    from{transform:translateY(0);}
+    to{transform:translateY(-50%);}
+}
 .m-price-list {
+
+    animation: priceAni 8s linear infinite;
+
     .u-group-title {
         .mb(8px);
         font-weight: 600;
         color: #666666;
+        padding:0 10px;
     }
 
     .u-item {
@@ -173,8 +197,9 @@ export default {
         .bold;
     }
 
-    .u-name{
-        .db;.fl;
+    .u-name {
+        .db;
+        .fl;
         max-width: 80px;
         overflow: hidden;
         .nobreak;
@@ -185,11 +210,15 @@ export default {
         color: @color;
     }
 
-    .u-trending{
-        &.up{color:#fc3c3c;}
-        &.down{color:#49c10f;}
-        &.keep{
-            color:#aaa;
+    .u-trending {
+        &.up {
+            color: #fc3c3c;
+        }
+        &.down {
+            color: #49c10f;
+        }
+        &.keep {
+            color: #aaa;
         }
     }
 }

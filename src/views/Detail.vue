@@ -264,7 +264,8 @@ import { postStat } from "@jx3box/jx3box-common/js/stat";
 import { get_item } from "../service/item.js";
 import { getThumbnail } from "@jx3box/jx3box-common/js/utils";
 import { JX3BOX } from "@jx3box/jx3box-common";
-import servers from "@jx3box/jx3box-data/data/server/server_list.json";
+import std_servers from "@jx3box/jx3box-data/data/server/server_std.json";
+import origin_servers from "@jx3box/jx3box-data/data/server/server_origin.json";
 
 export default {
     name: "Detail",
@@ -274,7 +275,6 @@ export default {
             item: {},
             post: null,
             server: "",
-            servers: servers,
             activeTab: "item-price-chart",
         };
     },
@@ -288,6 +288,9 @@ export default {
         author_id: function () {
             return ~~this.post.user_id;
         },
+        servers: function (){
+            return this.$store.state.client == 'origin' ? origin_servers : std_servers
+        }
     },
     components: {
         "jx3-item": Item,
