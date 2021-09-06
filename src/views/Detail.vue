@@ -280,7 +280,7 @@ export default {
     },
     computed : {
         id : function (){
-            return ~~this.$route.params.item_id
+            return this.$route.params.item_id
         },
         isRevision: function () {
             return !!this.$route.params.post_id;
