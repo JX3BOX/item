@@ -81,7 +81,7 @@ export default {
     computed: {
         item_ids: function () {
             return this.$store.state.client == "origin"
-                ? ["origin"]
+                ? ["origin","origin2"]
                 : [
                       "wuxingshi",
                       "baoxiang",
