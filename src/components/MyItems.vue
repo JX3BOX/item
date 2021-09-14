@@ -2,9 +2,9 @@
     <div class="m-items-my">
         <div class="m-items-hotItems">
             <h3 class="c-sidebar-right-title">
-                <i class="u-icon u-icon-mycollection"
-                    ><img svg-inline src="../assets/img/my.svg"
-                /></i>
+                <i class="u-icon u-icon-mycollection">
+                    <img svg-inline src="../assets/img/my.svg" />
+                </i>
                 <span>热门物品</span>
             </h3>
             <div class="m-items-my-list">
@@ -22,9 +22,9 @@
         </div>
         <div class="m-items-myFav" v-if="isLogin">
             <h3 class="c-sidebar-right-title">
-                <i class="u-icon u-icon-mycollection"
-                    ><img svg-inline src="../assets/img/my.svg"
-                /></i>
+                <i class="u-icon u-icon-mycollection">
+                    <img svg-inline src="../assets/img/my.svg" />
+                </i>
                 <span>收藏物品</span>
             </h3>
             <div class="m-items-my-list">
@@ -38,9 +38,7 @@
                         <ItemIcon :item="item" />
                     </router-link>
                 </div>
-                <a class="u-more" href="/dashboard/#/fav/item" target="_blank"
-                    >查看更多 &raquo;</a
-                >
+                <a class="u-more" href="/dashboard/#/fav/item" target="_blank">查看更多 &raquo;</a>
             </div>
             <div v-if="isLogin && !data.length" class="u-tip">
                 <i class="el-icon-warning-outline"></i> 暂无收藏物品
@@ -57,7 +55,7 @@ import { get_items, getMyFavItems } from "@/service/item.js";
 export default {
     name: "",
     props: [],
-    data: function() {
+    data: function () {
         return {
             isLogin: User.isLogin(),
             // isLogin: true,
@@ -68,11 +66,11 @@ export default {
     },
     computed: {},
     methods: {
-        loadItems: function(ids, limit) {
+        loadItems: function (ids, limit) {
             return get_items({ ids: ids, limit: limit });
         },
     },
-    mounted: function() {
+    mounted: function () {
         if (this.isLogin) {
             // 我收藏的物品
             getMyFavItems({ type: "item", limit: 15 }).then((res) => {
@@ -90,7 +88,7 @@ export default {
             });
         }
         // 获取热门物品
-        getStatRank('item').then((data) => {
+        getStatRank("item").then((data) => {
             data = data.data;
 
             let ranks = [],

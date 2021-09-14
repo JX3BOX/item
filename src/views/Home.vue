@@ -16,7 +16,7 @@
                         <a
                             style="background-color:#FE7979;"
                             target="_blank"
-                            href="https://www.jx3box.com/tool/18151/"
+                            href="/tool/18151/"
                         >
                             <i class="el-icon-trophy"></i>
                             <span>游戏内看百科</span>
@@ -29,6 +29,12 @@
                         </router-link>
                     </li>
                     <li class="qlink">
+                        <a target="_blank" href="/j3pz">
+                            <i class="el-icon-orange"></i>
+                            <span>配装器</span>
+                        </a>
+                    </li>
+                    <li class="qlink">
                         <router-link
                             :to="{
                                 name: 'search',
@@ -38,15 +44,9 @@
                                 },
                             }"
                         >
-                            <i class="el-icon-edit-outline"></i>
+                            <i class="el-icon-cherry"></i>
                             <span>五行石合成</span>
                         </router-link>
-                    </li>
-                    <li class="qlink">
-                        <a target="_blank" href="https://www.jx3box.com/knowledge/#/pet">
-                            <i class="el-icon-lollipop"></i>
-                            <span>宠物密鉴</span>
-                        </a>
                     </li>
                 </ul>
             </template>

@@ -148,7 +148,7 @@
                     placeholder="请选择服务器"
                     size="mini"
                 >
-                    <el-option key label="前五低价区服" value></el-option>
+                    <el-option key label="前五低价区服" value v-if="isStdClient"></el-option>
                     <el-option v-for="serve in servers" :key="serve" :label="serve" :value="serve"></el-option>
                 </el-select>
             </div>
@@ -278,9 +278,9 @@ export default {
             activeTab: "item-price-chart",
         };
     },
-    computed : {
-        id : function (){
-            return this.$route.params.item_id
+    computed: {
+        id: function () {
+            return this.$route.params.item_id;
         },
         isRevision: function () {
             return !!this.$route.params.post_id;
@@ -288,9 +288,14 @@ export default {
         author_id: function () {
             return ~~this.post.user_id;
         },
-        servers: function (){
-            return this.$store.state.client == 'origin' ? origin_servers : std_servers
-        }
+        servers: function () {
+            return this.$store.state.client == "origin"
+                ? origin_servers
+                : std_servers;
+        },
+        isStdClient: function () {
+            return this.$store.state.client == "std";
+        },
     },
     components: {
         "jx3-item": Item,
@@ -388,6 +393,10 @@ export default {
     },
     mounted: function () {
         postStat("item", this.$route.params.item_id);
+
+        if(!this.isStdClient){
+            this.server = '缘起稻香'
+        }
     },
     watch: {
         "$route.params.item_id": {
