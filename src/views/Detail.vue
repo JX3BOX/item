@@ -153,7 +153,7 @@
                 </el-select>
             </div>
 
-            <el-tabs v-model="activeTab" type="border-card" @tab-click="active_tab_handle">
+            <el-tabs v-model="activeTab" type="border-card" @tab-click="active_tab_handle" v-loading="loading">
                 <el-tab-pane
                     label="📈 价格波动"
                     name="item-price-chart"
@@ -276,6 +276,7 @@ export default {
             post: null,
             server: "",
             activeTab: "item-price-chart",
+            loading : false
         };
     },
     computed: {
@@ -327,6 +328,7 @@ export default {
         // 获取物品
         get_data: function () {
             if (!this.$route.params.item_id) return;
+            this.loading = true
             get_item(this.$route.params.item_id)
                 .then((data) => {
                     data = data.data;
@@ -346,7 +348,7 @@ export default {
                 })
                 .catch((e) => {
                     this.item = false;
-                });
+                }).finally(() => {this.loading = false})
         },
         // 获取物品最新攻略
         get_item_newest_post() {
@@ -393,8 +395,7 @@ export default {
     },
     mounted: function () {
         postStat("item", this.$route.params.item_id);
-
-        if(!this.isStdClient){
+        if(this.$store.state.client == 'origin'){
             this.server = '缘起稻香'
         }
     },

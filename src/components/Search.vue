@@ -1,12 +1,9 @@
 <template>
-    <div
-        class="m-search-bar"
-        :class="$route.name == 'view' ? 'can-return' : ''"
-    >
+    <div class="m-search-bar" :class="$route.name == 'view' ? 'can-return' : ''">
         <div class="m-return">
-            <el-button class="u-return-btn" @click="return_handle"
-                >返回</el-button
-            >
+            <el-button class="u-return-btn" @click="return_handle">
+                <i class="el-icon-arrow-left"></i> 返回
+            </el-button>
         </div>
         <div class="m-search">
             <el-input
@@ -15,15 +12,19 @@
                 @keydown.enter.native="search_handle"
                 placeholder="输入物品名称（可适配中括号形式）/物品描述「回车」进行搜索"
             >
-            <span slot="prepend">关键词</span>
+                <span slot="prepend">
+                    <i class="el-icon-search"></i> 关键词
+                </span>
+                <el-button
+                    slot="append"
+                    class="u-search-btn"
+                    type="primary"
+                    plain
+                    @click="search_handle"
+                >
+                    <i class="el-icon-position"></i> 搜索
+                </el-button>
             </el-input>
-            <el-button
-                class="u-search-btn"
-                type="primary"
-                plain
-                @click="search_handle"
-                >搜索</el-button
-            >
         </div>
     </div>
 </template>
@@ -41,10 +42,12 @@ export default {
             history.back();
         },
         search_handle() {
-            let query = {page: 1};
+            let query = { page: 1 };
             // 菜单筛选
-            if (this.$store.state.sidebar.AucGenre) query.auc_genre = this.$store.state.sidebar.AucGenre;
-            if (this.$store.state.sidebar.AucSubTypeID) query.auc_sub_type_id = this.$store.state.sidebar.AucSubTypeID;
+            if (this.$store.state.sidebar.AucGenre)
+                query.auc_genre = this.$store.state.sidebar.AucGenre;
+            if (this.$store.state.sidebar.AucSubTypeID)
+                query.auc_sub_type_id = this.$store.state.sidebar.AucSubTypeID;
 
             this.$router.push({
                 name: "search",
@@ -57,5 +60,5 @@ export default {
 </script>
 
 <style lang="less">
-    @import "../assets/css/components/search.less";
+@import "../assets/css/components/search.less";
 </style>

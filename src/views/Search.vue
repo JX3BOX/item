@@ -6,7 +6,9 @@
                 <span>👻 暂无记录</span>
                 <template v-if="$route.query.auc_genre || $route.query.auc_sub_type_id">
                     <span>，在</span>
-                    <span class="u-research" @click="clean_type"><b>全部分类下搜索</b></span>
+                    <span class="u-research" @click="clean_type">
+                        <b>全部分类下搜索</b>
+                    </span>
                 </template>
             </template>
         </Items>
@@ -43,11 +45,11 @@ export default {
         };
     },
     methods: {
-        clean_type(){
+        clean_type() {
             let query = JSON.parse(JSON.stringify(this.$route.query));
             delete query.auc_genre;
             delete query.auc_sub_type_id;
-            this.$router.replace({query: query});
+            this.$router.replace({ query: query });
         },
         page_change_handle(page) {
             let query = { page: page };
@@ -105,13 +107,13 @@ export default {
 </script>
 
 <style lang="less">
-    .u-research {
-        .pl(5px);
+.u-research {
+    .pl(5px);
 
-        b {
-            color: @color-link;
-            .pointer;
-            .fz(15px);
-        }
+    b {
+        color: @color-link;
+        .pointer;
+        .fz(15px);
     }
+}
 </style>

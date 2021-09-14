@@ -10,7 +10,13 @@
             </el-select>
         </template>
         <template slot="head-actions">
-            <el-input class="u-search" placeholder="搜索.." v-model="search" size="mini" @keyup.enter.native="goItemPage">
+            <el-input
+                class="u-search"
+                placeholder="搜索.."
+                v-model="search"
+                size="mini"
+                @keyup.enter.native="goItemPage"
+            >
                 <el-button slot="append" icon="el-icon-search" @click="goItemPage"></el-button>
             </el-input>
         </template>
@@ -141,7 +147,7 @@ export default {
             groups: [],
             server: "",
             loading: false,
-            search : ''
+            search: "",
         };
     },
     computed: {
@@ -177,10 +183,13 @@ export default {
                     this.loading = false;
                 });
         },
-        goItemPage : function (){
-            let host = location.origin
-            window.open(`${host}/item/#/search/${this.search}?page=1`,'_blank')
-        }
+        goItemPage: function () {
+            let host = location.origin;
+            window.open(
+                `${host}/item/#/search/${this.search}?page=1`,
+                "_blank"
+            );
+        },
     },
     watch: {
         server: {
