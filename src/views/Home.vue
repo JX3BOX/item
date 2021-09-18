@@ -217,7 +217,7 @@
 </template>
 
 <script>
-import WikiPanel from "@jx3box/jx3box-common-ui/src/WikiPanel";
+import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import Search from "../components/Search.vue";
 import StarMarkItems from "../components/StarMarkItems.vue";
 import { iconLink, getThumbnail } from "@jx3box/jx3box-common/js/utils";

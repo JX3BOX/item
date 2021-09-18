@@ -21,8 +21,8 @@
             </el-input>
         </template>
         <div slot="body" class="m-index-price">
-            <!-- <div class="m-price-list" v-if="groups && groups.length">
-                <div v-for="i in 2" :key="'wrapper' + i">
+            <div class="m-price-list" v-if="groups && groups.length">
+                <!-- <div v-for="i in 2" :key="'wrapper' + i"> -->
                     <el-row :gutter="20" v-for="(group, key) in groups" :key="key">
                         <div :span="24" class="u-group-title" v-text="group.label"></div>
                         <el-col :span="6" v-for="(item, k) in group.items" :key="k">
@@ -66,10 +66,10 @@
                             </router-link>
                         </el-col>
                     </el-row>
-                </div>
+                <!-- </div> -->
             </div>
-            <div v-else style="text-align:center">😂 暂无数据</div>-->
-            <div class="m-transaction-box" v-loading="loading">
+            <!-- <div v-else style="text-align:center">😂 暂无数据</div> -->
+            <!-- <div class="m-transaction-box" v-loading="loading">
                 <div class="m-price-list" v-if="groups && groups.length">
                     <el-carousel
                         indicator-position="none"
@@ -80,7 +80,6 @@
                     >
                         <el-carousel-item v-for="(group, key) in groups" :key="key">
                             <el-row :gutter="20">
-                                <!-- <div class="u-group-title" v-text="group.label"></div> -->
                                 <el-col :span="6" v-for="(item, k) in group.items" :key="k">
                                     <a
                                         v-if="item"
@@ -102,19 +101,16 @@
                                                     :class="item | showItemTrendingClass"
                                                 >{{item | showItemTrending}}</span>
                                                 <template v-if="item.sub_days_0_price">
-                                                    <!-- <span>今日：</span> -->
                                                     <GamePrice :price="item.sub_days_0_price" />
                                                 </template>
                                                 <template
                                                     v-else-if="!item.sub_days_0_price && item.sub_days_1_price"
                                                 >
-                                                    <!-- <span>昨日：</span> -->
                                                     <GamePrice :price="item.sub_days_1_price" />
                                                 </template>
                                                 <template
                                                     v-else-if="!item.sub_days_0_price && !item.sub_days_1_price && item.sub_days_2_price"
                                                 >
-                                                    <!-- <span>前日：</span> -->
                                                     <GamePrice :price="item.sub_days_2_price" />
                                                 </template>
                                                 <span v-else>暂无价目</span>
@@ -126,13 +122,13 @@
                         </el-carousel-item>
                     </el-carousel>
                 </div>
-            </div>
+            </div> -->
         </div>
     </WikiPanel>
 </template>
 
 <script>
-import WikiPanel from "@jx3box/jx3box-common-ui/src/WikiPanel";
+import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import { get_item_groups_with_price } from "@/service/item_group";
 import servers_origin from "@jx3box/jx3box-data/data/server/server_origin.json";
 import servers_std from "@jx3box/jx3box-data/data/server/server_std.json";
