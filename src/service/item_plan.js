@@ -1,4 +1,4 @@
-import { $http, $helper } from "./axios";
+import { $http } from "./axios";
 import { __helperUrl } from "@jx3box/jx3box-common/data/jx3box.json";
 import User from "@jx3box/jx3box-common/js/user";
 import store from "@/store";
@@ -25,7 +25,7 @@ function get_item_plans(params) {
 // 获取我的清单
 function get_my_item_plans(params = {}) {
     params.limit = 5;
-    return $helper({
+    return $http({
         method: "GET",
         url: `/api/my/item_plans`,
         headers: { Accept: "application/prs.helper.v2+json" },
