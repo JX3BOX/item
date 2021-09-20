@@ -1,12 +1,11 @@
-import { $http } from "./axios";
-
-const { __helperUrl } = require("@jx3box/jx3box-common/data/jx3box.json");
-const qs = require("qs");
+import {$http} from "./axios";
+import {__helperUrl} from "@jx3box/jx3box-common/data/jx3box.json";
 
 function get_item_groups_with_price(params) {
-    return $http.get("/api/item_groups/with_price", {
+    return $http({
+        method: "GET",
+        url: `${__helperUrl}api/item_groups/with_price`,
         params: params,
-        headers: { Accept: "application/prs.helper.v2+json" },
     });
 }
 
