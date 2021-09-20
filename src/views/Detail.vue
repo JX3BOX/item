@@ -4,7 +4,7 @@
         <div v-if="wiki_post.source && JSON.stringify(wiki_post.source) !== '{}'" class="w-item">
             <div class="m-item-viewer">
                 <div class="w-left">
-                    <jx3-item :item="wiki_post.source" />
+                    <jx3-item :item_id="wiki_post.source.id" />
                 </div>
                 <div class="w-right">
                     <div class="m-name">
