@@ -1,6 +1,5 @@
-import { $http, $helper } from "./axios";
+import { $http } from "./axios";
 import { __helperUrl } from "@jx3box/jx3box-common/data/jx3box.json";
-import User from "@jx3box/jx3box-common/js/user";
 import store from "@/store";
 
 const qs = require("qs");
@@ -9,7 +8,6 @@ function get_item_plan(plan_id) {
     return $http({
         method: "GET",
         url: `${__helperUrl}api/item_plan/${plan_id}`,
-        headers: { Accept: "application/prs.helper.v2+json" },
     });
 }
 
@@ -17,7 +15,6 @@ function get_item_plans(params) {
     return $http({
         method: "GET",
         url: `${__helperUrl}api/item_plans`,
-        headers: { Accept: "application/prs.helper.v2+json" },
         params: params,
     });
 }
@@ -25,10 +22,9 @@ function get_item_plans(params) {
 // 获取我的清单
 function get_my_item_plans(params = {}) {
     params.limit = 5;
-    return $helper({
+    return $http({
         method: "GET",
-        url: `/api/my/item_plans`,
-        headers: { Accept: "application/prs.helper.v2+json" },
+        url: `${__helperUrl}api/my/item_plans`,
         params: params,
     }).then((data) => {
         data = data.data;
@@ -40,7 +36,6 @@ function delete_item_plan(plan_id) {
     return $http({
         method: "PUT",
         url: `${__helperUrl}api/item_plan/remove`,
-        headers: { Accept: "application/prs.helper.v2+json" },
         data: qs.stringify({ plan_id: plan_id }),
     });
 }

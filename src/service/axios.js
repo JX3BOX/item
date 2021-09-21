@@ -1,13 +1,12 @@
 import axios from "axios";
-import { __helperUrl } from "@jx3box/jx3box-common/data/jx3box.json";
+import {jx3ClientType} from "@jx3box/jx3box-common/js/utils";
 
 const $http = axios.create({
     withCredentials: true,
+    headers: {
+        Accept: "application/prs.helper.v2+json",
+        'JX3-Client-Type': jx3ClientType()
+    }
 });
 
-const $helper = axios.create({
-    withCredentials: true,
-    baseURL: process.env.NODE_ENV === "production" ? __helperUrl : "/",
-});
-
-export { $http, $helper };
+export {$http, axios};

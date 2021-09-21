@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import {getMenus} from "../service/item";
+
 const { JX3BOX } = require("@jx3box/jx3box-common");
 import Bus from "@jx3box/jx3box-common-ui/service/bus";
 export default {
@@ -45,44 +47,36 @@ export default {
                 this.expand_menu();
 
                 // 异步加载侧边栏数据
-                this.get_menus();
+                getMenus().then(
+                    (data) => {
+                        data = data.data;
+                        if (data.code === 200) {
+                            let menus = [];
+                            // 生成ID用于菜单激活
+                            for (let index in data.data.menus) {
+                                data.data.menus[index].id =
+                                    data.data.menus[index].AucGenre;
+                                for (let i in data.data.menus[index].children) {
+                                    data.data.menus[index].children[
+                                        i
+                                        ].id = `${data.data.menus[index].AucGenre}-${data.data.menus[index].children[i].AucSubTypeID}`;
+                                }
+                                menus.push(data.data.menus[index]);
+                            }
+                            this.menus = menus;
+
+                            // 展开菜单
+                            this.expand_menu();
+                        }
+                    },
+                    () => {
+                        this.menus = false;
+                    }
+                );
             },
         },
     },
     methods: {
-        get_menus() {
-            this.$http({
-                method: "GET",
-                url: `${JX3BOX.__helperUrl}api/item/menus`,
-                headers: { Accept: "application/prs.helper.v2+json" },
-                withCredentials: true,
-            }).then(
-                (data) => {
-                    data = data.data;
-                    if (data.code === 200) {
-                        let menus = [];
-                        // 生成ID用于菜单激活
-                        for (let index in data.data.menus) {
-                            data.data.menus[index].id =
-                                data.data.menus[index].AucGenre;
-                            for (let i in data.data.menus[index].children) {
-                                data.data.menus[index].children[
-                                    i
-                                ].id = `${data.data.menus[index].AucGenre}-${data.data.menus[index].children[i].AucSubTypeID}`;
-                            }
-                            menus.push(data.data.menus[index]);
-                        }
-                        this.menus = menus;
-
-                        // 展开菜单
-                        this.expand_menu();
-                    }
-                },
-                () => {
-                    this.menus = false;
-                }
-            );
-        },
         expand_menu() {
             this.$nextTick(() => {
                 let AucGenre = this.sidebar.AucGenre;
