@@ -165,19 +165,19 @@ export default {
     methods: {
         // 获取星标物品
         get_data() {
+            if (!this.server) return;
+
             this.loading = true;
             get_item_groups_with_price({
                 server: this.server,
                 keys: this.item_ids,
-            })
-                .then((data) => {
-                    data = data.data;
-                    if (data.code === 200)
-                        this.groups = Object.values(data.data.data) || [];
-                })
-                .finally(() => {
-                    this.loading = false;
-                });
+            }).then((data) => {
+                data = data.data;
+                if (data.code === 200)
+                    this.groups = Object.values(data.data.data) || [];
+            }).finally(() => {
+                this.loading = false;
+            });
         },
         goItemPage: function () {
             let host = location.origin;
