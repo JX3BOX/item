@@ -29,7 +29,7 @@
                         </router-link>
                     </li>
                     <li class="qlink">
-                        <a target="_blank" href="/j3pz">
+                        <a target="_blank" href="/pz">
                             <i class="el-icon-orange"></i>
                             <span>配装器</span>
                         </a>
