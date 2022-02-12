@@ -1,6 +1,7 @@
 const path = require('path');
 const pkg = require("./package.json");
-const { JX3BOX, SEO } = require("@jx3box/jx3box-common");
+const { __staticPath } = require("@jx3box/jx3box-common/data/jx3box.json");
+const SEO = require("@jx3box/jx3box-common/data/seo.json");
 const Setting = require("./setting.json");
 
 module.exports = {
@@ -70,16 +71,16 @@ module.exports = {
         (process.env.NODE_ENV === 'development' && '/') ||
 
         //BY origin
-        (process.env.STATIC_PATH === "origin" && `${JX3BOX.__staticPath["origin"]}${pkg.name}/`) || 
+        (process.env.STATIC_PATH === "origin" && `${__staticPath["origin"]}${pkg.name}/`) || 
 
         //BY github
-        (process.env.STATIC_PATH === "github" && `${JX3BOX.__staticPath["github"]}${pkg.name}/`) || 
+        (process.env.STATIC_PATH === "github" && `${__staticPath["github"]}${pkg.name}/`) || 
 
         //BY jsdelivr
-        (process.env.STATIC_PATH === "jsdelivr" && `${JX3BOX.__staticPath["jsdelivr"]}${pkg.name}@gh-pages/`) || 
+        (process.env.STATIC_PATH === "jsdelivr" && `${__staticPath["jsdelivr"]}${pkg.name}@gh-pages/`) || 
 
         //BY OSS=>CDN
-        (process.env.STATIC_PATH === "mirror" && `${JX3BOX.__staticPath["mirror"]}${pkg.name}/`) ||
+        (process.env.STATIC_PATH === "mirror" && `${__staticPath["mirror"]}${pkg.name}/`) ||
 
         //BY relative path
         (process.env.STATIC_PATH === "repo" && `/${pkg.name}/`) || 

@@ -3,7 +3,7 @@
         v-if="source"
         placement="right-start"
         width="auto"
-        :trigger="click_trigger?'click':'hover'"
+        :trigger="click_trigger ? 'click' : 'hover'"
         :disabled="dishoverable"
         popper-class="m-item-icon-popup"
         :visible-arrow="false"
@@ -14,13 +14,21 @@
         <div slot="reference" class="m-item-icon">
             <div
                 class="u-border"
-                :style="{backgroundImage:$options.filters.item_border(source),'opacity':source.Quality==5?0.9:1}"
+                :style="{
+                    backgroundImage: item_border(source),
+                    opacity: source.Quality == 5 ? 0.9 : 1,
+                }"
             ></div>
             <div
                 class="u-border-quest"
-                :style="{backgroundImage:$options.filters.item_border_quest(source)}"
+                :style="{
+                    backgroundImage: item_border_quest(source),
+                }"
             ></div>
-            <img class="u-item-icon" :src="$options.filters.icon_url(source.IconID)" />
+            <img
+                class="u-item-icon"
+                :src="icon_url(source.IconID)"
+            />
         </div>
         <jx3-item :item="source" />
     </el-popover>
@@ -29,8 +37,8 @@
 <script>
 import Item from "@jx3box/jx3box-editor/src/Item";
 import { get_item } from "../service/item.js";
-
-const { JX3BOX } = require("@jx3box/jx3box-common");
+import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
+import { icon_url } from "../filters/index.js";
 
 export default {
     name: "ItemIcon",
@@ -48,10 +56,8 @@ export default {
             if (item_id) {
                 get_item(item_id).then((res) => {
                     let data = res.data;
-                    if (data.code === 200) {
-                        let item = data.data.item;
-                        if (JSON.stringify(item) !== "{}") this.source = item;
-                    }
+                    let item = data.data.item;
+                    if (Object.keys(item).length) this.source = item;
                 });
             }
         },
@@ -60,6 +66,24 @@ export default {
                 this.get_data(this.source.id);
             }
         },
+        item_border(item) {
+            switch (item.Quality) {
+                case 3:
+                    return `url(${__imgPath}image/item/blue.png)`;
+                case 4:
+                    return `url(${__imgPath}image/item/purple.png)`;
+                case 5:
+                    return `url(${__imgPath}image/item/orange.gif)`;
+                default:
+                    return "";
+            }
+        },
+        item_border_quest(item) {
+            if (item.IsQuest > 0)
+                return `url(${__imgPath}image/item/renwu.png)`;
+            return "";
+        },
+        icon_url
     },
     watch: {
         item: {

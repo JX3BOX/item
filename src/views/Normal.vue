@@ -19,7 +19,6 @@
 </template>
 
 <script>
-const { JX3BOX } = require("@jx3box/jx3box-common");
 import Items from "@/components/Items.vue";
 import Search from "@/components/Search.vue";
 import { get_menu_items } from "../service/item";
@@ -67,13 +66,8 @@ export default {
                     limit: this.length,
                 }).then((data) => {
                     data = data.data;
-                    if (data.code === 200) {
-                        this.items = data.data.data;
-                        this.items_total = data.data.total;
-                    } else {
-                        this.items = [];
-                        this.items_total = 0;
-                    }
+                    this.items = data.data.data || [];
+                    this.items_total = data.data.total || 0;
                 });
             },
         },

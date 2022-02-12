@@ -35,7 +35,7 @@
                     </div>
                     <!-- 道具清单 -->
                     <el-row
-                        gutter="15"
+                        :gutter="15"
                         class="m-positions"
                         v-if="plan.type == 1"
                     >
@@ -49,7 +49,6 @@
                                 <h5
                                     v-if="position.title"
                                     class="u-title"
-                                    v-text="position.title"
                                 >
                                     <span v-text="position.title"></span>
                                 </h5>
@@ -202,10 +201,10 @@
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import ItemSimple from "@jx3box/jx3box-editor/src/ItemSimple";
 import Equip from "@jx3box/jx3box-editor/src/Equip";
-import $_ from "lodash";
+import { get, set } from "lodash";
 import EquipPosition from "@jx3box/jx3box-editor/service/enum/EquipPosition";
 import Fav from "@jx3box/jx3box-common-ui/src/interact/Fav.vue";
-import { JX3BOX } from "@jx3box/jx3box-common";
+import { __Links, default_avatar } from "@jx3box/jx3box-common/data/jx3box.json";
 import User from "@jx3box/jx3box-common/js/user.js";
 import PlanSearch from "../components/PlanSearch";
 import { postStat } from "@jx3box/jx3box-common/js/stat";
@@ -242,10 +241,10 @@ export default {
         for (let i in positions) {
             let _output = {};
             for (let key in positions[i]) {
-                let type = $_.get(positions, `${i}.${key}`);
+                let type = get(positions, `${i}.${key}`);
                 _output[type] = all_positions[type];
             }
-            $_.set(positions, i, _output);
+            set(positions, i, _output);
         }
 
         return {
@@ -264,13 +263,11 @@ export default {
                 if (this.$route.params.plan_id) {
                     get_item_plan(this.$route.params.plan_id).then((data) => {
                         data = data.data;
-                        if (data.code === 200) {
-                            this.plan = data.data.plan;
-                        } else {
-                            this.$message.error(
-                                "获取物品清单异常，请联系管理员"
-                            );
-                        }
+                        this.plan = data.data.plan;
+                    }).catch(e => {
+                        this.$message.error(
+                            e || "获取物品清单异常，请联系管理员"
+                        );
                     });
                 }
             },
@@ -278,7 +275,7 @@ export default {
     },
     methods: {
         publish_url(val) {
-            return `${JX3BOX.__Links.dashboard.publish}#/${val}`;
+            return `${__Links.dashboard.publish}#/${val}`;
         },
         edit_plan(plan_id) {
             location.href = this.publish_url(`item/plan/${plan_id}`);
@@ -291,15 +288,16 @@ export default {
             }).then(() => {
                 delete_item_plan(plan_id).then((data) => {
                     data = data.data;
-                    if (data.code === 200) {
-                        this.$message.success(data.message);
-                        // 获取我的清单
-                        get_my_item_plans();
-                        // 返回主页
-                        this.$router.push({ name: "home" });
-                    } else {
-                        this.$message.error(data.message);
-                    }
+                    this.$message.success(data.message);
+                    // 获取我的清单
+                    get_my_item_plans().then((res) => {
+                        this.$store.commit('SET_STATE', { key: 'my_item_plans', value: res.data.data.data })
+                    });;
+                    // 返回主页
+                    this.$router.push({ name: "home" });
+                    
+                }).catch(e => {
+                    this.$message.error(e.message);
                 });
             });
         },
@@ -308,7 +306,7 @@ export default {
         showAvatar: function(val) {
             return (
                 (val && getThumbnail(val, 32, true)) ||
-                getThumbnail(JX3BOX.default_avatar, 20, true)
+                getThumbnail(default_avatar, 20, true)
             );
         },
     },

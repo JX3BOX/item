@@ -47,7 +47,7 @@
                         </span> -->
                         <span
                             class="u-updated"
-                            v-text="$options.filters.date_format(plan.created)"
+                            v-text="date_format(plan.created)"
                         ></span>
                     </div>
                 </router-link>
@@ -76,11 +76,11 @@
 </template>
 
 <script>
-const { JX3BOX } = require("@jx3box/jx3box-common");
+import {__iconPath} from '@jx3box/jx3box-common/data/jx3box.json'
 import PlanSearch from "../components/PlanSearch";
 import { get_item_plans } from "../service/item_plan.js";
-import { getThumbnail, resolveImagePath } from "@jx3box/jx3box-common/js/utils";
-import { default_avatar } from "@jx3box/jx3box-common/data/jx3box.json";
+import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
+import { date_format } from '../filters';
 
 export default {
     name: "PlanList",
@@ -91,8 +91,8 @@ export default {
             page: 1,
             length: 20,
 
-            plan_2_icon: JX3BOX.__iconPath + "icon/2410.png",
-            plan_1_icon: JX3BOX.__iconPath + "icon/3089.png",
+            plan_2_icon: __iconPath + "icon/2410.png",
+            plan_1_icon: __iconPath + "icon/3089.png",
         };
     },
     components: {
@@ -102,6 +102,7 @@ export default {
         page_change_handle(page) {
             this.$router.push({ name: "plan_list", query: { page: page } });
         },
+        date_format
     },
     watch: {
         $route: {
@@ -118,13 +119,9 @@ export default {
                     limit: this.length,
                 }).then((data) => {
                     data = data.data;
-                    if (data.code === 200) {
-                        this.item_plans = data.data.data;
-                        this.item_plans_total = data.data.total;
-                    } else {
-                        this.item_plans = null;
-                        this.item_plans_total = 0;
-                    }
+                    this.item_plans = data.data.data || null;
+                    this.item_plans_total = data.data.total || 0;
+                    
                 });
             },
         },

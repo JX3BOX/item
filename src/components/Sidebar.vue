@@ -27,8 +27,7 @@
 
 <script>
 import {getMenus} from "../service/item";
-
-const { JX3BOX } = require("@jx3box/jx3box-common");
+import {get} from 'lodash'
 import Bus from "@jx3box/jx3box-common-ui/service/bus";
 export default {
     name: "Sidebar",
@@ -50,24 +49,22 @@ export default {
                 getMenus().then(
                     (data) => {
                         data = data.data;
-                        if (data.code === 200) {
-                            let menus = [];
-                            // 生成ID用于菜单激活
-                            for (let index in data.data.menus) {
-                                data.data.menus[index].id =
-                                    data.data.menus[index].AucGenre;
-                                for (let i in data.data.menus[index].children) {
-                                    data.data.menus[index].children[
-                                        i
-                                        ].id = `${data.data.menus[index].AucGenre}-${data.data.menus[index].children[i].AucSubTypeID}`;
-                                }
-                                menus.push(data.data.menus[index]);
+                        let menus = [];
+                        // 生成ID用于菜单激活
+                        for (let index in data.data.menus) {
+                            data.data.menus[index].id =
+                                data.data.menus[index].AucGenre;
+                            for (let i in data.data.menus[index].children) {
+                                data.data.menus[index].children[
+                                    i
+                                    ].id = `${data.data.menus[index].AucGenre}-${data.data.menus[index].children[i].AucSubTypeID}`;
                             }
-                            this.menus = menus;
-
-                            // 展开菜单
-                            this.expand_menu();
+                            menus.push(data.data.menus[index]);
                         }
+                        this.menus = menus;
+
+                        // 展开菜单
+                        this.expand_menu();
                     },
                     () => {
                         this.menus = false;
@@ -94,7 +91,7 @@ export default {
             });
         },
         menu_url(data, node) {
-            let AucGenre = this.$_.get(node.parent, "data.AucGenre", null);
+            let AucGenre = get(node.parent, "data.AucGenre", null);
             // 父级菜单不请求
             if (AucGenre === null) return {};
             let params = {

@@ -14,9 +14,8 @@
 </template>
 
 <script>
-const { JX3BOX } = require("@jx3box/jx3box-common");
+import { __Links, __ossRoot } from '@jx3box/jx3box-common/data/jx3box.json';
 import User from "@jx3box/jx3box-common/js/user.js";
-import { get_my_item_plans, delete_item_plan } from "../service/item_plan.js";
 import MyPlans from '@/components/MyPlans.vue'
 import MyItems from '@/components/MyItems.vue'
 export default {
@@ -34,46 +33,8 @@ export default {
         MyItems
     },
     methods: {
-        edit_plan($event, plan_id) {
-            $event.preventDefault();
-            location.href = this.publish_url(`item/plan/${plan_id}`);
-            return false;
-        },
-        delete_plan($event, plan_id) {
-            $event.preventDefault();
-            this.$confirm("确认是否删除该物品清单？", "提示", {
-                confirmButtonText: "确定",
-                cancelButtonText: "取消",
-                type: "warning",
-            }).then(() => {
-                delete_item_plan(plan_id).then((data) => {
-                    data = data.data;
-                    if (data.code === 200) {
-                        this.$message.success(data.message);
-                        // 获取我的清单
-                        get_my_item_plans();
-                    } else {
-                        this.$message.error(data.message);
-                    }
-                });
-            });
-            return false;
-        },
         checkIsHome: function() {
             this.isHome = this.$route.name == "home" || !this.$route.name;
-        },
-        chuck(arr, number = 3) {
-            let output = [];
-            for (let i = 0; i < arr.length; i += number) {
-                output.push(arr.slice(i, i + number));
-            }
-            return output;
-        },
-        img_error_handle(e) {
-            e.target.src = `${JX3BOX.__ossRoot}image/common/nullicon.png`;
-        },
-        publish_url(val) {
-            return `${JX3BOX.__Links.dashboard.publish}#/${val}`;
         },
     },
     watch: {

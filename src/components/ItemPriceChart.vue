@@ -1,13 +1,13 @@
 <template>
     <div class="m-item-price-logs">
         <!-- 今日价格 -->
-        <el-row class="m-today" v-if="today">
+        <el-row class="m-today" v-if="currentPrice">
             <el-col :span="8">
                 <div class="u-label">
                     <i class="el-icon-right u-avg"></i> 今日均价
                 </div>
                 <div class="u-value u-avg">
-                    <GamePrice :price="today.price" />
+                    <GamePrice :price="currentPrice.price" />
                 </div>
             </el-col>
             <el-col :span="8">
@@ -15,7 +15,7 @@
                     <i class="el-icon-bottom u-min"></i> 今日最低价
                 </div>
                 <div class="u-value u-min">
-                    <GamePrice :price="today.min_price" />
+                    <GamePrice :price="currentPrice.min_price" />
                 </div>
             </el-col>
             <el-col :span="8">
@@ -23,35 +23,7 @@
                     <i class="el-icon-top u-max"></i> 今日最高价
                 </div>
                 <div class="u-value u-max">
-                    <GamePrice :price="today.max_price" />
-                </div>
-            </el-col>
-        </el-row>
-
-        <!-- 昨日价格 -->
-        <el-row class="m-today" v-if="!today && yesterday">
-            <el-col :span="8">
-                <div class="u-label">
-                    <i class="el-icon-right u-avg"></i> 今日均价
-                </div>
-                <div class="u-value u-avg">
-                    <GamePrice :price="yesterday.price" />
-                </div>
-            </el-col>
-            <el-col :span="8">
-                <div class="u-label">
-                    <i class="el-icon-bottom u-min"></i> 今日最低价
-                </div>
-                <div class="u-value u-min">
-                    <GamePrice :price="yesterday.min_price" />
-                </div>
-            </el-col>
-            <el-col :span="8">
-                <div class="u-label">
-                    <i class="el-icon-top u-max"></i> 今日最高价
-                </div>
-                <div class="u-value u-max">
-                    <GamePrice :price="yesterday.max_price" />
+                    <GamePrice :price="currentPrice.max_price" />
                 </div>
             </el-col>
         </el-row>
@@ -81,6 +53,11 @@ export default {
             hidden: false,
         };
     },
+    computed: {
+        currentPrice({ today, yesterday }) {
+            return today || yesterday || null
+        }
+    },
     methods: {
         get_data() {
             if (this.item_id) {
@@ -89,41 +66,37 @@ export default {
                         server: this.server,
                     }).then((data) => {
                         data = data.data;
-                        if (data.code === 200) {
-                            let output = [];
-                            for (let i in data.data.logs) {
-                                let log = data.data.logs[i];
-                                output.push({
-                                    date: log.date,
-                                    price: log.price,
-                                    type: "均价",
-                                });
-                                output.push({
-                                    date: log.date,
-                                    price: log.min_price,
-                                    type: "最低价",
-                                });
-                                output.push({
-                                    date: log.date,
-                                    price: log.max_price,
-                                    type: "最高价",
-                                });
-                            }
-                            this.today = data.data.today;
-                            this.yesterday = data.data.yesterday;
-                            this.logs = output;
-                            this.hidden = !(this.logs.length > 0);
+                        let output = [];
+                        for (let i in data.data.logs) {
+                            let log = data.data.logs[i];
+                            output.push({
+                                date: log.date,
+                                price: log.price,
+                                type: "均价",
+                            });
+                            output.push({
+                                date: log.date,
+                                price: log.min_price,
+                                type: "最低价",
+                            });
+                            output.push({
+                                date: log.date,
+                                price: log.max_price,
+                                type: "最高价",
+                            });
                         }
+                        this.today = data.data.today;
+                        this.yesterday = data.data.yesterday;
+                        this.logs = output;
+                        this.hidden = !(this.logs.length > 0);
                     });
                 } else {
                     get_item_servers_price_logs(this.item_id).then((data) => {
                         data = data.data;
-                        if (data.code === 200) {
-                            this.today = null;
-                            this.yesterday = null;
-                            this.logs = data.data.logs;
-                            this.hidden = !(this.logs.length > 0);
-                        }
+                        this.today = null;
+                        this.yesterday = null;
+                        this.logs = data.data.logs;
+                        this.hidden = !(this.logs.length > 0);
                     });
                 }
             }

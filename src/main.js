@@ -11,9 +11,6 @@ import "@jx3box/jx3box-common/css/element.css";
 import "@jx3box/jx3box-common/css/normalize.css";
 Vue.use(JX3BOX_UI);
 
-Vue.prototype.$http = require("axios");
-Vue.prototype.$_ = require("lodash");
-
 import router from "./router";
 import store from "./store";
 import App from "./App.vue";

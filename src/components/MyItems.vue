@@ -52,6 +52,7 @@ import User from "@jx3box/jx3box-common/js/user";
 import ItemIcon from "@/components/ItemIcon";
 import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 import { get_items, getMyFavItems } from "@/service/item.js";
+import {get} from 'lodash'
 export default {
     name: "",
     props: [],
@@ -94,11 +95,11 @@ export default {
             let ranks = [],
                 item_ids = [];
             for (let i in data) {
-                let name = this.$_.get(data, `${i}.name`, "-");
-                let item_id = this.$_.get(name.split("-"), 1, "");
+                let name = get(data, `${i}.name`, "-");
+                let item_id = get(name.split("-"), 1, "");
                 if (item_id) {
                     item_ids.push(item_id);
-                    ranks[item_id] = this.$_.get(data, `${i}.value`, {});
+                    ranks[item_id] = get(data, `${i}.value`, {});
                 }
             }
 

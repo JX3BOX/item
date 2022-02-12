@@ -3,7 +3,6 @@
  *
  * @param {*} description 剑三描述
  */
-const {JX3BOX} = require("@jx3box/jx3box-common");
 
 export default (description) => {
     if (!description) return '';

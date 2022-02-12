@@ -30,7 +30,6 @@
 import Items from "@/components/Items.vue";
 import Search from "@/components/Search.vue";
 
-const { JX3BOX } = require("@jx3box/jx3box-common");
 import { get_items_search } from "../service/item";
 
 export default {
@@ -92,13 +91,8 @@ export default {
 
                 get_items_search(params).then((data) => {
                     data = data.data;
-                    if (data.code === 200) {
-                        this.items = data.data.data;
-                        this.total = data.data.total;
-                    } else {
-                        this.items = [];
-                        this.total = 0;
-                    }
+                    this.items = data.data.data || [];
+                    this.total = data.data.total || 0;
                 });
             },
         },

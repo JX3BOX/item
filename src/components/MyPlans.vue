@@ -44,7 +44,7 @@
                             </div>
                             <span class="u-updated"
                                 >编辑于{{
-                                    $options.filters.date_format(plan.updated)
+                                    date_format(plan.updated)
                                 }}</span
                             >
                         </div>
@@ -70,6 +70,7 @@
 import { get_my_item_plans } from "@/service/item_plan.js";
 import { __Links } from "@jx3box/jx3box-common/data/jx3box.json";
 import User from '@jx3box/jx3box-common/js/user'
+import { date_format } from "../filters";
 export default {
     name: "",
     props: [],
@@ -87,10 +88,13 @@ export default {
         publish_url(val) {
             return `${__Links.dashboard.publish}#/${val}`;
         },
+        date_format
     },
     mounted: function() {
         // 获取我的清单
-        if(this.isLogin) get_my_item_plans();
+        if(this.isLogin) get_my_item_plans().then((res) => {
+            this.$store.commit('SET_STATE', { key: 'my_item_plans', value: res.data.data.data })
+        });;
     },
     components: {},
 };

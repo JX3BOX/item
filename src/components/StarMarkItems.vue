@@ -174,8 +174,7 @@ export default {
             })
                 .then((data) => {
                     data = data.data;
-                    if (data.code === 200)
-                        this.groups = Object.values(data.data.data) || [];
+                    this.groups = Object.values(data.data.data) || [];
                 })
                 .finally(() => {
                     this.loading = false;

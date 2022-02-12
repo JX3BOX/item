@@ -1,6 +1,11 @@
 <template>
     <el-row class="m-items">
-        <el-col :xs="24" :md="24" class="u-list-empty" v-if="items && !items.length">
+        <el-col
+            :xs="24"
+            :md="24"
+            class="u-list-empty"
+            v-if="items && !items.length"
+        >
             <slot name="empty-message">👻 暂无记录</slot>
         </el-col>
         <el-col :xs="24" :md="24" class="u-list-empty" v-if="items === null">
@@ -8,23 +13,30 @@
         </el-col>
         <template v-for="(item, key) in items">
             <el-col
-                v-if="JSON.stringify(item) !== '{}'"
+                v-if="Object.keys(item).length"
                 :key="key"
                 :xs="24"
                 :md="24"
                 class="m-item-container"
             >
-                <router-link class="m-link" :target="target_filter()" :to="url_filter(item.id)">
+                <router-link
+                    class="m-link"
+                    :target="target_filter()"
+                    :to="url_filter(item.id)"
+                >
                     <div class="m-left">
                         <ItemIcon :item="item" />
                     </div>
                     <div class="m-right">
-                        <span class="u-uiid" v-html="`UiID:${item.UiID}`"></span>
+                        <span
+                            class="u-uiid"
+                            v-html="`UiID:${item.UiID}`"
+                        ></span>
                         <h6
                             class="u-name"
-                            :class="{white:item.Quality==1}"
+                            :class="{ white: item.Quality == 1 }"
                             v-text="item.Name"
-                            :style="{color:$options.filters.item_color(item.Quality)}"
+                            :style="{ color: item_color(item.Quality) }"
                         ></h6>
                         <div class="u-description" v-html="item.DescHtml"></div>
                     </div>
@@ -36,6 +48,7 @@
 
 <script>
 import ItemIcon from "@/components/ItemIcon";
+import { item_color } from "../filters";
 
 export default {
     name: "Items",
@@ -51,6 +64,7 @@ export default {
                 ? this.target
                 : "";
         },
+        item_color,
     },
     components: {
         ItemIcon,

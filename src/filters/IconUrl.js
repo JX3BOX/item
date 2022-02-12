@@ -3,12 +3,10 @@
  *
  * @param {*} icon_id IconID
  */
-const {
-    __ossRoot,
-    __ossMirror,
+import {
     __imgPath,
     __iconPath
-} = require("@jx3box/jx3box-common/data/jx3box.json");
+} from "@jx3box/jx3box-common/data/jx3box.json";
 
 export default (icon_id) => {
     if (isNaN(parseInt(icon_id))) {

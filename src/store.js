@@ -12,7 +12,11 @@ let store = {
         my_item_plans: null,
         client : location.href.includes('origin') ? 'origin' : 'std',
     },
-    mutations: {},
+    mutations: {
+        SET_STATE: (state, { key, value }) => {
+            state[key] = value
+        }
+    },
     getters: {},
     actions: {},
     modules: {}
