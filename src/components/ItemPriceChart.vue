@@ -39,7 +39,7 @@ import {
     get_item_price_logs,
     get_item_servers_price_logs,
 } from "../service/item";
-import GamePrice from "@/components/GamePrice.vue";
+import GamePrice from "@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue";
 
 export default {
     name: "ItemPriceChart",

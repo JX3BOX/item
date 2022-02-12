@@ -132,7 +132,7 @@ import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import { get_item_groups_with_price } from "@/service/item_group";
 import servers_origin from "@jx3box/jx3box-data/data/server/server_origin.json";
 import servers_std from "@jx3box/jx3box-data/data/server/server_std.json";
-import GamePrice from "./GamePrice.vue";
+import GamePrice from "@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue";
 import { getProfile } from "@/service/user";
 import User from "@jx3box/jx3box-common/js/user";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";

@@ -13,18 +13,10 @@
                     class="m-plan-item"
                 >
                     <div class="u-icon">
-                        <span
-                            v-if="plan.type == 1"
-                            class="u-type"
-                            :class="'u-type-' + plan.type"
-                        >
+                        <span v-if="plan.type == 1" class="u-type" :class="'u-type-' + plan.type">
                             <img :src="plan_1_icon" />
                         </span>
-                        <span
-                            v-if="plan.type == 2"
-                            class="u-type"
-                            :class="'u-type-' + plan.type"
-                        >
+                        <span v-if="plan.type == 2" class="u-type" :class="'u-type-' + plan.type">
                             <img :src="plan_2_icon" />
                         </span>
                     </div>
@@ -45,21 +37,11 @@
                                 v-text="plan.user_nickname"
                             ></a>
                         </span> -->
-                        <span
-                            class="u-updated"
-                            v-text="date_format(plan.created)"
-                        ></span>
+                        <span class="u-updated" v-text="date_format(plan.created)"></span>
                     </div>
                 </router-link>
             </template>
-            <el-alert
-                v-else
-                center
-                title="😂 暂无物品清单"
-                class="m-plan-null"
-                type="info"
-                :closable="false"
-            ></el-alert>
+            <el-alert v-else center title="😂 暂无物品清单" class="m-plan-null" type="info" :closable="false"></el-alert>
         </div>
         <el-pagination
             background
@@ -76,11 +58,11 @@
 </template>
 
 <script>
-import {__iconPath} from '@jx3box/jx3box-common/data/jx3box.json'
+import { __iconPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import PlanSearch from "../components/PlanSearch";
 import { get_item_plans } from "../service/item_plan.js";
 import { resolveImagePath } from "@jx3box/jx3box-common/js/utils";
-import { date_format } from '../filters';
+import { date_format } from "../filters";
 
 export default {
     name: "PlanList",
@@ -102,16 +84,14 @@ export default {
         page_change_handle(page) {
             this.$router.push({ name: "plan_list", query: { page: page } });
         },
-        date_format
+        date_format,
     },
     watch: {
         $route: {
             immediate: true,
             handler() {
                 this.page = parseInt(this.$route.query.page);
-                let keyword = this.$route.params.keyword
-                    ? this.$route.params.keyword
-                    : "";
+                let keyword = this.$route.params.keyword ? this.$route.params.keyword : "";
                 // 获取物品清单列表
                 get_item_plans({
                     keyword: keyword,
@@ -121,7 +101,6 @@ export default {
                     data = data.data;
                     this.item_plans = data.data.data || null;
                     this.item_plans_total = data.data.total || 0;
-                    
                 });
             },
         },

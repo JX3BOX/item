@@ -8,7 +8,6 @@ const Detail = () => import("./views/Detail.vue");
 const PlanDetail = () => import("./views/PlanDetail.vue");
 const PlanList = () => import("./views/PlanList.vue");
 const Search = () => import("./views/Search.vue");
-const Cooking = () => import("./views/Cooking.vue");
 
 Vue.use(VueRouter);
 
@@ -27,9 +26,6 @@ const routes = [
     { name: "plan_view", path: "/plan_view/:plan_id(\\d+)", component: PlanDetail },
     // 清单列表
     { name: "plan_list", path: "/plan_list/:keyword(.+)?", component: PlanList },
-
-    // 生活技艺助手
-    { name: "cooking", path: "/cooking", component: Cooking },
     
     // 默认页重定向
     { path: "*", redirect: "home" },

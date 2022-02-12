@@ -31,12 +31,6 @@
                         </router-link>
                     </li>
                     <li class="qlink">
-                        <a target="_blank" href="/pz">
-                            <i class="el-icon-orange"></i>
-                            <span>配装器</span>
-                        </a>
-                    </li>
-                    <li class="qlink">
                         <router-link
                             :to="{
                                 name: 'search',
@@ -48,6 +42,18 @@
                             <i class="el-icon-cherry"></i>
                             <span>五行石合成</span>
                         </router-link>
+                    </li>
+                    <li class="qlink">
+                        <a target="_blank" href="/pvx/cooking">
+                            <i class="el-icon-magic-stick"></i>
+                            <span>技艺助手</span>
+                        </a>
+                    </li>
+                    <li class="qlink">
+                        <a target="_blank" href="/pvx/price">
+                            <i class="el-icon-orange"></i>
+                            <span>物价大全</span>
+                        </a>
                     </li>
                 </ul>
             </template>
@@ -169,7 +175,9 @@
                                 <div class="u-wiki">
                                     <img
                                         class="u-icon"
-                                        :src="formatIconUrl(post.source_icon_id)"
+                                        :src="
+                                            formatIconUrl(post.source_icon_id)
+                                        "
                                         @error.once="
                                             $event.target.src = icon_url()
                                         "
@@ -260,7 +268,7 @@ export default {
         },
         date_format,
         star,
-        formatIconUrl: icon_url
+        formatIconUrl: icon_url,
     },
     created() {
         get_item_posts().then((res) => {
