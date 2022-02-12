@@ -13,11 +13,7 @@
             <template slot="body">
                 <ul class="m-qlinks">
                     <li class="qlink">
-                        <a
-                            style="background-color:#FE7979;"
-                            target="_blank"
-                            href="/tool/18151/"
-                        >
+                        <a style="background-color:#FE7979;" target="_blank" href="/tool/18151/">
                             <i class="el-icon-trophy"></i>
                             <span>游戏内看百科</span>
                         </a>
@@ -39,8 +35,7 @@
                             :to="{
                                 name: 'search',
                                 query: {
-                                    ids:
-                                        '5_24423,5_24424,5_24425,5_24426,5_24427,5_24428,5_24429,5_24430',
+                                    ids: '5_24423,5_24424,5_24425,5_24426,5_24427,5_24428,5_24429,5_24430',
                                 },
                             }"
                         >
@@ -140,41 +135,15 @@
                         <div class="m-about-post">
                             <div class="m-user">
                                 <div class="u-author">
-                                    <img
-                                        class="u-icon"
-                                        :src="post.user_avatar | showAvatar"
-                                        :alt="post.user_nickname"
-                                    />
-                                    <a
-                                        :href="post.user_id | author_url"
-                                        class="u-name"
-                                        v-text="post.user_nickname"
-                                        v-if="post.user_id"
-                                    ></a>
-                                    <span v-else class="u-name">{{post.user_nickname}}</span>
+                                    <img class="u-icon" :src="post.user_avatar | showAvatar" :alt="post.user_nickname" />
+                                    <a :href="post.user_id | author_url" class="u-name" v-text="post.user_nickname" v-if="post.user_id"></a>
+                                    <span v-else class="u-name">{{ post.user_nickname }}</span>
                                 </div>
-                                <div
-                                    class="u-updated"
-                                    v-text="
-                                        $options.filters.date_format(
-                                            post.updated
-                                        )
-                                    "
-                                ></div>
+                                <div class="u-updated" v-text="$options.filters.date_format(post.updated)"></div>
                             </div>
                             <div class="m-wiki">
                                 <div class="u-wiki">
-                                    <img
-                                        class="u-icon"
-                                        :src="
-                                            $options.filters.icon_url(
-                                                post.source_icon_id
-                                            )
-                                        "
-                                        @error.once="
-                                            $event.target.src = icon_url()
-                                        "
-                                    />
+                                    <img class="u-icon" :src="$options.filters.icon_url(post.source_icon_id)" @error.once="$event.target.src = icon_url()" />
                                     <router-link
                                         class="u-name"
                                         v-text="post.title"
@@ -184,18 +153,8 @@
                                         }"
                                     ></router-link>
                                 </div>
-                                <div
-                                    class="u-level"
-                                    v-text="
-                                        '综合难度：' +
-                                            $options.filters.star(post.level)
-                                    "
-                                ></div>
-                                <div
-                                    class="u-remark"
-                                    v-if="post.remark"
-                                    v-text="'📑 ' + post.remark"
-                                ></div>
+                                <div class="u-level" v-text="'综合难度：' + $options.filters.star(post.level)"></div>
+                                <div class="u-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
                             </div>
                         </div>
                         <div class="m-excerpt">
@@ -266,16 +225,12 @@ export default {
 
         get_item_plans({ limit: 15 }).then((res) => {
             res = res.data;
-            if (res.code === 200)
-                this.newest_plans = this.chuck(Object.values(res.data.data));
+            if (res.code === 200) this.newest_plans = this.chuck(Object.values(res.data.data));
         });
     },
     filters: {
-        showAvatar: function (val) {
-            return (
-                (val && getThumbnail(val, 20, true)) ||
-                getThumbnail(JX3BOX.default_avatar, 20, true)
-            );
+        showAvatar: function(val) {
+            return (val && getThumbnail(val, 20, true)) || getThumbnail(JX3BOX.default_avatar, 20, true);
         },
     },
 };
