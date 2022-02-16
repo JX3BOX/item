@@ -25,10 +25,7 @@
                     backgroundImage: item_border_quest(source),
                 }"
             ></div>
-            <img
-                class="u-item-icon"
-                :src="icon_url(source.IconID)"
-            />
+            <img class="u-item-icon" :src="icon_url(source.IconID)" />
         </div>
         <jx3-item :item="source" />
     </el-popover>
@@ -38,7 +35,7 @@
 import Item from "@jx3box/jx3box-editor/src/Item";
 import { get_item } from "../service/item.js";
 import { __imgPath } from "@jx3box/jx3box-common/data/jx3box.json";
-import { icon_url } from "../filters/index.js";
+import { iconLink } from "@jx3box/jx3box-common/js/utils";
 
 export default {
     name: "ItemIcon",
@@ -47,6 +44,11 @@ export default {
         return {
             source: null,
         };
+    },
+    computed: {
+        client: function() {
+            return this.$store.state.client;
+        },
     },
     components: {
         "jx3-item": Item,
@@ -79,11 +81,13 @@ export default {
             }
         },
         item_border_quest(item) {
-            if (item.IsQuest > 0)
-                return `url(${__imgPath}image/item/renwu.png)`;
+            if (item.IsQuest > 0) return `url(${__imgPath}image/item/renwu.png)`;
             return "";
         },
-        icon_url
+        icon_url: function(id) {
+            // return iconLink(id, this.client);
+            return iconLink(id);  //收藏跨正式服/怀旧服
+        },
     },
     watch: {
         item: {

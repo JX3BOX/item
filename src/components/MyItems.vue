@@ -1,6 +1,6 @@
 <template>
     <div class="m-items-my">
-        <div class="m-items-hotItems">
+        <!-- <div class="m-items-hotItems">
             <h3 class="c-sidebar-right-title">
                 <i class="u-icon u-icon-mycollection">
                     <img svg-inline src="../assets/img/my.svg" />
@@ -19,7 +19,7 @@
                     </router-link>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="m-items-myFav" v-if="isLogin">
             <h3 class="c-sidebar-right-title">
                 <i class="u-icon u-icon-mycollection">
@@ -29,20 +29,13 @@
             </h3>
             <div class="m-items-my-list">
                 <div class="u-list" v-if="data && data.length">
-                    <router-link
-                        class="u-item"
-                        v-for="(item, key) in data"
-                        :key="key"
-                        :to="{ name: 'view', params: { item_id: item.id } }"
-                    >
+                    <router-link class="u-item" v-for="(item, key) in data" :key="key" :to="{ name: 'view', params: { item_id: item.id } }">
                         <ItemIcon :item="item" />
                     </router-link>
                 </div>
-                <a class="u-more" href="/dashboard/#/fav/item" target="_blank">查看更多 &raquo;</a>
+                <a class="u-more" href="/dashboard/#/fav/item" target="_blank"><i class="el-icon-arrow-left"></i> <i class="el-icon-more"></i> <i class="el-icon-arrow-right"></i></a>
             </div>
-            <div v-if="isLogin && !data.length" class="u-tip">
-                <i class="el-icon-warning-outline"></i> 暂无收藏物品
-            </div>
+            <div v-if="isLogin && !data.length" class="u-tip"><i class="el-icon-warning-outline"></i> 暂无收藏物品</div>
         </div>
     </div>
 </template>
@@ -52,14 +45,13 @@ import User from "@jx3box/jx3box-common/js/user";
 import ItemIcon from "@/components/ItemIcon";
 import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 import { get_items, getMyFavItems } from "@/service/item.js";
-import {get} from 'lodash'
+import { get } from "lodash";
 export default {
     name: "",
     props: [],
-    data: function () {
+    data: function() {
         return {
             isLogin: User.isLogin(),
-            // isLogin: true,
             data: [],
             hotitems: [],
             length: 24,
@@ -67,14 +59,34 @@ export default {
     },
     computed: {},
     methods: {
-        loadItems: function (ids, limit) {
+        loadItems: function(ids, limit) {
             return get_items({ ids: ids, limit: limit });
         },
-    },
-    mounted: function () {
-        if (this.isLogin) {
+        loadHotItems: function() {
+            // 获取热门物品
+            getStatRank("item").then((data) => {
+                data = data.data;
+
+                let ranks = [],
+                    item_ids = [];
+                for (let i in data) {
+                    let name = get(data, `${i}.name`, "-");
+                    let item_id = get(name.split("-"), 1, "");
+                    if (item_id) {
+                        item_ids.push(item_id);
+                        ranks[item_id] = get(data, `${i}.value`, {});
+                    }
+                }
+
+                this.loadItems(item_ids, this.length).then((res) => {
+                    this.hotitems = res.data.data.data;
+                    // this.data = res.data.data.data;
+                });
+            });
+        },
+        loadMyItems: function() {
             // 我收藏的物品
-            getMyFavItems({ type: "item", limit: 15 }).then((res) => {
+            getMyFavItems({ type: "item", limit: 24 }).then((res) => {
                 let list = res.data.data.data;
                 let ids = [];
                 if (list) {
@@ -87,27 +99,12 @@ export default {
                     this.data = res.data.data.data;
                 });
             });
+        },
+    },
+    mounted: function() {
+        if (this.isLogin) {
+            this.loadMyItems();
         }
-        // 获取热门物品
-        getStatRank("item").then((data) => {
-            data = data.data;
-
-            let ranks = [],
-                item_ids = [];
-            for (let i in data) {
-                let name = get(data, `${i}.name`, "-");
-                let item_id = get(name.split("-"), 1, "");
-                if (item_id) {
-                    item_ids.push(item_id);
-                    ranks[item_id] = get(data, `${i}.value`, {});
-                }
-            }
-
-            this.loadItems(item_ids, this.length).then((res) => {
-                this.hotitems = res.data.data.data;
-                // this.data = res.data.data.data;
-            });
-        });
     },
     components: {
         ItemIcon,

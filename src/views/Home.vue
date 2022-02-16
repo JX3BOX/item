@@ -8,18 +8,12 @@
                 <span>便捷入口</span>
             </template>
             <template slot="head-actions">
-                <a class="u-more" target="_blank" :href="feedback"
-                    >反馈建议 &raquo;</a
-                >
+                <a class="u-more" target="_blank" :href="feedback">反馈建议 &raquo;</a>
             </template>
             <template slot="body">
                 <ul class="m-qlinks">
                     <li class="qlink">
-                        <a
-                            style="background-color: #fe7979"
-                            target="_blank"
-                            href="/tool/18151/"
-                        >
+                        <a style="background-color: #fe7979" target="_blank" href="/tool/18151/">
                             <i class="el-icon-trophy"></i>
                             <span>游戏内看百科</span>
                         </a>
@@ -143,45 +137,19 @@
             </template>
             <template slot="body">
                 <div class="wiki-post-list" v-if="newest_posts.length">
-                    <div
-                        class="wiki-post"
-                        v-for="(post, key) in newest_posts"
-                        :key="key"
-                    >
+                    <div class="wiki-post" v-for="(post, key) in newest_posts" :key="key">
                         <div class="m-about-post">
                             <div class="m-user">
                                 <div class="u-author">
-                                    <img
-                                        class="u-icon"
-                                        :src="post.user_avatar | showAvatar"
-                                        :alt="post.user_nickname"
-                                    />
-                                    <a
-                                        :href="post.user_id | author_url"
-                                        class="u-name"
-                                        v-text="post.user_nickname"
-                                        v-if="post.user_id"
-                                    ></a>
-                                    <span v-else class="u-name">{{
-                                        post.user_nickname
-                                    }}</span>
+                                    <img class="u-icon" :src="post.user_avatar | showAvatar" :alt="post.user_nickname" />
+                                    <a :href="post.user_id | author_url" class="u-name" v-text="post.user_nickname" v-if="post.user_id"></a>
+                                    <span v-else class="u-name">{{ post.user_nickname }}</span>
                                 </div>
-                                <div
-                                    class="u-updated"
-                                    v-text="date_format(post.updated)"
-                                ></div>
+                                <div class="u-updated" v-text="date_format(post.updated)"></div>
                             </div>
                             <div class="m-wiki">
                                 <div class="u-wiki">
-                                    <img
-                                        class="u-icon"
-                                        :src="
-                                            formatIconUrl(post.source_icon_id)
-                                        "
-                                        @error.once="
-                                            $event.target.src = icon_url()
-                                        "
-                                    />
+                                    <img class="u-icon" :src="icon_url(post.source_icon_id)" @error.once="$event.target.src = icon_url()" />
                                     <router-link
                                         class="u-name"
                                         v-text="post.title"
@@ -191,15 +159,8 @@
                                         }"
                                     ></router-link>
                                 </div>
-                                <div
-                                    class="u-level"
-                                    v-text="'综合难度：' + star(post.level)"
-                                ></div>
-                                <div
-                                    class="u-remark"
-                                    v-if="post.remark"
-                                    v-text="'📑 ' + post.remark"
-                                ></div>
+                                <div class="u-level" v-text="'综合难度：' + star(post.level)"></div>
+                                <div class="u-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
                             </div>
                         </div>
                         <div class="m-excerpt">
@@ -227,13 +188,8 @@ import StarMarkItems from "../components/StarMarkItems.vue";
 import { iconLink, getThumbnail } from "@jx3box/jx3box-common/js/utils";
 import { get_item_posts } from "../service/item.js";
 import { get_item_plans } from "../service/item_plan.js";
-import {
-    __iconPath,
-    feedback,
-    default_avatar,
-} from "@jx3box/jx3box-common/data/jx3box.json";
-import { date_format, star, icon_url } from "../filters";
-
+import { __iconPath, feedback, default_avatar } from "@jx3box/jx3box-common/data/jx3box.json";
+import { date_format, star } from "../filters";
 export default {
     name: "Home",
     data() {
@@ -245,13 +201,20 @@ export default {
             plan_1_icon: __iconPath + "icon/3089.png",
         };
     },
+    computed: {
+        client: function() {
+            return this.$store.state.client;
+        },
+    },
     components: {
         Search,
         WikiPanel,
         StarMarkItems,
     },
     methods: {
-        icon_url: iconLink,
+        icon_url: function(id) {
+            return iconLink(id, this.client);
+        },
         ellipsis(value) {
             value = value ? value.trim() : "";
             if (value.length > 100) {
@@ -268,7 +231,6 @@ export default {
         },
         date_format,
         star,
-        formatIconUrl: icon_url,
     },
     created() {
         get_item_posts().then((res) => {
@@ -282,11 +244,8 @@ export default {
         });
     },
     filters: {
-        showAvatar: function (val) {
-            return (
-                (val && getThumbnail(val, 20, true)) ||
-                getThumbnail(default_avatar, 20, true)
-            );
+        showAvatar: function(val) {
+            return (val && getThumbnail(val, 20, true)) || getThumbnail(default_avatar, 20, true);
         },
     },
 };

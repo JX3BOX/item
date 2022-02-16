@@ -33,7 +33,7 @@
                             :to="{name:'view',params: {item_id: item.item_id}}"
                         >
                             <div class="u-icon">
-                                <img :src="$options.filters.icon_url(item.icon)" />
+                                <img :src="icon_url(item.icon)" />
                             </div>
                             <div class="u-content">
                                 <span class="u-name">
@@ -157,6 +157,9 @@ export default {
                 ? servers_origin
                 : servers_std;
         },
+        client: function() {
+            return this.$store.state.client;
+        },
     },
     components: {
         WikiPanel,
@@ -186,6 +189,9 @@ export default {
                 `${host}/item/#/search/${this.search}?page=1`,
                 "_blank"
             );
+        },
+        icon_url: function(id) {
+            return iconLink(id, this.client);
         },
     },
     watch: {

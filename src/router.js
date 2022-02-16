@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+Vue.use(VueRouter);
 
 // 组件懒加载
 const Home = () => import("./views/Home.vue");
@@ -8,8 +9,6 @@ const Detail = () => import("./views/Detail.vue");
 const PlanDetail = () => import("./views/PlanDetail.vue");
 const PlanList = () => import("./views/PlanList.vue");
 const Search = () => import("./views/Search.vue");
-
-Vue.use(VueRouter);
 
 const routes = [
     // 主页

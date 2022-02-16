@@ -12,15 +12,8 @@
             <tr v-for="(price, key) in prices" :key="key">
                 <td>
                     <div class="m-item-icon">
-                        <img
-                            class="u-icon"
-                            :src="icon_url(item.IconID)"
-                        />
-                        <span
-                            class="u-count"
-                            v-if="price.n_count > 1"
-                            v-text="price.n_count"
-                        ></span>
+                        <img class="u-icon" :src="icon_url(item.IconID)" />
+                        <span class="u-count" v-if="price.n_count > 1" v-text="price.n_count"></span>
                     </div>
                     <span
                         class="u-name"
@@ -31,29 +24,22 @@
                         }"
                     ></span>
                 </td>
-                <td
-                    v-text="item && item.RequireLevel ? item.RequireLevel : 1"
-                ></td>
+                <td v-text="item && item.RequireLevel ? item.RequireLevel : 1"></td>
                 <td v-text="date_format(price.created)"></td>
                 <td v-text="price.server"></td>
-                <td
-                    style="text-align: right"
-                    v-text="item_price(price.n_money)"
-                ></td>
-                <td
-                    style="text-align: right"
-                    v-text="item_price(price.unit_price)"
-                ></td>
+                <td style="text-align: right" v-text="item_price(price.n_money)"></td>
+                <td style="text-align: right" v-text="item_price(price.unit_price)"></td>
             </tr>
         </table>
+
         <div v-else style="text-align: center">🐖 暂无记录</div>
     </div>
 </template>
 
 <script>
 import { get_item_prices } from "../service/item";
-import { icon_url, item_price, date_format, item_color } from "../filters";
-
+import { item_price, date_format, item_color } from "../filters";
+import { iconLink } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "ItemPrices",
     props: ["item_id", "server"],
@@ -62,6 +48,11 @@ export default {
             item: null,
             prices: [],
         };
+    },
+    computed: {
+        client: function() {
+            return this.$store.state.client;
+        },
     },
     methods: {
         get_data() {
@@ -76,7 +67,9 @@ export default {
                 });
             }
         },
-        icon_url,
+        icon_url: function(id) {
+            return iconLink(id, this.client);
+        },
         item_price,
         date_format,
         item_color,
