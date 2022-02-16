@@ -18,13 +18,13 @@
                             }"
                         ></h6>
                         <div class="m-buttons fr">
-                            <!-- 收藏按钮 -->
-                            <Fav class="u-collect" post-type="item" :post-id="wiki_post.source.id" />
                             <!-- 加入清单 -->
                             <el-button type="success" size="mini" plain class="u-add-to-item-list" disabled>
                                 <i class="u-el-icon el-icon-shopping-cart-full"></i>
                                 <span class="u-text">加入清单</span>
                             </el-button>
+                            <!-- 收藏按钮 -->
+                            <Fav class="u-collect" post-type="item" :post-id="wiki_post.source.id" />
                         </div>
                     </div>
                     <!-- 其余属性 -->

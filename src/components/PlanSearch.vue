@@ -26,15 +26,6 @@
                 >
             </el-input>
         </div>
-        <div class="m-add">
-            <el-button
-                class="u-add-btn"
-                @click="add_handle"
-                type="primary"
-                icon="el-icon-plus"
-                >创建清单</el-button
-            >
-        </div>
     </div>
 </template>
 
@@ -71,37 +62,4 @@ export default {
 
 <style lang="less">
 @import "../assets/css/components/search.less";
-.m-search-bar {
-    .pr;
-    justify-items: center;
-}
-
-.m-search {
-    .mr(130px);
-}
-
-.m-add {
-    .pa;
-    top: 14px;
-    right: 0;
-}
-
-@media screen and (max-width: @ipad) {
-    .m-search {
-        .mr(0);
-
-        .el-input-group__prepend {
-            .none;
-        }
-    }
-
-    .m-add {
-        .ps;
-        .mt(10px);
-
-        .el-button {
-            .w(100%);
-        }
-    }
-}
 </style>

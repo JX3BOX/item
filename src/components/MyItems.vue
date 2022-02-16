@@ -86,7 +86,7 @@ export default {
         },
         loadMyItems: function() {
             // 我收藏的物品
-            getMyFavItems({ type: "item", limit: 24 }).then((res) => {
+            getMyFavItems({ type: "item", limit: this.length }).then((res) => {
                 let list = res.data.data.data;
                 let ids = [];
                 if (list) {

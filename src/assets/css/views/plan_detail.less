@@ -122,17 +122,17 @@
         float: left;
         margin-left: 5px;
     }
-
 }
 
-.m-plan{
+.m-plan {
     .pr;
 }
-.m-plan-op{
-    .pa;.rt(10px,5px);
+.m-plan-op {
+    .pa;
+    .rt(10px, 5px);
 }
-@media screen and (max-width:@phone){
-    .m-plan-op{
+@media screen and (max-width: @phone) {
+    .m-plan-op {
         .ps;
         padding-left: 10px;
         padding-bottom: 10px;
@@ -140,7 +140,13 @@
 }
 
 .m-equip-plan {
-    overflow-x:auto;
+    overflow-x: auto;
     margin: 30px auto;
     .x;
+}
+
+@media screen and (max-width: @phone) {
+    .m-plan .u-col {
+        .w(100%) !important;
+    }
 }
