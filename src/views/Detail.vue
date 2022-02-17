@@ -37,7 +37,8 @@
 					<ul class="m-other-fields">
 						<li v-if="wiki_post.source.Price">
 							<span class="u-label">回购价格</span>
-							<span class="u-value" v-text="item_price(wiki_post.source.Price)"></span>
+                            <GamePrice class="u-value" :price="wiki_post.source.Price" />
+							<!-- <span class="u-value" v-text="item_price(wiki_post.source.Price)"></span> -->
 						</li>
 						<li v-if="wiki_post.source.Level">
 							<span class="u-label">品质等级</span>
@@ -217,6 +218,7 @@ import { item_color, item_quality, item_price, item_bind } from "../filters";
 import { publishLink, ts2str, showAvatar } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user.js";
 import { get_my_item_plans, save_item_plan } from "@/service/item_plan.js";
+import GamePrice from '@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue'
 export default {
 	name: "Detail",
 	props: [],
@@ -245,7 +247,7 @@ export default {
             return !!this.$route.params.post_id;
         },
         author_id: function() {
-            return ~~this.wiki_post.post.user_id;
+            return ~~this.wiki_post?.post?.user_id;
         },
         servers: function() {
             return this.$store.state.client == "origin" ? origin_servers : std_servers;
@@ -260,7 +262,7 @@ export default {
             return this.wiki_post?.post?.user_nickname;
         },
         updated_at: function() {
-            return ts2str(this.wiki_post?.post.updated);
+            return ts2str(this.wiki_post?.post?.updated);
         },
     },
     components: {
@@ -275,6 +277,7 @@ export default {
         "relation-plans": RelationPlans,
         "item-prices": ItemPrices,
         "item-price-chart": ItemPriceChart,
+        GamePrice,
     },
     methods: {
         active_tab_handle(tab) {
