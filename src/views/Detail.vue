@@ -172,7 +172,7 @@
                         <i class="el-icon-edit"></i>
                         本次修订由 <b>{{ user_name }}</b> 提交于{{ updated_at }}
                     </div>
-                    <Thx class="m-thx" slot="single-append" :postId="id" postType="item" :userId="author_id" :adminBoxcoinEnable="isRevision" :userBoxcoinEnable="isRevision" mode="wiki" />
+                    <Thx class="m-thx" :postId="id" postType="item" :userId="author_id" :adminBoxcoinEnable="isRevision" :userBoxcoinEnable="isRevision" mode="wiki" :key="'item-thx-' + id"/>
                 </template>
             </WikiPanel>
 

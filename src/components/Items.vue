@@ -30,7 +30,7 @@
                     <div class="m-right">
                         <span
                             class="u-uiid"
-                            v-html="`UiID:${item.UiID}`"
+                            v-html="`ID : ${item.id}`"
                         ></span>
                         <h6
                             class="u-name"
