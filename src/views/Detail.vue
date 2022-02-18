@@ -149,10 +149,10 @@
 				<el-tab-pane label="📈 价格波动" name="item-price-chart" v-if="wiki_post.source && wiki_post.source.BindType != 3">
 					<item-price-chart ref="item_price_chart" :item_id="wiki_post.source.id" :server="server" />
 				</el-tab-pane>
-				<el-tab-pane label="💰 近期价格" name="item-prices" v-if="wiki_post.source && wiki_post.source.BindType != 3">
+				<el-tab-pane label="💰 近期价格" name="item-prices" v-if="wiki_post.source && wiki_post.source.BindType != 3" lazy>
 					<item-prices :item_id="wiki_post.source.id" :server="server" />
 				</el-tab-pane>
-				<el-tab-pane label="📜 相关物品清单" name="relation-plans">
+				<el-tab-pane label="📜 相关物品清单" name="relation-plans" lazy>
 					<relation-plans :item_id="wiki_post.source.id" />
 				</el-tab-pane>
 			</el-tabs>
@@ -310,7 +310,7 @@ export default {
                         if (data) {
                             this.is_empty = false;
                         }
-                        console.log("获取正式服攻略");
+                        // console.log("获取正式服攻略");
                     });
                 } else {
                     WikiPost.newest("item", this.id, 1, "origin")
@@ -320,12 +320,12 @@ export default {
                             if (data) {
                                 this.is_empty = false;
                             }
-                            console.log("获取怀旧服攻略");
+                            // console.log("获取怀旧服攻略");
                             return !!data.post;
                         })
                         .then((data) => {
                             if (!data) {
-                                console.log("兼容：获取正式服攻略");
+                                // console.log("兼容：获取正式服攻略");
                                 WikiPost.newest("item", this.id, 1, "std").then((res) => {
                                     let data = res?.data?.data;
                                     this.wiki_post = data;
