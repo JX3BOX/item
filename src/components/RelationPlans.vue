@@ -13,7 +13,7 @@
 				<el-table-column prop="description" label="描述"> </el-table-column>
 				<el-table-column prop="user_nickname" label="作者">
 					<template slot-scope="scope">
-						<a :href="author_url(scope.row.user_id)" class="u-name" target="_blank" @click.stop="">
+						<a :href="author_url(scope.row.user_id)" class="u-name" target="_blank" @click.stop>
 							<img :src="scope.row.user_avatar" :alt="scope.row.user_nickname" />
 							<span>{{ scope.row.user_nickname }}</span>
 						</a>
