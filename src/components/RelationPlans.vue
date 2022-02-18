@@ -2,11 +2,6 @@
 	<div class="m-relation-plans">
 		<template v-if="relation_plans.length">
 			<el-table :data="relation_plans" @cell-click="openLink">
-				<el-table-column prop="updated" label="更新日期">
-					<template slot-scope="scope">
-						<span>{{ date_format(scope.row.updated) }}</span>
-					</template>
-				</el-table-column>
 				<el-table-column prop="title" label="清单名称">
 					<template slot-scope="scope">
 						<div class="u-title">
@@ -15,6 +10,7 @@
                             </div>
 					</template>
 				</el-table-column>
+				<el-table-column prop="description" label="描述"> </el-table-column>
 				<el-table-column prop="user_nickname" label="作者">
 					<template slot-scope="scope">
 						<a :href="author_url(scope.row.user_id)" class="u-name" target="_blank" @click.stop="">
@@ -23,7 +19,11 @@
 						</a>
 					</template>
 				</el-table-column>
-				<el-table-column prop="description" label="备注"> </el-table-column>
+				<el-table-column prop="updated" label="更新日期">
+					<template slot-scope="scope">
+						<span>{{ date_format(scope.row.updated) }}</span>
+					</template>
+				</el-table-column>
 			</el-table>
 			<!-- <el-row :gutter="20">
 				<el-col :span="12" v-for="(plan, key) in relation_plans" :key="key">
@@ -75,7 +75,6 @@ export default {
 						(data) => {
 							data = data.data;
 							this.relation_plans = data.data.data;
-							console.log(this.relation_plans, "?");
 						},
 						(err) => {
 							this.relation_plans = [];
