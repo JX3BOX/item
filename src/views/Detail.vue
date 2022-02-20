@@ -145,6 +145,15 @@
 				</el-select>
 			</div>
 
+            <div class="m-item-required">
+                <template v-for="item in requiredList">
+                    <span class="u-item" :key="item.ID">
+                        <img class="u-icon" :src="iconLink(item.item_info[0].IconID)" :alt="item.Name" :title="item.Name">
+                        <span class="u-count">{{ item._count }}</span>
+                    </span>
+                </template>
+            </div>
+
 			<el-tabs v-model="activeTab" type="border-card" @tab-click="active_tab_handle" v-loading="loading">
 				<el-tab-pane label="📈 价格波动" name="item-price-chart" v-if="wiki_post.source && wiki_post.source.BindType != 3">
 					<item-price-chart ref="item_price_chart" :item_id="wiki_post.source.id" :server="server" />
@@ -209,16 +218,18 @@ import Search from "@/components/Search.vue";
 import RelationPlans from "@/components/RelationPlans.vue";
 import ItemPrices from "@/components/ItemPrices.vue";
 import ItemPriceChart from "@/components/ItemPriceChart.vue";
+import GamePrice from '@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue'
+
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 import { WikiPost } from "@jx3box/jx3box-common/js/helper";
 import { __Links } from "@jx3box/jx3box-common/data/jx3box.json";
 import std_servers from "@jx3box/jx3box-data/data/server/server_std.json";
 import origin_servers from "@jx3box/jx3box-data/data/server/server_origin.json";
 import { item_color, item_quality, item_price, item_bind } from "../filters";
-import { publishLink, ts2str, showAvatar } from "@jx3box/jx3box-common/js/utils";
-import User from "@jx3box/jx3box-common/js/user.js";
-import { get_my_item_plans, save_item_plan } from "@/service/item_plan.js";
-import GamePrice from '@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue'
+import { publishLink, ts2str, showAvatar, iconLink } from "@jx3box/jx3box-common/js/utils";
+import { getManufatureDetail, getItemDetail } from '@/service/item';
+import auc_map from '@/assets/data/auc.json';
+
 export default {
 	name: "Detail",
 	props: [],
@@ -234,6 +245,7 @@ export default {
             server: "",
             activeTab: "item-price-chart",
             loading: false,
+            requiredList: [], // 原料列表
         };
     },
     computed: {
@@ -264,6 +276,9 @@ export default {
         updated_at: function() {
             return ts2str(this.wiki_post?.post?.updated);
         },
+        auc: function (){
+            return `${this.wiki_post?.source?.AucGenre}_${this.wiki_post?.source?.AucSubType}`
+        }
     },
     components: {
         "jx3-item": Item,
@@ -297,6 +312,7 @@ export default {
         item_price,
         item_bind,
         ts2str,
+        iconLink,
         showAvatar: function(url) {
             return showAvatar(url, 32);
         },
@@ -354,6 +370,38 @@ export default {
                 postStat("item", this.id);
             }
         },
+        loadItemDetail:function (){
+            const auc = auc_map[this.auc];
+
+            if (auc && this.wiki_post?.source?.UiID) {
+                getManufatureDetail(auc, { ItemID: this.wiki_post?.source?.UiID, client: this.client }).then(res => {
+
+                    let counts = [];
+                    let itemIds = [];
+
+                    if (res?.data) {
+                        for (const key in res.data) {
+                            if (key.startsWith('RequireItemCount') && res.data[key]) {
+                                counts.push(res.data[key])
+                            }
+
+                            if (key.startsWith('RequireItemIndex') && res.data[key]) {
+                                itemIds.push(res.data[key])
+                            }
+                        }
+                    }
+
+                    getItemDetail({ ids: itemIds.join(','), per: 10, client: this.client }).then(itemRes => {
+                        this.requiredList = itemRes?.data?.list?.map((item, i) => {
+                            return {
+                                ...item,
+                                _count: counts[i]
+                            }
+                        })
+                    })
+                })
+            }
+        }
     },
     watch: {
         id: {
@@ -374,6 +422,8 @@ export default {
                 this.activeTab = item && item.BindType != 3 ? "item-price-chart" : "relation-plans";
                 this.$store.state.sidebar.AucGenre = parseInt(item.AucGenre);
                 this.$store.state.sidebar.AucSubTypeID = parseInt(item.AucSubTypeID);
+
+                this.loadItemDetail()
             },
         },
     },

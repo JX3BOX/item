@@ -1,4 +1,8 @@
-import { $helper } from "@jx3box/jx3box-common/js/https";
+import { $helper, $node } from "@jx3box/jx3box-common/js/https";
+import axios from "axios";
+const $ = axios.create({
+    baseURL : 'http://localhost:9002/'
+})
 
 function getMyFavItems(params) {
     return $helper().get(`api/my/post/favorites`, {
@@ -86,6 +90,20 @@ function get_item_posts() {
     });
 }
 
+// 获取生活技艺产品原料
+function getManufatureDetail(type, params){
+    return $.get(`/manufature/${type}`, {
+        params
+    })
+}
+
+// 获取物品详情
+function getItemDetail(params){
+    return $.get(`/other`, {
+        params
+    })
+}
+
 export {
     getMenus,
     get_items_count,
@@ -100,4 +118,6 @@ export {
     get_menu_items,
     get_item_posts,
     getMyFavItems,
+    getItemDetail,
+    getManufatureDetail,
 };

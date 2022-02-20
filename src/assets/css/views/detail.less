@@ -94,6 +94,33 @@
 		}
 	}
 
+	.m-item-required {
+		.pa;
+		top: 8px;
+		left: 300px;
+		z-index: 20;
+
+		.u-item {
+			.mr(10px);
+			.u-icon {
+				.size(20px);
+			}
+	
+			.u-count {
+				.pr;
+				top: -4px;
+
+				&::before {
+					content: '*';
+					.pr;
+					top: 2px;
+					.ml(2px);
+				}
+			}
+		}
+
+	}
+
 	.m-wiki-post-empty {
 		.u-msg-yellow;
 		.x;
