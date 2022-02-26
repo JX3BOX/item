@@ -1,8 +1,9 @@
 import { $helper, $node } from "@jx3box/jx3box-common/js/https";
-import axios from "axios";
-const $ = axios.create({
-    baseURL : 'http://localhost:9002/'
-})
+// import axios from "axios";
+const $ = $node()
+// const $ = axios.create({
+//     baseURL : 'http://localhost:9002/'
+// })
 
 function getMyFavItems(params) {
     return $helper().get(`api/my/post/favorites`, {
