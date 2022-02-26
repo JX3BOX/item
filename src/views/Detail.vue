@@ -33,6 +33,16 @@
                             <Fav class="u-collect" post-type="item" :post-id="wiki_post.source.id" />
                         </div>
                     </div>
+                    <!-- 原料 -->
+                    <div class="m-item-required" v-if="requiredList.length">
+                        <span class="u-label">制作原料</span>
+                        <template v-for="item in requiredList">
+                            <router-link class="u-item" :key="item.ID" target="_blank" :to="`/view/5_${item.ID}`">
+                                <img class="u-icon" :src="iconLink(item.item_info[0].IconID)" :alt="item.Name" :title="item.Name" />
+                                <span class="u-count">{{ item._count }}</span>
+                            </router-link>
+                        </template>
+                    </div>
                     <!-- 其余属性 -->
                     <ul class="m-other-fields">
                         <li class="m-other-field">
@@ -137,15 +147,6 @@
 							<span class="u-value" v-text="'是'"></span>
 						</li> -->
                     </ul>
-                    <!-- TODO:原料 -->
-                    <div class="m-item-required" v-if="requiredList.length">
-                        <template v-for="item in requiredList">
-                            <span class="u-item" :key="item.ID">
-                                <img class="u-icon" :src="iconLink(item.item_info[0].IconID)" :alt="item.Name" :title="item.Name" />
-                                <span class="u-count">{{ item._count }}</span>
-                            </span>
-                        </template>
-                    </div>
                 </div>
             </div>
         </div>

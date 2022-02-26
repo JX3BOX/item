@@ -96,15 +96,29 @@
 
 	.m-item-required {
 
+		display: flex;
+		align-items: center;
+
+		.u-label{
+			color: #999;
+    		margin-right: 10px;
+			.fz(14px,28px);
+		}
+
 		.u-item {
-			.mr(10px);
+			
+			.mr(15px);
 			.u-icon {
 				.size(20px);
+				.r(2px);
 			}
 	
 			.u-count {
 				.pr;
 				top: -4px;
+				.bold;
+				.fz(13px);
+				color:#e30101;
 
 				&::before {
 					content: '*';
