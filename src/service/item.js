@@ -91,8 +91,8 @@ function get_item_posts() {
 }
 
 // 获取生活技艺产品原料
-function getManufatureDetail(type, params){
-    return $.get(`/manufature/${type}`, {
+function getManufactureDetail(params){
+    return $.get(`/manufactures`, {
         params
     })
 }
@@ -119,5 +119,5 @@ export {
     get_item_posts,
     getMyFavItems,
     getItemDetail,
-    getManufatureDetail,
+    getManufactureDetail,
 };

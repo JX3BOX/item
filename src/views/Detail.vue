@@ -138,7 +138,7 @@
 						</li> -->
                     </ul>
                     <!-- TODO:原料 -->
-                    <div class="m-item-required" v-if="false">
+                    <div class="m-item-required" v-if="requiredList.length">
                         <template v-for="item in requiredList">
                             <span class="u-item" :key="item.ID">
                                 <img class="u-icon" :src="iconLink(item.item_info[0].IconID)" :alt="item.Name" :title="item.Name" />
@@ -232,8 +232,7 @@ import std_servers from "@jx3box/jx3box-data/data/server/server_std.json";
 import origin_servers from "@jx3box/jx3box-data/data/server/server_origin.json";
 import { item_color, item_quality, item_price, item_bind } from "../filters";
 import { publishLink, ts2str, showAvatar, iconLink } from "@jx3box/jx3box-common/js/utils";
-import { getManufatureDetail, getItemDetail } from "@/service/item";
-import auc_map from "@/assets/data/auc.json";
+import { getManufactureDetail, getItemDetail } from "@/service/item";
 
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
@@ -380,21 +379,24 @@ export default {
             }
         },
         loadItemDetail: function() {
-            const auc = auc_map[this.auc];
+            if (this.wiki_post?.source?.UiID) {
+                getManufactureDetail({ sourceId: this.wiki_post?.source?.SourceID, client: this.client }).then((res) => {
 
-            if (auc && this.wiki_post?.source?.UiID) {
-                getManufatureDetail(auc, { ItemID: this.wiki_post?.source?.UiID, client: this.client }).then((res) => {
+                    const data = res?.data?.find(item => item.CreateItemIndex1 === this.wiki_post?.source?.SourceID)
+
+                    if (!data) return
+
                     let counts = [];
                     let itemIds = [];
 
-                    if (res?.data) {
-                        for (const key in res.data) {
-                            if (key.startsWith("RequireItemCount") && res.data[key]) {
-                                counts.push(res.data[key]);
+                    if (data) {
+                        for (const key in data) {
+                            if (key.startsWith("RequireItemCount") && data[key]) {
+                                counts.push(data[key]);
                             }
 
-                            if (key.startsWith("RequireItemIndex") && res.data[key]) {
-                                itemIds.push(res.data[key]);
+                            if (key.startsWith("RequireItemIndex") && data[key]) {
+                                itemIds.push(data[key]);
                             }
                         }
                     }
@@ -432,18 +434,18 @@ export default {
                 this.loadRevision();
             },
         },
-        // "wiki_post.source": {
-        //     immediate: true,
-        //     deep: true,
-        //     handler() {
-        //         let item = this.wiki_post.source;
-        //         this.activeTab = item && item.BindType != 3 ? "item-price-chart" : "relation-plans";
-        //         this.$store.state.sidebar.AucGenre = parseInt(item.AucGenre);
-        //         this.$store.state.sidebar.AucSubTypeID = parseInt(item.AucSubTypeID);
+        "wiki_post.source": {
+            immediate: true,
+            deep: true,
+            handler() {
+                let item = this.wiki_post.source;
+                this.activeTab = item && item.BindType != 3 ? "item-price-chart" : "relation-plans";
+                this.$store.state.sidebar.AucGenre = parseInt(item.AucGenre);
+                this.$store.state.sidebar.AucSubTypeID = parseInt(item.AucSubTypeID);
 
-        //         this.loadItemDetail();
-        //     },
-        // },
+                this.loadItemDetail();
+            },
+        },
     },
     mounted: function() {
         if (this.post_id) {
