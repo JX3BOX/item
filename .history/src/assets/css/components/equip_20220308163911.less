@@ -1,0 +1,186 @@
+.m-plan-equip {
+	.dbi;
+	.size(500px, 750px); 
+	// background-color:#324f4a;
+	// background-color:#fff;
+	// border:6px solid #f5f7fa;
+	background-color: @bg-black;
+	border: 6px solid #444;
+	.r(6px);
+
+	.u-info {
+		.mt(20px);
+		.w(280px);
+		.auto(x);
+		.x;
+	}
+	.u-title {
+		.nobreak;
+		.fz(1rem, 2);
+		.bold;
+		color: #fff;
+	}
+
+	.u-author {
+		// .pa;.lt(50%);
+		// transform: translate3d(-50%,-50%,0);
+		img {
+			.r(2px);
+			.size(20px);
+			.y;
+		}
+		img {
+			.mr(5px);
+		}
+		span {
+			.fz(13px, 2.5);
+			color: #ccc;
+		}
+	}
+
+	.u-desc {
+		.mt(10px);
+		color: #ccc;
+		font-size: 13px;
+		line-height: 1.8;
+		.break(10);
+		.h(240px);
+		white-space: pre-wrap;
+		text-align: left;
+		background: #2b2e31;
+		padding: 10px;
+		box-sizing: border-box;
+	}
+
+	.u-time {
+		// .x(right);
+		color: #999;
+		.fz(12px);
+		// .mt(5px);
+	}
+
+	.u-qrcodebox {
+		.mt(60px);
+		.w(140px);
+		.auto(x);
+
+		.w-qrcode-static {
+			.u-txt {
+				.mt(10px);
+				color: #999;
+				.fz(12px, 16px);
+			}
+			svg {
+				fill: #999;
+				.size(16px);
+				.y(-4px);
+			}
+			.u-pic {
+				padding: 10px 8px 8px 8px;
+				border-radius: 2px;
+			}
+		}
+	}
+
+	.pr;
+	.u-equip {
+		.pa;
+		.u-name {
+			.none;
+		}
+		.u-uiid {
+			.none;
+		}
+	}
+
+	.u-equip-melee_weapon {
+		.lt(170px, 630px);
+	}
+	.u-equip-range_weapon {
+		.lt(240px, 630px);
+	}
+
+	.u-equip-cap {
+		.lt(12px, 90px);
+	}
+
+	.u-equip-chest {
+		.lt(12px, 270px);
+	}
+
+	.u-equip-waist {
+		.lt(12px, 450px);
+	}
+
+	.u-equip-bangle {
+		.lt(400px, 90px);
+	}
+
+	.u-equip-trousers {
+		.lt(400px, 180px);
+	}
+
+	.u-equip-shoes {
+		.lt(400px, 270px);
+	}
+
+	.u-equip-amulet {
+		.lt(400px, 360px);
+	}
+
+	.u-equip-pendant {
+		.lt(400px, 450px);
+	}
+
+	.u-equip-ring_1 {
+		.lt(400px, 540px);
+	}
+
+	.u-equip-ring_2 {
+		.lt(400px, 630px);
+	}
+
+	.u-misc {
+		.pa;
+		.lt(30px, 630px);
+	}
+
+	.u-logo {
+		.db;
+		svg,
+		span {
+			transition: 0.2s ease-in-out;
+		}
+		svg {
+			.size(56px);
+			fill: #fff;
+		}
+		span {
+			.db;
+			color: #fff;
+			font-family: Consolas;
+			.fz(12px);
+			// .bold;
+		}
+		&:hover {
+			span {
+				color: #0cf;
+			}
+			svg {
+				fill: #0cf;
+			}
+		}
+	}
+
+	.u-meta {
+		// .mt(5px);
+		.fz(12px);
+		.db;
+		// color:#1bbfe0;
+		color: #fff;
+		// &:hover{
+		//     color:#ff0;
+		// }
+		// .pa;.lb(20px,20px);
+	}
+}

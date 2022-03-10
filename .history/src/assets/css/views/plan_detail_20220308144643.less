@@ -1,0 +1,79 @@
+.v-plan-view {
+	padding: 20px 0;
+	.m-plan-navigation {
+		.mb(20px);
+	}
+    // 内容
+    .m-description{
+        
+    }
+    //物品
+	.m-plan-item {
+		.m-item {
+			.mb(15px);
+			.r(5px);
+			padding: 10px 20px 0 20px;
+			border: 1px solid #eee;
+			background-color: #fff;
+			.u-title {
+				.fz(18px,2);
+				.bold;
+				.x;
+                opacity: 0.8;
+				padding: 0 10px;
+				letter-spacing: 0.5em;
+				border-bottom: 1px solid #ddd;
+			}
+			.u-content {
+				padding: 20px;
+				.flex;
+				flex-wrap: wrap;
+				.u-item {
+					.flex;
+					margin: 0 20px 10px 0;
+					flex-direction: column;
+					align-items: center;
+					.u-name {
+						.fz(12px);
+					}
+				}
+				.u-img {
+					.pr;
+					.u-count {
+						.pa;
+						.rt(0,28px);
+						.fz(12px);
+						.z(3);
+						color: #fff;
+						text-align: right;
+						padding: 0 3px 0 5px;
+						background-color: rgba(0, 0, 0, 0.6);
+						border-radius: 3px 0 0 3px;
+						&::before {
+							content: "×";
+						}
+					}
+				}
+			}
+			.quality-1 {
+				color: #888;
+			}
+			.quality-2 {
+				color: #00d24b;
+			}
+			.quality-3 {
+				color: #007eff;
+			}
+			.quality-4 {
+				color: #ff2dff;
+			}
+			.quality-5 {
+				color: #ffa500;
+			}
+		}
+	}
+    // 装备
+    .m-plan-equip{
+
+    }
+}
