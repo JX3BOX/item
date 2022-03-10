@@ -249,7 +249,6 @@ export default {
 	},
 	created: function () {
 		this.getItemData();
-		// TODO:判断该清单是否为登录的用户编写
 	},
 };
 </script>

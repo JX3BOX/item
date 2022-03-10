@@ -146,7 +146,7 @@ export default {
 		goBack() {
 			this.$router.push({ name: "plan_list" });
 		},
-		// 转换数据,获取旧数据id,新数据格式不转换，直接显示
+		// 转换数据,获取旧数据id		// TODO:新数据格式不转换，直接显示
 		converted(data) {
 			let { type, relation } = data;
 			let _arr = [];
@@ -249,7 +249,6 @@ export default {
 	},
 	created: function () {
 		this.getItemData();
-		// TODO:判断该清单是否为登录的用户编写
 	},
 };
 </script>
