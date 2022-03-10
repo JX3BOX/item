@@ -79,7 +79,6 @@ import ItemSimple from "@jx3box/jx3box-editor/src/ItemSimple";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
-import { __Links } from "@jx3box/jx3box-common/data/jx3box.json";
 import { showAvatar, authorLink, ts2str } from "@jx3box/jx3box-common/js/utils";
 
 export default {
@@ -219,8 +218,8 @@ export default {
 				});
 			});
 		},
-
-		publish_url(val) {
+        
+        	publish_url(val) {
 			return `${__Links.dashboard.publish}#/${val}`;
 		},
 		// 编辑清单

@@ -220,7 +220,7 @@ export default {
 			});
 		},
 
-		publish_url(val) {
+        	publish_url(val) {
 			return `${__Links.dashboard.publish}#/${val}`;
 		},
 		// 编辑清单
