@@ -81,6 +81,7 @@ import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
 import { __Links } from "@jx3box/jx3box-common/data/jx3box.json";
 import { showAvatar, authorLink, ts2str } from "@jx3box/jx3box-common/js/utils";
+import User from "@jx3box/jx3box-common/js/user";
 
 export default {
 	name: "demo",
@@ -137,10 +138,16 @@ export default {
 			getItemPlanID(this.plan_id)
 				.then((res) => {
 					this.plan = res;
+					this.isAuthorUser(res.user_id);
 				})
 				.finally(() => {
 					this.loading = false;
 				});
+		},
+		// 判断用户权限
+		isAuthorUser(user_id) {
+			let _user = User.getInfo();
+			if (_user.uid == user_id) this.isAuthor = true;
 		},
 		// 返回列表
 		goBack() {
@@ -218,7 +225,7 @@ export default {
 				});
 			});
 		},
-
+		// 发布中心链接
 		publish_url(val) {
 			return `${__Links.dashboard.publish}#/${val}`;
 		},
@@ -243,13 +250,13 @@ export default {
 					});
 			});
 		},
+
 		iconLink,
 		showAvatar,
 		authorLink,
 	},
 	created: function () {
 		this.getItemData();
-		// TODO:判断该清单是否为登录的用户编写
 	},
 };
 </script>
