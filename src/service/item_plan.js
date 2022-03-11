@@ -57,13 +57,23 @@ function delItemPlans(id) {
 }
 
 // 多个清单搜索
-function searchItemsID(params) { 
+function searchItemsID(params) {
 	return $helper()
 		.get(`/api/items`, { params })
 		.then((res) => {
 			return res.data.data;
 		});
 }
- 
+// 获取我的清单
+function getMyPlans(params) {
+	return $cms()
+		.get(`/api/cms/app/item_plans/mine`, { params })
+		.then((res) => {
+			return res.data.data;
+		});
+}
+function postMyPlans(id, params) {
+	return $cms().put(`/api/cms/app/item_plan/${id}`, params);
+}
 
-export { get_item_plan, get_item_plans, get_my_item_plans, delete_item_plan, save_item_plan, getItemPlans, getItemPlanID,delItemPlans,searchItemsID };
+export { get_item_plan, get_item_plans, get_my_item_plans, delete_item_plan, save_item_plan, getItemPlans, getItemPlanID, delItemPlans, searchItemsID, getMyPlans, postMyPlans };
