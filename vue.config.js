@@ -43,11 +43,8 @@ module.exports = {
                     request.setHeader("origin", "");
                 }
             },
-            "/api/cms": {
-                "target": "https://cms.jx3box.com",
-                "onProxyReq": function (request) {
-                    request.setHeader("origin", "");
-                }
+            "/api/cms":{
+                target: process.env["DEV_SERVER"] == "true" ? "http://localhost:5120" : "https://cms.jx3box.com"
             },
             "/api/inspire":{
                 "target": "https://pay.jx3box.com",
