@@ -10,7 +10,7 @@
 			<div class="u-title">{{ plan.title }}</div>
 			<a class="u-author" :href="userpage" target="_blank">
 				<img :src="avatar" class="u-author-avatar" />
-				<span class="u-author-name">{{ plan.user_nickname }}</span>
+				<span class="u-author-name">{{ username }}</span>
 			</a>
 			<div class="u-time">
 				<i class="el-icon-date"></i>
@@ -41,25 +41,23 @@ export default {
 	props: ["data"],
 	data: function () {
 		return {
-			plan_data: "",
 		};
 	},
 	computed: {
 		plan: function () {
-			return this.id ? this.plan_data : this.data;
+			return this.data;
 		},
-
 		avatar: function () {
-			return this.plan ? this.plan.user_avatar : "";
+			return this.plan?.user_info?.user_avatar;
 		},
 		username: function () {
-			return this.plan ? this.plan.user_nickname : "";
+			return this.plan?.user_info?.display_name || '匿名';
 		},
 		uid: function () {
-			return this.plan ? this.plan.user_id : "";
+			return this.plan.user_id;
 		},
 		userpage: function () {
-			return this.uid ? authorLink(this.uid) : "";
+			return authorLink(this.uid);
 		},
 		link: function () {
 			return this.plan ? __Root + `item/#/plan_view/${this.plan.id}` : "";
@@ -71,9 +69,6 @@ export default {
 	components: {
 		itemIcon,
 		QRcode,
-	},
-	created() {
-		// console.log(this.data);
 	},
 };
 </script>

@@ -10,15 +10,15 @@
 		</div>
 		<!-- 列表 -->
 		<div class="m-plan-list">
-			<template v-if="plans.length">
+			<template v-if="plans && plans.length">
 				<router-link class="m-item" v-for="(plan, key) in plans" :key="key" :to="{ name: 'plan_view', params: { plan_id: plan.id } }">
 					<img class="u-img" :src="listImg(plan.type)" alt="" />
 					<div class="u-content">
 						<span class="u-title">{{ plan.title }}</span>
-						<span class="u-desc">{{ plan.description || "By：" + plan.user_nickname }}</span>
+						<span class="u-desc" v-if="plan.description">{{ plan.description }}</span>
 						<span class="u-user">
-							<img class="u-avatar" :src="showAvatar(plan.user_avatar)" :alt="plan.user_nickname" />
-							<a class="u-name" :href="authorLink(plan.user_id)">{{ plan.user_nickname || "匿名" }}</a>
+							<img class="u-avatar" :src="showAvatar(getUserInfo(plan,'user_avatar'))" :alt="getUserInfo(plan,'user_avatar')" />
+							<a class="u-name" :href="authorLink(plan.user_id)">{{ getUserInfo(plan,'display_name') || "匿名" }}</a>
 							<span class="u-time"><i class="el-icon-time"></i>{{ date_format(plan.updated) }}</span>
 						</span>
 					</div>
@@ -34,7 +34,7 @@ import { __iconPath } from "@jx3box/jx3box-common/data/jx3box.json";
 import { getItemPlans } from "../service/item_plan.js";
 import { showAvatar, authorLink, ts2str } from "@jx3box/jx3box-common/js/utils";
 export default {
-	name: "planList",
+	name: "PlanList",
 	data: function () {
 		return {
 			loading: false,
@@ -89,6 +89,9 @@ export default {
 		},
 		showAvatar,
 		authorLink,
+		getUserInfo : function (plan,key){
+			return plan?.user_info?.[key]
+		}
 	},
 };
 </script>
