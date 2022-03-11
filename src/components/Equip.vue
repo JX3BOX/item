@@ -34,24 +34,23 @@ import QRcode from "@jx3box/jx3box-common-ui/src/interact/QRcode.vue";
 import itemIcon from "@/components/ItemIcon.vue";
 import { authorLink } from "@jx3box/jx3box-common/js/utils";
 import { showTime } from "@jx3box/jx3box-common/js/moment.js";
-import { __Root } from "@jx3box/jx3box-common/data/jx3box.json";
+import { __Root, default_avatar } from "@jx3box/jx3box-common/data/jx3box.json";
 
 export default {
 	name: "equip",
 	props: ["data"],
 	data: function () {
-		return {
-		};
+		return {};
 	},
 	computed: {
 		plan: function () {
 			return this.data;
 		},
 		avatar: function () {
-			return this.plan?.user_info?.user_avatar;
+			return this.plan?.user_info?.user_avatar || default_avatar;
 		},
 		username: function () {
-			return this.plan?.user_info?.display_name || '匿名';
+			return this.plan?.user_info?.display_name || "匿名";
 		},
 		uid: function () {
 			return this.plan.user_id;

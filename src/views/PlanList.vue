@@ -17,8 +17,8 @@
 						<span class="u-title">{{ plan.title }}</span>
 						<span class="u-desc" v-if="plan.description">{{ plan.description }}</span>
 						<span class="u-user">
-							<img class="u-avatar" :src="showAvatar(getUserInfo(plan,'user_avatar'))" :alt="getUserInfo(plan,'user_avatar')" />
-							<a class="u-name" :href="authorLink(plan.user_id)">{{ getUserInfo(plan,'display_name') || "匿名" }}</a>
+							<img class="u-avatar" :src="showAvatar(getUserInfo(plan, 'user_avatar'))" :alt="getUserInfo(plan, 'user_avatar')" />
+							<a class="u-name" :href="authorLink(plan.user_id)">{{ getUserInfo(plan, "display_name") || "匿名" }}</a>
 							<span class="u-time"><i class="el-icon-time"></i>{{ date_format(plan.updated) }}</span>
 						</span>
 					</div>
@@ -89,9 +89,9 @@ export default {
 		},
 		showAvatar,
 		authorLink,
-		getUserInfo : function (plan,key){
-			return plan?.user_info?.[key]
-		}
+		getUserInfo: function (plan, key) {
+			return plan?.user_info?.[key];
+		},
 	},
 };
 </script>
