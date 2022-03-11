@@ -38,15 +38,15 @@
                         </router-link>
                     </li>
                     <li class="qlink">
-                        <a target="_blank" href="/pvx/cooking">
+                        <a target="_blank" href="/pvx/manufacture">
                             <i class="el-icon-magic-stick"></i>
                             <span>技艺助手</span>
                         </a>
                     </li>
                     <li class="qlink">
-                        <a target="_blank" href="/pvx/price">
+                        <a target="_blank" href="/app/price">
                             <i class="el-icon-orange"></i>
-                            <span>物价大全</span>
+                            <span>金价走势</span>
                         </a>
                     </li>
                 </ul>
