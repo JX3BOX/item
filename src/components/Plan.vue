@@ -1,24 +1,22 @@
 <template>
 	<el-popover popper-class="w-plans" placement="bottom" trigger="click" v-model="visible">
+		<el-input class="u-input" v-model.lazy="search" placeholder="请输入清单关键字"></el-input>
+		<span class="u-list-null"> {{ list.length ? "点击清单添加物品" : "暂无清单" }}</span>
 		<template v-if="list.length">
-			<el-input class="u-input" v-model="search" placeholder="请输入清单关键字"></el-input>
-			<span class="u-list-null">点击清单可直接加入物品</span>
 			<div class="u-list" v-for="(item, index) in list" :key="index" @click="addPlans(item.id)">
 				<i class="el-icon-s-order"></i>
 				<span>{{ item.title }}</span>
 			</div>
 		</template>
-		<template v-else>
-			<span class="u-list-null">暂无清单</span>
-			<a :href="publishLink(`item_plan`)" target="_blank" class="el-button u-create"><i class="el-icon-document-add"></i> <span>创建新清单</span></a>
-		</template>
+		<a v-else :href="publishLink(`item_plan`)" target="_blank" class="el-button u-create"><i class="el-icon-document-add"></i> <span>创建新清单</span></a>
+
 		<el-button size="mini" type="success" slot="reference" @click="openPlans"><i class="u-el-icon el-icon-shopping-cart-full"></i> 加入清单</el-button>
 	</el-popover>
 </template>
 <script>
 import User from "@jx3box/jx3box-common/js/user";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
-import { getMyPlans, postMyPlans, searchItemsID } from "../service/item_plan.js";
+import { getMyPlans, postMyPlans } from "../service/item_plan.js";
 export default {
 	name: "plan",
 	props: [],
@@ -34,11 +32,16 @@ export default {
 			return this.$route.params.item_id;
 		},
 	},
-	watch: {},
+	watch: {
+		search(val) {
+			this.searchPlans(val);
+		},
+	},
 	methods: {
 		publishLink,
 		openPlans() {
 			if (!User.isLogin()) User.toLogin();
+
 			getMyPlans({ page: 1, limit: 8 }).then((res) => {
 				this.list = res.list;
 			});
@@ -46,6 +49,11 @@ export default {
 		addPlans(id) {
 			postMyPlans(id, { addPlan: this.id }).finally(() => {
 				this.visible = false;
+			});
+		},
+		searchPlans(val) {
+			getMyPlans({ search: val }).then((res) => {
+				this.list = res.list;
 			});
 		},
 	},
@@ -87,5 +95,8 @@ export default {
 .w-plans {
 	z-index: 99 !important;
 	width: 180px;
+}
+.m-item-icon-popup {
+	padding: 0;
 }
 </style>
