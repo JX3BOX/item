@@ -58,7 +58,7 @@
 								<div v-if="item.list.length">
 									<jx3-item-simple class="u-equip" v-for="eq in item.list" :key="eq.id" :item="eq" />
 								</div>
-								<div v-else class="u-equip-null">暂无物品</div>
+								<div v-else class="u-equip-null"> - 暂无物品 - </div>
 							</div>
 						</div>
 					</div>

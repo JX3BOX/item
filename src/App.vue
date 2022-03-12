@@ -12,11 +12,9 @@
 		</LeftSidebar>
 		<Main :withoutRight="false">
 			<!-- 路由页面内容 -->
-			<!-- <router-view /> -->
-			<keep-alive>
-				<router-view v-if="$route.meta.keepAlive" />
+			<keep-alive include="PlanList">
+				<router-view />
 			</keep-alive>
-			<router-view v-if="!$route.meta.keepAlive" />
 			<!-- 右侧咨询 -->
 			<RightSidebar>
 				<Extend />
