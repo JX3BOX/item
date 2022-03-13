@@ -39,7 +39,7 @@
 							<div class="u-content">
 								<router-link class="u-item" v-for="(el, key) in item.data" :key="key" :to="{ name: 'view', params: { item_id: el.id } }">
 									<span class="u-img">
-										<itemIcon :item_id="el.id" />
+										<itemIcon :item="el" />
 										<span class="u-count">{{ el.count }}</span>
 									</span>
 									<span class="u-name" :class="`quality-${el.Quality}`"> {{ el.Name }}</span>
@@ -56,7 +56,7 @@
 							<div class="u-item" v-for="(item, key) in list" :key="key">
 								<span class="u-title"> {{ item.label }}</span>
 								<div v-if="item.list.length">
-									<itemIcon class="u-equip" v-for="eq in item.list" :key="eq.id" :has_title="true" :item_id="eq" />
+									<itemIcon class="u-equip" v-for="(eq, i) in item.list" :key="i" :has_title="true" :item="eq" />
 								</div>
 								<div v-else class="u-equip-null">- 暂无物品 -</div>
 							</div>
@@ -134,8 +134,9 @@ export default {
 		getItemData() {
 			getItemPlanID(this.plan_id)
 				.then((res) => {
-					this.plan = this.converted(res);
-					if (this.plan.type == 2) this.toEquipList(this.plan.relation);
+					// this.plan = res;
+					this.converted(res);
+					if (res.type == 2) this.toEquipList(res.relation);
 					this.isAuthorUser(res.user_id);
 				})
 				.finally(() => {
@@ -151,7 +152,7 @@ export default {
 		goBack() {
 			history.length ? this.$router.go(-1) : this.$router.push({ name: "plan_list" });
 		},
-		// 转换数据,兼容旧数据
+		// 兼容旧数据,转换数据
 		converted(data) {
 			if (data.type == 1) {
 				data.relation = data.relation.map((item) => {
@@ -162,10 +163,60 @@ export default {
 					});
 					return item;
 				});
+
+				// 统一获取物品信息
+				let _arr = [];
+				data.relation.forEach((list) => {
+					list.data.forEach((el) => {
+						_arr.push(el.id);
+					});
+				});
+				searchItemsID({ ids: _arr, limit: _arr.length }).then((res) => {
+					let items = res.data;
+
+					data.relation = data.relation.map((item) => {
+						item.data = item.data.map((el) => {
+							let a = items.filter((k) => {
+								if (k.id == el.id) return { ...k, ...el };
+							});
+							el = { ...el, ...a[0] };
+							return el;
+						});
+						return item;
+					});
+					this.plan = data;
+				});
 			} else {
 				data.relation = this.equipItem(data.relation);
+				let _arr = [];
+				for (const key in data.relation) {
+					_arr.push(...data.relation[key]);
+				}
+				searchItemsID({ ids: _arr, limit: _arr.length }).then((res) => {
+					let items = res.data;
+					for (const key in data.relation) {
+						data.relation[key] = data.relation[key].map((el) => {
+							el = items.filter((k) => {
+								if (el == k.id) return k;
+							});
+							return el[0];
+						});
+					}
+					this.plan = data;
+					this.equipList.map((list) => {
+						list.map((item) => {
+							item.list = item.list.map((el) => {
+								el = items.filter((k) => {
+									if (k.id == el) return k;
+								});
+								return el[0];
+							});
+							return item;
+						});
+						return list;
+					});
+				});
 			}
-			return data;
 		},
 		// 将装备object转换为string
 		equipItem(data) {
@@ -240,7 +291,7 @@ export default {
 <style lang="less" scoped>
 @import "../assets/css/views/plan_detail.less";
 </style>
-<style lang="less" scoped>
+<style lang="less">
 .v-plan-view .m-item-icon {
 	.u-item-icon {
 		.size(48px);
@@ -254,6 +305,7 @@ export default {
 		.z(2);
 	}
 }
+
 .m-item-icon-popup {
 	padding: 0;
 }
