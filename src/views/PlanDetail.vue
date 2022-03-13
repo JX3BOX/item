@@ -39,7 +39,7 @@
 							<div class="u-content">
 								<router-link class="u-item" v-for="(el, key) in item.data" :key="key" :to="{ name: 'view', params: { item_id: el.id } }">
 									<span class="u-img">
-										<itemIcon :item="el" />
+										<itemIcon :item_id="el.id" />
 										<span class="u-count">{{ el.count }}</span>
 									</span>
 									<span class="u-name" :class="`quality-${el.Quality}`"> {{ el.Name }}</span>
@@ -56,9 +56,9 @@
 							<div class="u-item" v-for="(item, key) in list" :key="key">
 								<span class="u-title"> {{ item.label }}</span>
 								<div v-if="item.list.length">
-									<jx3-item-simple class="u-equip" v-for="eq in item.list" :key="eq.id" :item="eq" />
+									<itemIcon class="u-equip" v-for="eq in item.list" :key="eq.id" :has_title="true" :item_id="eq" />
 								</div>
-								<div v-else class="u-equip-null"> - 暂无物品 - </div>
+								<div v-else class="u-equip-null">- 暂无物品 -</div>
 							</div>
 						</div>
 					</div>
@@ -77,7 +77,6 @@
 import { getItemPlanID, delItemPlans, searchItemsID } from "../service/item_plan.js";
 import itemIcon from "@/components/ItemIcon.vue";
 import Equip from "@/components/Equip.vue";
-import ItemSimple from "@jx3box/jx3box-editor/src/ItemSimple";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
@@ -88,7 +87,7 @@ import User from "@jx3box/jx3box-common/js/user";
 export default {
 	name: "PlanDetail",
 	props: [],
-	components: { Comment, WikiPanel, itemIcon, Equip, "jx3-item-simple": ItemSimple },
+	components: { Comment, WikiPanel, itemIcon, Equip },
 	data: function () {
 		return {
 			loading: false,
@@ -129,17 +128,14 @@ export default {
 			return 1;
 		},
 	},
-	watch: {
-		plan(val) {
-			if (val) this.converted(val);
-		},
-	},
+
 	methods: {
 		// 获取数据
 		getItemData() {
 			getItemPlanID(this.plan_id)
 				.then((res) => {
-					this.plan = res;
+					this.plan = this.converted(res);
+					if (this.plan.type == 2) this.toEquipList(this.plan.relation);
 					this.isAuthorUser(res.user_id);
 				})
 				.finally(() => {
@@ -155,70 +151,35 @@ export default {
 		goBack() {
 			history.length ? this.$router.go(-1) : this.$router.push({ name: "plan_list" });
 		},
-		// 转换数据,获取旧数据id,新数据格式不转换，直接显示
+		// 转换数据,兼容旧数据
 		converted(data) {
-			let { type, relation } = data;
-			let _arr = [];
-			if (!type) return;
-			if (type == 1) {
-				relation.forEach((list) => {
-					list.data.forEach((el) => {
-						if (typeof el == "string") _arr.push(el);
+			if (data.type == 1) {
+				data.relation = data.relation.map((item) => {
+					item.data = item.data.map((el) => {
+						if (typeof el == "string") el = { id: el, count: 1 };
+						if (typeof el == "object") el = { id: el.id, count: el.count };
+						return el;
 					});
+					return item;
 				});
 			} else {
-				let _eq = Object.values(relation);
-				_eq = _eq.filter((el) => el.length);
-				if (typeof _eq[0][0] == "object") {
-					this.equipGroup();
-				} else {
-					// console.log(_eq);
-					// 处理装备
-					let _obj = Object.values(relation);
-					_obj.forEach((el) => {
-						el.forEach((item) => {
-							if (typeof item == "string") _arr.push(item);
-						});
-					});
-				}
+				data.relation = this.equipItem(data.relation);
 			}
-			_arr = [...new Set(_arr)];
-			if (_arr.length) this.getConverted(_arr);
+			console.log(data);
+			return data;
 		},
-		// 根据旧数据id获得物品信息
-		getConverted(ids) {
-			searchItemsID({ ids, limit: ids.length }).then((res) => {
-				let cache_data = res.data.map((item) => {
-					let { id, Name, DescHtml, UiID, IconID, Quality, AucGenre, AucSubType } = item;
-					return { count: item.count || 1, Name, id, DescHtml, UiID, IconID, Quality, AucGenre, AucSubType };
+		// 将装备object转换为string
+		equipItem(data) {
+			for (const key in data) {
+				data[key] = data[key].map((item) => {
+					if (typeof item == "object") item = item.id;
+					return item;
 				});
-				let { type, relation } = this.plan;
-				if (type == 1) {
-					relation.map((list) => {
-						list.data = list.data.map((item) => {
-							item = cache_data.filter((el) => {
-								return el.id == item;
-							});
-							return item[0];
-						});
-						return list;
-					});
-				} else {
-					for (const key in relation) {
-						relation[key] = relation[key].map((item) => {
-							item = cache_data.filter((el) => {
-								return el.id == item;
-							});
-							return item[0];
-						});
-					}
-				}
-				this.plan.relation = relation;
-				this.equipGroup();
-			});
+			}
+			return data;
 		},
-		// 将装备分组
-		equipGroup(_obj = this.plan.relation) {
+		// 装备分组
+		toEquipList(_obj) {
 			this.equipList.map((list) => {
 				list.map((el) => {
 					if (_obj.hasOwnProperty(el.title)) {
@@ -227,6 +188,18 @@ export default {
 				});
 			});
 		},
+		// 装备提交数据转换
+		toEquip() {
+			let obj = {};
+			this.equipList.forEach((list) => {
+				list.forEach((el) => {
+					obj[el.title] = el.list;
+				});
+			});
+			obj = this.equipItem(obj);
+			this.plan.relation = obj;
+		},
+
 		// 发布中心链接
 		publish_url(val) {
 			return `${__Links.dashboard.publish}#/${val}`;
