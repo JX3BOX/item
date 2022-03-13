@@ -8,15 +8,18 @@
 				</div>
 				<div class="w-right">
 					<div class="m-name">
-						<item-icon :item="wiki_post.source" :dishoverable="true" />
-						<h6
-							class="u-name"
-							:class="{ white: wiki_post.source.Quality == 1 }"
-							v-text="wiki_post.source.Name"
-							:style="{
-								color: item_color(wiki_post.source.Quality),
-							}"
-						></h6>
+						<div class="u-title">
+							<item-icon :item="wiki_post.source" :dishoverable="true" />
+							<h6
+								class="u-name"
+								:class="{ white: wiki_post.source.Quality == 1 }"
+								v-text="wiki_post.source.Name"
+								:style="{
+									color: item_color(wiki_post.source.Quality),
+								}"
+							></h6>
+						</div>
+
 						<div class="m-buttons fr">
 							<!-- 加入清单 -->
 							<Plan class="u-plan" />
@@ -451,8 +454,15 @@ export default {
 @import "../assets/css/views/detail.less";
 </style>
 
-<style scoped>
+<style lang="less" scoped>
 .u-plan {
 	margin-right: 10px;
+}
+.m-name {
+	.flex;
+	justify-content: space-between;
+    .u-title{
+        .flex;
+    }
 }
 </style>

@@ -165,7 +165,6 @@ export default {
 			} else {
 				data.relation = this.equipItem(data.relation);
 			}
-			console.log(data);
 			return data;
 		},
 		// 将装备object转换为string
@@ -241,7 +240,7 @@ export default {
 <style lang="less" scoped>
 @import "../assets/css/views/plan_detail.less";
 </style>
-<style lang="less">
+<style lang="less" scoped>
 .v-plan-view .m-item-icon {
 	.u-item-icon {
 		.size(48px);

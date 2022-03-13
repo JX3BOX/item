@@ -4,23 +4,21 @@
 		<div class="m-create">
 			<a href="" target="_blank" class="el-button"><i class="el-icon-document-add"></i> <span>创建新清单</span></a>
 		</div>
-		<template v-if="plan_item">
-			<div class="m-list" v-if="list.length">
-				<div class="u-list" v-for="(item, index) in list" :key="index" :class="item.type == 1 ? 'u-item' : 'u-equip'">
-					<div class="u-title" @click="changePlans(item, index)">
-						<i :class="item.type == 2 ? 'el-icon-s-order' : plan_index == index ? 'el-icon-caret-bottom' : 'el-icon-caret-right'"></i>
-						<span>{{ item.title }}</span>
-					</div>
-					<template v-if="plan_index == index && item.relation">
-						<div class="u-child" v-for="(plan, key) in item.relation" :key="key" @click="addItemPlan(item, key)">
-							<i class="el-icon-arrow-right"></i>
-							<span>{{ plan.title || "子清单" + (key + 1) }}</span>
-						</div>
-					</template>
+		<div class="m-list" v-if="list.length && plan_item">
+			<div class="u-list" v-for="(item, index) in list" :key="index" :class="item.type == 1 ? 'u-item' : 'u-equip'">
+				<div class="u-title" @click="changePlans(item, index)">
+					<i :class="item.type == 2 ? 'el-icon-s-order' : plan_index == index ? 'el-icon-caret-bottom' : 'el-icon-caret-right'"></i>
+					<span>{{ item.title }}</span>
 				</div>
+				<template v-if="plan_index == index && item.relation">
+					<div class="u-child" v-for="(plan, key) in item.relation" :key="key" @click="addItemPlan(item, key)">
+						<i class="el-icon-arrow-right"></i>
+						<span>{{ plan.title || "子清单" + (key + 1) }}</span>
+					</div>
+				</template>
 			</div>
-			<div v-else class="m-list"><el-alert title="暂无清单" type="info" center show-icon :closable="false"> </el-alert></div>
-		</template>
+		</div>
+		<div v-else class="m-list"><el-alert title="暂无清单" type="info" center show-icon :closable="false"> </el-alert></div>
 
 		<el-button size="mini" type="success" slot="reference" @click="openPlans"><i class="u-el-icon el-icon-shopping-cart-full"></i> 加入清单</el-button>
 	</el-popover>
@@ -64,17 +62,11 @@ export default {
 		search(val) {
 			this.searchPlans(val);
 		},
-		id: {
-			immediate: true,
-			handler: function (val) {
-				this.getItem(val);
-			},
-		},
 	},
 	methods: {
 		// 获取需要加入清单的物品信息
-		getItem(ids) {
-			searchItemsID({ ids }).then((res) => {
+		getItem() {
+			searchItemsID({ ids: this.id }).then((res) => {
 				let { id, UiID, Name, IconID, Quality, AucGenre, AucSubType, DescHtml, IsEquip } = res.data[0];
 				this.plan_item = {
 					id,
@@ -120,57 +112,60 @@ export default {
 		},
 		// 加入武器清单
 		addEquipPlan(id) {
-			let type = this.equipType();
+			if (!this.plan_item.IsEquip) return this.$message.error("该物品不是装备，无法添加至武器清单");
+			let add = this.addEquip();
+
 			getItemPlanID(id).then((res) => {
 				let relation = res.relation;
 				for (const key in relation) {
-					if (key == type) {
-						relation[key] = [...new Set(relation[key], this.id)];
+					if (key == add.type) {
+						relation[key].push(add.id);
 					}
 				}
-				console.log(relation, '"???"');
+				this.postPlan(id, { relation });
 			});
-			// if (type) this.postPlan(id, { relation: { [type]: [this.plan_item] } });
 		},
-		// 判断装备的类型
-		equipType() {
-			if (!this.plan_item.IsEquip) return this.$message.error("该物品不是装备，无法添加至武器清单");
+		// 转换需要添加的武器
+		addEquip() {
 			let { AucGenre, AucSubType } = this.plan_item;
-			let type = "";
-			if (AucGenre == 1) {
-				type = "melee_weapon";
-			} else if (AucGenre == 2) {
-				type = "range_weapon";
-			} else {
-				default_equip.forEach((el) => {
-					if (el.AucGenre == AucGenre && el.AucSubType == AucSubType) {
-						type = el.title;
-					}
-				});
-			}
-			return type;
+			let obj = {
+				id: this.plan_item.id,
+				type: "",
+			};
+			if (AucGenre == 1) obj.type = "melee_weapon";
+			if (AucGenre == 2) obj.type = "range_weapon";
+			default_equip.forEach((el) => {
+				if (el.AucGenre == AucGenre && el.AucSubType == AucSubType) {
+					obj.type = el.title;
+				}
+			});
+			return obj;
 		},
+
 		// 加入物品清单
 		addItemPlan(item, key) {
-			console.log(this.plan_item);
-
-			console.log(item, key);
+			item.relation.forEach((el, index) => {
+				console.log(el, index);
+				if (index == key) {
+					el.data.push({ id: this.plan_item.id, count: 1 });
+				}
+			});
+			this.postPlan(item.id, { relation: item.relation });
 		},
 		// 提交清单
 		postPlan(id, params) {
-			postMyPlans(id, params)
-				.then(() => {
-					this.$message({
-						message: "添加成功",
-						type: "success",
-					});
-				})
-				.finally(() => {
-					this.visible = false;
+			postMyPlans(id, params).then(() => {
+				this.$message({
+					message: "添加成功",
+					type: "success",
 				});
+				this.visible = false;
+			});
 		},
 	},
-	created() {},
+	created() {
+		this.getItem();
+	},
 };
 </script>
 <style lang="less" scoped>
