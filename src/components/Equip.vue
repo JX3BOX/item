@@ -1,8 +1,8 @@
 <template>
 	<div class="m-plan-equip" v-if="plan">
-		<div class="u-equip" :class="'u-equip-' + label" v-for="(item, label) in plan.relation" :key="label">
+		<div class="u-plan-equip" :class="'u-equip-' + label" v-for="(item, label) in plan.relation" :key="label">
 			<template v-if="item.length">
-				<itemIcon :item_id="item[0]" />
+				<itemIcon :has_title="true" :item_id="item[0]" />
 				<span class="u-name" :class="`quality-${item[0].Quality}`">{{ item[0].Name }}</span>
 			</template>
 		</div>
@@ -74,4 +74,5 @@ export default {
 
 <style lang="less">
 @import "../assets/css/components/equip.less";
+
 </style>
