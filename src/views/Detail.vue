@@ -22,7 +22,7 @@
 
 						<div class="m-buttons fr">
 							<!-- 加入清单 -->
-							<Plan class="u-plan" />
+							<Plan class="u-plan" :itemId="id"/>
 							<!-- 收藏按钮 -->
 							<Fav class="u-collect" post-type="item" :post-id="wiki_post.source.id" />
 						</div>
