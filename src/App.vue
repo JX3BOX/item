@@ -2,8 +2,7 @@
 	<div id="app">
 		<Header></Header>
 		<!-- 频道栏 -->
-		<Breadcrumb name="物品百科" slug="item" root="/item" :publishEnable="true" :feedbackEnable="true" :adminEnable="false">
-			<img slot="logo" svg-inline :src="getAppIcon('item')" />
+		<Breadcrumb name="物品百科" slug="item" :publishEnable="true" :feedbackEnable="true" :adminEnable="false">
 			<ItemBreadcrumb />
 		</Breadcrumb>
 		<!-- 左侧菜单 -->
@@ -28,7 +27,6 @@
 import ItemBreadcrumb from "@/components/ItemBreadcrumb.vue";
 import Sidebar from "@/components/Sidebar.vue";
 import Extend from "@/components/Extend.vue";
-import { getAppIcon } from "@jx3box/jx3box-common/js/utils";
 export default {
 	name: "App",
 	props: [],
@@ -47,7 +45,6 @@ export default {
 		},
 	},
 	methods: {
-		getAppIcon,
 	},
 	mounted: function () {},
 	components: {
