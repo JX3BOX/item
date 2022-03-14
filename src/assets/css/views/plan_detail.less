@@ -23,7 +23,15 @@
 	// 内容
 	.m-description {
 		.u-title {
-			.x(left);
+			.flex;
+			.lh(36px);
+			.pr(0);
+			justify-content: space-between;
+
+			.u-button {
+				.flex;
+				align-items: center;
+			}
 		}
 		.u-desc {
 			.fz(14px);
@@ -111,8 +119,9 @@
 				.mt(10px);
 			}
 			.u-equip {
-				.pr;.r(5px);
-                background-color: @color;
+				.pr;
+				.r(5px);
+				background-color: @color;
 				&:first-child:before {
 					content: "主";
 					.pa;

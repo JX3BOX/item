@@ -75,5 +75,9 @@ function getMyPlans(params) {
 function postMyPlans(id, params) {
 	return $cms().put(`/api/cms/app/item_plan/${id}`, params);
 }
+// 新增清单
+function addMyPlans(params) {
+	return $cms().post(`/api/cms/app/item_plan`, params);
+}
 
-export { get_item_plan, get_item_plans, get_my_item_plans, delete_item_plan, save_item_plan, getItemPlans, getItemPlanID, delItemPlans, searchItemsID, getMyPlans, postMyPlans };
+export { get_item_plan, get_item_plans, get_my_item_plans, delete_item_plan, save_item_plan, getItemPlans, getItemPlanID, delItemPlans, searchItemsID, getMyPlans, postMyPlans, addMyPlans };

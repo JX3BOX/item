@@ -14,16 +14,18 @@
 			<!-- 编辑 & 删除 & 收藏 -->
 			<template slot="head-actions">
 				<Fav post-type="item_plan" :post-id="plan.id" />
-				<template v-if="isAuthor">
-					<el-button type="primary" icon="el-icon-edit" size="mini" plain @click="editPlan(plan.id)">编辑</el-button>
-					<el-button type="danger" icon="el-icon-delete" size="mini" plain @click="deletePlan(plan.id)">删除</el-button>
-				</template>
 			</template>
 			<!-- 详细内容 -->
 			<template slot="body">
 				<!-- 内容备注 -->
 				<div class="m-description m-border">
-					<div class="u-title">简介</div>
+					<div class="u-title">
+						<span>简介</span>
+						<div class="u-button" v-if="isAuthor">
+							<el-button type="primary" icon="el-icon-edit" size="mini" plain @click="editPlan(plan.id)">编辑</el-button>
+							<el-button type="danger" icon="el-icon-delete" size="mini" plain @click="deletePlan(plan.id)">删除</el-button>
+						</div>
+					</div>
 					<div class="u-desc">{{ plan.description || "作者很懒什么也没写 😜" }}</div>
 					<span class="u-user">
 						<img class="u-avatar" :src="showAvatar(getUserInfo(plan, 'user_avatar')) || default_avatar" :alt="getUserInfo(plan, 'display_name')" />
