@@ -140,8 +140,12 @@ export default {
 			};
 			this.list.push(data);
 			addMyPlans(data)
-				.then((res) => {
-					console.log(res, "/");
+				.then(() => {
+					this.$notify({
+						title: "新增清单成功",
+						message: "新增清单成功，物品已添加",
+						type: "success",
+					});
 				})
 				.finally(() => {
 					this.add = false;
