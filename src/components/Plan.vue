@@ -25,7 +25,7 @@
 			</div>
 			<div class="m-create" slot="reference">
 				<!-- <a href="/publish/#/item_plan" target="_blank" class="el-button"><i class="el-icon-document-add"></i> 创建新清单</a> -->
-				<span class="el-button"><i class="el-icon-document-add"></i>创建新清单</span>
+				<span class="el-button"><i class="el-icon-document-add"></i> 创建新清单</span>
 			</div>
 		</el-popover>
 
