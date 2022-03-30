@@ -52,6 +52,12 @@ module.exports = {
                     request.setHeader("origin", "");
                 }
             },
+            "/api/article":{
+                "target": "https://next2.jx3box.com",
+                "onProxyReq": function (request) {
+                    request.setHeader("origin", "");
+                }
+            },
             "/api": {
                 "target": "https://helper.jx3box.com",
                 "onProxyReq": function (request) {
@@ -68,22 +74,22 @@ module.exports = {
         (process.env.NODE_ENV === 'development' && '/') ||
 
         //BY origin
-        (process.env.STATIC_PATH === "origin" && `${__staticPath["origin"]}${pkg.name}/`) || 
+        (process.env.STATIC_PATH === "origin" && `${__staticPath["origin"]}${pkg.name}/`) ||
 
         //BY github
-        (process.env.STATIC_PATH === "github" && `${__staticPath["github"]}${pkg.name}/`) || 
+        (process.env.STATIC_PATH === "github" && `${__staticPath["github"]}${pkg.name}/`) ||
 
         //BY jsdelivr
-        (process.env.STATIC_PATH === "jsdelivr" && `${__staticPath["jsdelivr"]}${pkg.name}@gh-pages/`) || 
+        (process.env.STATIC_PATH === "jsdelivr" && `${__staticPath["jsdelivr"]}${pkg.name}@gh-pages/`) ||
 
         //BY OSS=>CDN
         (process.env.STATIC_PATH === "mirror" && `${__staticPath["mirror"]}${pkg.name}/`) ||
 
         //BY relative path
-        (process.env.STATIC_PATH === "repo" && `/${pkg.name}/`) || 
+        (process.env.STATIC_PATH === "repo" && `/${pkg.name}/`) ||
 
         //BY root path or bind a domain
-        (process.env.STATIC_PATH == 'root' && '/') || 
+        (process.env.STATIC_PATH == 'root' && '/') ||
 
         //for lost
         '/',

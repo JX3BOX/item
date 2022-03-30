@@ -12,9 +12,9 @@
   "dependencies": {
     "@antv/g2": "^4.1.20",
     "@jx3box/jx3box-comment-ui": "^1.6.8",
-    "@jx3box/jx3box-common": "^7.0.20",
-    "@jx3box/jx3box-common-ui": "^5.5.23",
-    "@jx3box/jx3box-editor": "^1.2.4",
+    "@jx3box/jx3box-common": "^7.0.24",
+    "@jx3box/jx3box-common-ui": "^5.5.29",
+    "@jx3box/jx3box-editor": "^1.2.6",
     "axios": "^0.19.2",
     "core-js": "^3.4.3",
     "csslab": "^4.0.3",
