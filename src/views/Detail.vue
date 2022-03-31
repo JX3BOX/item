@@ -24,7 +24,7 @@
 							<!-- 加入清单 -->
 							<Plan class="u-plan" :itemId="id"/>
 							<!-- 收藏按钮 -->
-							<Fav class="u-collect" post-type="item" :post-id="wiki_post.source.id" />
+							<Fav class="u-collect" post-type="item" :post-id="wiki_post.source.id" :post-title="fav_title" />
 						</div>
 					</div>
 					<!-- 原料 -->
@@ -186,7 +186,7 @@
 						<i class="el-icon-edit"></i>
 						本次修订由 <b>{{ user_name }}</b> 提交于{{ updated_at }}
 					</div>
-					<Thx class="m-thx" :postId="id" postType="item" :postTitle="wiki_post.source.Name" :userId="author_id" :adminBoxcoinEnable="isRevision" :userBoxcoinEnable="isRevision" mode="wiki" :key="'item-thx-' + id" />
+					<Thx class="m-thx" :postId="id" postType="item" :postTitle="wiki_post.source.Name" :userId="author_id" :adminBoxcoinEnable="true" :userBoxcoinEnable="true" :authors="authors" mode="wiki" :key="'item-thx-' + id" />
 				</template>
 			</WikiPanel>
 
@@ -281,6 +281,21 @@ export default {
 		auc: function () {
 			return `${this.wiki_post?.source?.AucGenre}_${this.wiki_post?.source?.AucSubType}`;
 		},
+        fav_title: function () {
+            return this.wiki_post?.source?.Name;
+        },
+        authors: function() {
+            if (!this.isRevision) {
+                return this.wiki_post?.users?.filter(user => user.id)?.map(user => {
+                    return {
+                        user_id: user.id,
+                        user_avatar: user.avatar,
+                        display_name: user.nickname
+                    }
+                }) || []
+            }
+            return [];
+        }
 	},
 	components: {
 		"jx3-item": Item,

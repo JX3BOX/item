@@ -88,8 +88,7 @@ export default {
 		date_format,
 		author_url,
 		openLink(row) {
-			let url = "plan_view/" + row.id;
-			window.open(url);
+            this.$router.push({ name: 'plan_view', params: { plan_id: row.id } });
 		},
 	},
 };

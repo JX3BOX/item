@@ -13,7 +13,7 @@
 			</template>
 			<!-- 编辑 & 删除 & 收藏 -->
 			<template slot="head-actions">
-				<Fav post-type="item_plan" :post-id="plan.id" />
+				<Fav post-type="item_plan" :post-id="plan.id" :post-title="plan && plan.title" />
 			</template>
 			<!-- 详细内容 -->
 			<template slot="body">
