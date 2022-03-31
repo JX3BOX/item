@@ -294,6 +294,9 @@ export default {
 @import "../assets/css/views/plan_detail.less";
 </style>
 <style lang="less">
+.m-panel-head{
+    .z(1);
+}
 .v-plan-view .m-item-icon {
 	.u-item-icon {
 		.size(48px);
