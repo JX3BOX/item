@@ -70,7 +70,7 @@ export default {
 		},
 		icon_url: function (id) {
 			// return iconLink(id, this.client);
-			return iconLink(id); //收藏跨正式服/怀旧服
+			return iconLink(id); //收藏跨重制/缘起
 		},
 	},
 	watch: {
