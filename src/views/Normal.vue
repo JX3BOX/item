@@ -45,7 +45,7 @@ export default {
             this.$router.push({
                 name: "normal",
                 params: {
-                    AucGenre: this.$store.state.sidebar.AucGenre,
+                    AucGenre: this.$store.state.sidebar.AucGenre === "" ? "empty" : this.$store.state.sidebar.AucGenre,
                     AucSubTypeID: this.$store.state.sidebar.AucSubTypeID,
                 },
                 query: { page: page },
