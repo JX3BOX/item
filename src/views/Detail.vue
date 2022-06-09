@@ -344,7 +344,7 @@ export default {
 						if (data.post) {
 							this.is_empty = false;
 						}
-						// console.log("获取重制攻略");
+						console.log("获取重制攻略");
 					});
 				} else {
 					WikiPost.newest("item", this.id, 1, "origin")
@@ -354,15 +354,15 @@ export default {
 							if (data.post) {
 								this.is_empty = false;
 							}
-							// console.log("获取缘起攻略");
+							console.log("获取缘起攻略");
 							return !!data.post;
 						})
 						.then((data) => {
 							if (!data) {
-								// console.log("兼容：获取重制攻略");
+								console.log("兼容：获取重制攻略");
 								WikiPost.newest("item", this.id, 1, "std").then((res) => {
 									let data = res?.data?.data;
-									this.wiki_post = data;
+									this.wiki_post.post = data.post;
 									if (data.post) {
 										this.is_empty = false;
 									}
