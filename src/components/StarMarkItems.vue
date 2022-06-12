@@ -21,7 +21,7 @@
             </el-input>
         </template>
         <div slot="body" class="m-index-price">
-            <div class="m-price-list" v-if="groups && groups.length">
+            <div class="m-price-list" v-if="groups && groups.length && isEmpty">
                 <!-- <div v-for="i in 2" :key="'wrapper' + i"> -->
                 <el-row :gutter="20" v-for="(group, key) in groups" :key="key">
                     <div :span="24" class="u-group-title" v-text="group.label"></div>
@@ -160,6 +160,9 @@ export default {
         client: function() {
             return this.$store.state.client;
         },
+        isEmpty: function() {
+            return this.groups.some(item => item);
+        }
     },
     components: {
         WikiPanel,

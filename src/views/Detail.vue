@@ -220,7 +220,7 @@ import ItemPriceChart from "@/components/ItemPriceChart.vue";
 import GamePrice from "@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue";
 
 import { postStat } from "@jx3box/jx3box-common/js/stat";
-import { WikiPost } from "@jx3box/jx3box-common/js/helper";
+import { wiki } from "@jx3box/jx3box-common/js/wiki.js";
 import { __Links } from "@jx3box/jx3box-common/data/jx3box.json";
 import std_servers from "@jx3box/jx3box-data/data/server/server_std.json";
 import origin_servers from "@jx3box/jx3box-data/data/server/server_origin.json";
@@ -337,48 +337,23 @@ export default {
 		loadData: function () {
 			// 获取最新攻略
 			if (this.id) {
-				if (this.client == "std") {
-					WikiPost.newest("item", this.id, 1, "std").then((res) => {
-						let data = res?.data?.data;
-						this.wiki_post = data;
-						if (data.post) {
-							this.is_empty = false;
-						}
-						console.log("获取重制攻略");
-					});
-				} else {
-					WikiPost.newest("item", this.id, 1, "origin")
-						.then((res) => {
-							let data = res?.data?.data;
-							this.wiki_post = data;
-							if (data.post) {
-								this.is_empty = false;
-							}
-							console.log("获取缘起攻略");
-							return !!data.post;
-						})
-						.then((data) => {
-							if (!data) {
-								console.log("兼容：获取重制攻略");
-								WikiPost.newest("item", this.id, 1, "std").then((res) => {
-									let data = res?.data?.data;
-									this.wiki_post.post = data.post;
-									if (data.post) {
-										this.is_empty = false;
-									}
-									this.compatible = true;
-								});
-							}
-						});
-				}
+                wiki.mix({ type: 'item', id: this.id, client: this.client } , { supply: 1 }).then(res => {
+                    const { post, source, compatible, isEmpty } = res;
+                    this.wiki_post = {
+                        post: post,
+                        source: source,
+                    }
+                    this.is_empty = isEmpty;
+                    this.compatible = compatible;
+                });
 			}
 			this.triggerStat();
 		},
 		loadRevision: function () {
 			// 获取指定攻略
-			WikiPost.view(this.post_id, { type: "item" }).then((res) => {
-				this.wiki_post = res?.data?.data;
-			});
+             wiki.getById(this.post_id, { type: "item" }).then((res) => {
+                this.wiki_post = res?.data?.data;
+            });
 			this.triggerStat();
 		},
 		triggerStat: function () {
