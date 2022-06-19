@@ -139,14 +139,6 @@
                 <div class="wiki-post-list" v-if="newest_posts.length">
                     <div class="wiki-post" v-for="(post, key) in newest_posts" :key="key">
                         <div class="m-about-post">
-                            <div class="m-user">
-                                <div class="u-author">
-                                    <img class="u-icon" :src="post.user_avatar | showAvatar" :alt="post.user_nickname" />
-                                    <a :href="post.user_id | author_url" class="u-name" v-text="post.user_nickname" v-if="post.user_id"></a>
-                                    <span v-else class="u-name">{{ post.user_nickname }}</span>
-                                </div>
-                                <div class="u-updated" v-text="date_format(post.updated)"></div>
-                            </div>
                             <div class="m-wiki">
                                 <div class="u-wiki">
                                     <img class="u-icon" :src="icon_url(post.source_icon_id)" @error.once="$event.target.src = icon_url()" />
@@ -161,6 +153,14 @@
                                 </div>
                                 <div class="u-level" v-text="'综合难度：' + star(post.level)"></div>
                                 <div class="u-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
+                            </div>
+                            <div class="m-user">
+                                <div class="u-author">
+                                    <img class="u-icon" :src="post.user_avatar | showAvatar" :alt="post.user_nickname" />
+                                    <a :href="post.user_id | author_url" class="u-name" v-text="post.user_nickname" v-if="post.user_id"></a>
+                                    <span v-else class="u-name">{{ post.user_nickname }}</span>
+                                </div>
+                                <div class="u-updated" v-text="date_format(post.updated)"></div>
                             </div>
                         </div>
                         <div class="m-excerpt">
