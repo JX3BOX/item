@@ -338,10 +338,11 @@ export default {
 			// 获取最新攻略
 			if (this.id) {
                 wiki.mix({ type: 'item', id: this.id, client: this.client } , { supply: 1 }).then(res => {
-                    const { post, source, compatible, isEmpty } = res;
+                    const { post, source, compatible, isEmpty, users } = res;
                     this.wiki_post = {
                         post: post,
                         source: source,
+                        users
                     }
                     this.is_empty = isEmpty;
                     this.compatible = compatible;
