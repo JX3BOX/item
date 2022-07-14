@@ -36,6 +36,7 @@ const routes = [
 
 const router = new VueRouter({
     routes,
+    base: '/item',
     mode: "history",
 });
 
