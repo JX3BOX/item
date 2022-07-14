@@ -36,6 +36,14 @@ const routes = [
 
 const router = new VueRouter({
     routes,
+    mode: "history",
+});
+
+router.beforeEach((to, from, next) => {
+    if (to.fullPath.includes('/#')) {
+        next(to.fullPath.replace('/#', ''));
+    }
+    next()
 });
 
 export default router;
