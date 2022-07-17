@@ -12,7 +12,7 @@ const Search = () => import("./views/Search.vue");
 
 const routes = [
     // 主页
-    { name: "home", path: "/home", component: Home },
+    { name: "home", path: "/", component: Home },
     // 常规
     { name: "normal", path: "/:AucGenre([empty|\\d]+)/:AucSubTypeID(\\d+)", component: Normal },
     // 搜索
@@ -29,9 +29,6 @@ const routes = [
         path: "/plan_list/:keyword(.+)?",
         component: PlanList,
     },
-
-    // 默认页重定向
-    { path: "*", redirect: "home" },
 ];
 
 const router = new VueRouter({
