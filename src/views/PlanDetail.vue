@@ -130,10 +130,15 @@ export default {
 			return 1;
 		},
 	},
-
+    watch: {
+        plan_id(val) {
+            val && this.getItemData();
+        }
+    },
 	methods: {
 		// 获取数据
 		getItemData() {
+            this.loading = true;
 			getItemPlanID(this.plan_id)
 				.then((res) => {
 					// this.plan = res;
