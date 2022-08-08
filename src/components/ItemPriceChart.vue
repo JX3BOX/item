@@ -7,7 +7,7 @@
                     <i class="el-icon-right u-avg"></i> 今日均价
                 </div>
                 <div class="u-value u-avg">
-                    <GamePrice :price="currentPrice.price" />
+                    <GamePrice :price="currentPrice.AvgPrice" />
                 </div>
             </el-col>
             <el-col :span="8">
@@ -15,7 +15,7 @@
                     <i class="el-icon-bottom u-min"></i> 今日最低价
                 </div>
                 <div class="u-value u-min">
-                    <GamePrice :price="currentPrice.min_price" />
+                    <GamePrice :price="currentPrice.LowestPrice" />
                 </div>
             </el-col>
             <el-col :span="8">
@@ -23,7 +23,7 @@
                     <i class="el-icon-top u-max"></i> 今日最高价
                 </div>
                 <div class="u-value u-max">
-                    <GamePrice :price="currentPrice.max_price" />
+                    <GamePrice :price="currentPrice.HighestPrice" />
                 </div>
             </el-col>
         </el-row>
@@ -71,17 +71,17 @@ export default {
                             let log = data.data.logs[i];
                             output.push({
                                 date: log.date,
-                                price: log.price,
+                                price: log.AvgPrice,
                                 type: "均价",
                             });
                             output.push({
                                 date: log.date,
-                                price: log.min_price,
+                                price: log.LowestPrice,
                                 type: "最低价",
                             });
                             output.push({
                                 date: log.date,
-                                price: log.max_price,
+                                price: log.HighestPrice,
                                 type: "最高价",
                             });
                         }
@@ -95,7 +95,13 @@ export default {
                         data = data.data;
                         this.today = null;
                         this.yesterday = null;
-                        this.logs = data.data.logs;
+                        this.logs = data.data.logs.map((item)=>{
+                            return {
+                                server: item.Server,
+                                price: item.AvgPrice,
+                                date: item.date
+                            }
+                        });
                         this.hidden = !(this.logs.length > 0);
                     });
                 }
