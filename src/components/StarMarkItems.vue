@@ -176,11 +176,11 @@ export default {
             this.loading = true;
             get_item_groups_with_price({
                 server: this.server,
-                keys: this.item_ids,
+                keys: this.item_ids.join(","),
             })
                 .then((data) => {
                     data = data.data;
-                    this.groups = Object.values(data.data.data) || [];
+                    this.groups = Object.values(data.data) || [];
                 })
                 .finally(() => {
                     this.loading = false;

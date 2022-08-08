@@ -58,6 +58,18 @@ module.exports = {
                     request.setHeader("origin", "");
                 }
             },
+            "/api/item-price":{
+                "target": "https://next2.jx3box.com",
+                "onProxyReq": function (request) {
+                    request.setHeader("origin", "");
+                }
+            },
+            "/api/item-groups":{
+                "target": "https://next2.jx3box.com",
+                "onProxyReq": function (request) {
+                    request.setHeader("origin", "");
+                }
+            },
             "/api": {
                 "target": "https://helper.jx3box.com",
                 "onProxyReq": function (request) {

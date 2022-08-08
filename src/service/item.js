@@ -1,4 +1,4 @@
-import { $helper, $node } from "@jx3box/jx3box-common/js/https";
+import { $helper, $next, $node } from "@jx3box/jx3box-common/js/https";
 // import axios from "axios";
 const $ = $node()
 // const $ = axios.create({
@@ -44,7 +44,7 @@ function get_item_prices(item_id, params) {
 // 物品价格日志
 function get_item_price_logs(item_id, params) {
     if (!item_id) return;
-    return $helper().get(`api/item/${item_id}/price/logs`, {
+    return $next().get(`api/item-price/${item_id}/logs`, {
         params,
     });
 }
@@ -52,7 +52,7 @@ function get_item_price_logs(item_id, params) {
 // 物品区服价格日志
 function get_item_servers_price_logs(item_id, params) {
     if (!item_id) return;
-    return $helper().get(`api/item/${item_id}/price/servers/logs`, {
+    return $next().get(`api/item-price/${item_id}/logs`, {
         params,
     });
 }
