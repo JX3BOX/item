@@ -1,44 +1,26 @@
 <template>
     <el-row class="m-items">
-        <el-col
-            :xs="24"
-            :md="24"
-            class="u-list-empty"
-            v-if="items && !items.length"
-        >
+        <el-col :xs="24" :md="24" class="u-list-empty" v-if="items && !items.length">
             <slot name="empty-message">👻 暂无记录</slot>
         </el-col>
         <el-col :xs="24" :md="24" class="u-list-empty" v-if="items === null">
             <slot name="loading-message">🐷 搜索记录中</slot>
         </el-col>
         <template v-for="(item, key) in items">
-            <el-col
-                v-if="Object.keys(item).length"
-                :key="key"
-                :xs="24"
-                :md="24"
-                class="m-item-container"
-            >
-                <router-link
-                    class="m-link"
-                    :target="target_filter()"
-                    :to="url_filter(item.id)"
-                >
+            <el-col v-if="Object.keys(item).length" :key="key" :xs="24" :md="24" class="m-item-container">
+                <router-link class="m-link" :target="target_filter()" :to="url_filter(item.id)">
                     <div class="m-left">
                         <ItemIcon :item="item" />
                     </div>
                     <div class="m-right">
-                        <span
-                            class="u-uiid"
-                            v-html="`ID : ${item.id}`"
-                        ></span>
+                        <span class="u-uiid" v-html="`ID : ${item.id}`"></span>
                         <h6
                             class="u-name"
                             :class="{ white: item.Quality == 1 }"
                             v-text="item.Name"
                             :style="{ color: item_color(item.Quality) }"
                         ></h6>
-                        <div class="u-description" v-html="item.DescHtml"></div>
+                        <game-text class="u-description" :text="item.DescHtml"></game-text>
                     </div>
                 </router-link>
             </el-col>
@@ -60,14 +42,17 @@ export default {
                 : {};
         },
         target_filter: function () {
-            return this.target || typeof this.target !== "undefined"
-                ? this.target
-                : "";
+            return this.target || typeof this.target !== "undefined" ? this.target : "";
         },
         item_color,
     },
+    computed: {
+        client: function () {
+            return this.$store.state.client;
+        },
+    },
     components: {
-        ItemIcon,
+        ItemIcon
     },
 };
 </script>
