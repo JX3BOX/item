@@ -30,6 +30,7 @@
 
 <script>
 import ItemIcon from "@/components/ItemIcon";
+import GameText from "@jx3box/jx3box-editor/src/GameText.vue";
 import { item_color } from "../filters";
 
 export default {
@@ -53,6 +54,7 @@ export default {
     },
     components: {
         ItemIcon,
+        GameText
     },
 };
 </script>
