@@ -43,6 +43,11 @@ export default {
             length: 15,
         };
     },
+    computed : {
+        client : function (){
+            return this.$store.state.client
+        }
+    },
     methods: {
         clean_type() {
             let query = JSON.parse(JSON.stringify(this.$route.query));
@@ -82,6 +87,7 @@ export default {
                     keyword: this.$route.params.keyword,
                     page: this.page,
                     limit: this.length,
+                    client : this.client
                 };
                 // 菜单筛选
                 if (this.$route.query.auc_genre)

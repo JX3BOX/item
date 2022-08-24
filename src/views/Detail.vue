@@ -454,6 +454,7 @@ export default {
 	justify-content: space-between;
     .u-title{
         .flex;
+        align-items: center;
     }
 }
 </style>
