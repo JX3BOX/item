@@ -70,17 +70,17 @@ export default {
                         for (let i in data.data.logs) {
                             let log = data.data.logs[i];
                             output.push({
-                                date: log.date,
+                                date: log.Date,
                                 price: log.AvgPrice,
                                 type: "均价",
                             });
                             output.push({
-                                date: log.date,
+                                date: log.Date,
                                 price: log.LowestPrice,
                                 type: "最低价",
                             });
                             output.push({
-                                date: log.date,
+                                date: log.Date,
                                 price: log.HighestPrice,
                                 type: "最高价",
                             });
@@ -99,7 +99,7 @@ export default {
                             return {
                                 server: item.Server,
                                 price: item.AvgPrice,
-                                date: item.date
+                                date: item.Date
                             }
                         });
                         this.hidden = !(this.logs.length > 0);
