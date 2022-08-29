@@ -36,7 +36,7 @@
                         </router-link>
                     </li>
                     <li class="qlink">
-                        <a target="_blank" href="/pvx/manufacture">
+                        <a target="_blank" href="/pvg/manufacture">
                             <i class="el-icon-magic-stick"></i>
                             <span>技艺助手</span>
                         </a>
@@ -60,46 +60,29 @@
         <WikiPanel border-none="true">
             <template slot="head-title">
                 <i class="el-icon-notebook-1"></i>
-                <span>最新物价</span>
+                <span>最新物品</span>
             </template>
-            <template slot="head-actions">
+            <!-- <template slot="head-actions">
                 <a href="pvg/item_price" target="_blank" class="u-more">查看更多 &raquo;</a>
-            </template>
+            </template> -->
             <template slot="body">
                 <div class="m-plan-list">
-                    <el-carousel height="120px" direction="vertical" indicator-position="none"
+                    <el-carousel height="86px" direction="vertical" indicator-position="none"
                         v-if="new_plans && new_plans.length">
-                        <el-carousel-item v-for="(items, key) in new_plans" :key="key" class="m-carousel">
+                        <el-carousel-item v-for="(items, key) in new_plans" :key="key"
+                            class="m-carousel  m-carousel-hot">
                             <el-row :gutter="20">
                                 <template v-for="(item, k) in items">
                                     <el-col :md="8" v-if="item" :key="k">
                                         <router-link class="u-item" :class="`u-item-${k}`" :to="'/view/' + item.id">
                                             <div class="u-icon">
-                                                <img :src="icon_url(item.icon)" />
+                                                <img :src="icon_url(item.IconID)" />
                                             </div>
                                             <div class="u-content">
                                                 <span class="u-name">
-                                                    <span v-text="item.label"></span>
+                                                    <span v-text="item.Name"></span>
                                                 </span>
-                                                <span class="u-price">
-
-                                                    <span v-if="item.sub_days_0_price">
-                                                        <span>今日：</span>
-                                                        <span class="u-trending" :class="showItemTrendingClass(item)">{{
-                                                                showItemTrending(item)
-                                                        }}</span>
-                                                        <GamePrice :price="item.sub_days_0_price" />
-                                                    </span>
-                                                    <span v-if="item.sub_days_1_price">
-                                                        <span>昨日：</span>
-                                                        <GamePrice :price="item.sub_days_1_price" />
-                                                    </span>
-                                                    <span v-if="item.sub_days_2_price">
-                                                        <span>前日：</span>
-                                                        <GamePrice :price="item.sub_days_2_price" />
-                                                    </span>
-                                                    <span v-else>暂无价目</span>
-                                                </span>
+                                                <span class="u-desc" v-html="description_filter(item.Desc)"></span>
                                             </div>
                                         </router-link>
                                     </el-col>
@@ -117,14 +100,15 @@
                 <i class="el-icon-notebook-1"></i>
                 <span>最热物品</span>
             </template>
-            <template slot="head-actions">
+            <!-- <template slot="head-actions">
                 <router-link :to="{ name: 'plan_list' }" class="u-more">查看更多 &raquo;</router-link>
-            </template>
+            </template> -->
             <template slot="body">
                 <div class="m-plan-list">
                     <el-carousel height="86px" direction="vertical" indicator-position="none"
                         v-if="hot_plans && hot_plans.length">
-                        <el-carousel-item v-for="(items, key) in hot_plans" :key="key" class="m-carousel m-carousel-hot">
+                        <el-carousel-item v-for="(items, key) in hot_plans" :key="key"
+                            class="m-carousel m-carousel-hot">
                             <el-row :gutter="20">
                                 <template v-for="(item, k) in items">
                                     <el-col :md="8" v-if="item" :key="k">
@@ -136,21 +120,7 @@
                                                 <span class="u-name">
                                                     <span v-text="item.Name"></span>
                                                 </span>
-                                                <span class="u-desc" v-html="description_filter(item.Desc)">
-                                                    <!-- <span v-if="item.log.price">
-                                                        <span>平均价格：</span>
-                                                        <GamePrice :price="item.log.price" />
-                                                    </span>
-                                                    <span v-if="item.log.max_price">
-                                                        <span>最高：</span>
-                                                        <GamePrice :price="item.log.max_price" />
-                                                    </span>
-                                                    <span v-if="item.log.min_price">
-                                                        <span>最低：</span>
-                                                        <GamePrice :price="item.log.min_price" />
-                                                    </span>
-                                                    <span v-else>暂无价目</span> -->
-                                                </span>
+                                                <span class="u-desc" v-html="description_filter(item.Desc)"></span>
                                             </div>
                                         </router-link>
                                     </el-col>
@@ -209,12 +179,10 @@
 </template>
 
 <script>
-import GamePrice from "@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import Search from "../components/Search.vue";
-import { get_item_groups_with_price } from "@/service/item_group";
 import { iconLink, getThumbnail } from "@jx3box/jx3box-common/js/utils";
-import { get_item_posts, get_items_search_hottest } from "../service/item.js";
+import { get_item_posts, getItemPrediction, get_items_search_hottest } from "../service/item.js";
 import { __iconPath, feedback, default_avatar } from "@jx3box/jx3box-common/data/jx3box.json";
 import { date_format, star } from "../filters";
 export default {
@@ -236,8 +204,7 @@ export default {
     },
     components: {
         Search,
-        WikiPanel,
-        GamePrice
+        WikiPanel
     },
     methods: {
         icon_url: function (id) {
@@ -285,8 +252,8 @@ export default {
                 }
             }
         },
-                // 描述过滤
-        description_filter(value) {
+        // 描述过滤
+        description_filter (value) {
             let matchs = /text="(.*?)(\\\\\\n)?"/.exec(value);
             if (matchs && matchs.length > 1) value = matchs[1].trim();
             if (value) value = value.replace(/\\n/g, "<br>");
@@ -301,19 +268,11 @@ export default {
         get_items_search_hottest({ server: '梦江南' }).then((res) => {
             this.hot_plans = this.chuck(Object.values(res.data.data.items));
         })
-        get_item_groups_with_price({
-            server: '蝶恋花',
-            keys: 'teshucailiao',
-        }).then((res) => {
-            let items = res.data.data.teshucailiao.items.slice(0, 15);
-            let list = []
-            for (let i = 0; i < items.length; i += 3) {
-                list.push(items.slice(i, i + 3));
-            }
-            this.new_plans = list
-            console.log(...this.new_plans)
+        getItemPrediction({ limit: 15, dungeon: '河阳之战' }).then((res) => {
+            res = res.data;
+            this.new_plans = this.chuck(Object.values(res.data.data));
+        });
 
-        })
 
     },
 };

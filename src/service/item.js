@@ -105,6 +105,13 @@ function getItemDetail(params){
     })
 }
 
+// 获取物品详情
+function getItemPrediction(params){
+    return $helper().get(`api/item/prediction`, {
+        params
+    })
+}
+
 export {
     getMenus,
     get_items_count,
@@ -121,4 +128,5 @@ export {
     getMyFavItems,
     getItemDetail,
     getManufactureDetail,
+    getItemPrediction,
 };
