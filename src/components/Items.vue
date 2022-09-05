@@ -20,7 +20,7 @@
                             v-text="item.Name"
                             :style="{ color: item_color(item.Quality) }"
                         ></h6>
-                        <game-text class="u-description" :text="item.DescHtml || item.Desc"></game-text>
+                        <game-text class="u-description" :client="client" :text="item.DescHtml || item.Desc"></game-text>
                     </div>
                 </router-link>
             </el-col>

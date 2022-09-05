@@ -91,7 +91,11 @@
                                                 <span class="u-name">
                                                     <span v-text="item.Name"></span>
                                                 </span>
-                                                <game-text class="u-desc" :text="item.Desc ? item.Desc : '该物品没有描述'"></game-text>
+                                                <game-text
+                                                    class="u-desc"
+                                                    :text="item.Desc ? item.Desc : '该物品没有描述'"
+                                                    :client="client"
+                                                ></game-text>
                                             </div>
                                         </router-link>
                                     </el-col>
@@ -136,7 +140,11 @@
                                                 <span class="u-name">
                                                     <span v-text="item.Name"></span>
                                                 </span>
-                                                <game-text class="u-desc" :text="item.Desc ? item.Desc : '该物品没有描述'"></game-text>
+                                                <game-text
+                                                    class="u-desc"
+                                                    :text="item.Desc ? item.Desc : '该物品没有描述'"
+                                                    :client="client"
+                                                ></game-text>
                                             </div>
                                         </router-link>
                                     </el-col>
@@ -239,7 +247,7 @@ export default {
     components: {
         Search,
         WikiPanel,
-        GameText
+        GameText,
     },
     methods: {
         icon_url: function (id) {
@@ -279,7 +287,7 @@ export default {
                     return "keep";
                 }
             }
-        }
+        },
     },
     created() {
         get_item_posts().then((res) => {
@@ -287,7 +295,7 @@ export default {
             this.newest_posts = res.data.newest;
         });
         // 获取最新物品
-        get_newest_items({client: this.client}).then((res) => {
+        get_newest_items({ client: this.client }).then((res) => {
             this.new_plans = chunk(res.data, 3);
         });
         // 获取最热物品，先调stat接口获得物品ID之后调用node的items接口

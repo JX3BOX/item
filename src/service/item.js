@@ -77,7 +77,9 @@ function get_items_by_node(params) {
 
 function get_newest_items(params) {
     return $.get(`/item/newest`, {
-        client: params.client ?? "std",
+        params: {
+            client: params.client ?? "std",
+        },
     });
 }
 
@@ -147,5 +149,5 @@ export {
     getItemDetail,
     getManufactureDetail,
     getItemPrediction,
-    get_newest_items
+    get_newest_items,
 };
