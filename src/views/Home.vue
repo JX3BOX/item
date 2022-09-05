@@ -25,12 +25,14 @@
                         </router-link>
                     </li>
                     <li class="qlink">
-                        <router-link :to="{
-                            name: 'search',
-                            query: {
-                                ids: '5_24423,5_24424,5_24425,5_24426,5_24427,5_24428,5_24429,5_24430',
-                            },
-                        }">
+                        <router-link
+                            :to="{
+                                name: 'search',
+                                query: {
+                                    ids: '5_24423,5_24424,5_24425,5_24426,5_24427,5_24428,5_24429,5_24430',
+                                },
+                            }"
+                        >
                             <i class="el-icon-cherry"></i>
                             <span>五行石合成</span>
                         </router-link>
@@ -67,10 +69,17 @@
             </template> -->
             <template slot="body">
                 <div class="m-plan-list">
-                    <el-carousel height="86px" direction="vertical" indicator-position="none"
-                        v-if="new_plans && new_plans.length">
-                        <el-carousel-item v-for="(items, key) in new_plans" :key="key"
-                            class="m-carousel  m-carousel-hot">
+                    <el-carousel
+                        height="86px"
+                        direction="vertical"
+                        indicator-position="none"
+                        v-if="new_plans && new_plans.length"
+                    >
+                        <el-carousel-item
+                            v-for="(items, key) in new_plans"
+                            :key="key"
+                            class="m-carousel m-carousel-hot"
+                        >
                             <el-row :gutter="20">
                                 <template v-for="(item, k) in items">
                                     <el-col :md="8" v-if="item" :key="k">
@@ -82,7 +91,7 @@
                                                 <span class="u-name">
                                                     <span v-text="item.Name"></span>
                                                 </span>
-                                                <span class="u-desc" v-html="description_filter(item.Desc)"></span>
+                                                <game-text class="u-desc" :text="item.Desc ? item.Desc : '该物品没有描述'"></game-text>
                                             </div>
                                         </router-link>
                                     </el-col>
@@ -90,7 +99,7 @@
                             </el-row>
                         </el-carousel-item>
                     </el-carousel>
-                    <div v-else style="text-align:center">😂 暂无物品清单</div>
+                    <div v-else style="text-align: center">😂 暂无物品清单</div>
                 </div>
             </template>
         </WikiPanel>
@@ -105,10 +114,17 @@
             </template> -->
             <template slot="body">
                 <div class="m-plan-list">
-                    <el-carousel height="86px" direction="vertical" indicator-position="none"
-                        v-if="hot_plans && hot_plans.length">
-                        <el-carousel-item v-for="(items, key) in hot_plans" :key="key"
-                            class="m-carousel m-carousel-hot">
+                    <el-carousel
+                        height="86px"
+                        direction="vertical"
+                        indicator-position="none"
+                        v-if="hot_plans && hot_plans.length"
+                    >
+                        <el-carousel-item
+                            v-for="(items, key) in hot_plans"
+                            :key="key"
+                            class="m-carousel m-carousel-hot"
+                        >
                             <el-row :gutter="20">
                                 <template v-for="(item, k) in items">
                                     <el-col :md="8" v-if="item" :key="k">
@@ -120,7 +136,7 @@
                                                 <span class="u-name">
                                                     <span v-text="item.Name"></span>
                                                 </span>
-                                                <span class="u-desc" v-html="description_filter(item.Desc)"></span>
+                                                <game-text class="u-desc" :text="item.Desc ? item.Desc : '该物品没有描述'"></game-text>
                                             </div>
                                         </router-link>
                                     </el-col>
@@ -128,7 +144,7 @@
                             </el-row>
                         </el-carousel-item>
                     </el-carousel>
-                    <div v-else style="text-align:center">😂 暂无物品清单</div>
+                    <div v-else style="text-align: center">😂 暂无物品清单</div>
                 </div>
             </template>
         </WikiPanel>
@@ -144,12 +160,19 @@
                         <div class="m-about-post">
                             <div class="m-wiki">
                                 <div class="u-wiki">
-                                    <img class="u-icon" :src="icon_url(post.source_icon_id)"
-                                        @error.once="$event.target.src = icon_url()" />
-                                    <router-link class="u-name" v-text="post.title" :to="{
-                                        name: 'view',
-                                        params: { item_id: post.source_id },
-                                    }"></router-link>
+                                    <img
+                                        class="u-icon"
+                                        :src="icon_url(post.source_icon_id)"
+                                        @error.once="$event.target.src = icon_url()"
+                                    />
+                                    <router-link
+                                        class="u-name"
+                                        v-text="post.title"
+                                        :to="{
+                                            name: 'view',
+                                            params: { item_id: post.source_id },
+                                        }"
+                                    ></router-link>
                                 </div>
                                 <div class="u-level" v-text="'综合难度：' + star(post.level)"></div>
                                 <div class="u-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
@@ -157,18 +180,26 @@
                             <div class="m-user">
                                 <div class="u-author">
                                     <img class="u-icon" :src="showAvatar(post.user_avatar)" :alt="post.user_nickname" />
-                                    <a :href="post.user_id | author_url" class="u-name" v-text="post.user_nickname"
-                                        v-if="post.user_id"></a>
+                                    <a
+                                        :href="post.user_id | author_url"
+                                        class="u-name"
+                                        v-text="post.user_nickname"
+                                        v-if="post.user_id"
+                                    ></a>
                                     <span v-else class="u-name">{{ post.user_nickname }}</span>
                                 </div>
                                 <div class="u-updated" v-text="date_format(post.updated)"></div>
                             </div>
                         </div>
                         <div class="m-excerpt">
-                            <router-link class="u-excerpt" v-html="ellipsis(post.excerpt)" :to="{
-                                name: 'view',
-                                params: { item_id: post.source_id },
-                            }"></router-link>
+                            <router-link
+                                class="u-excerpt"
+                                v-html="ellipsis(post.excerpt)"
+                                :to="{
+                                    name: 'view',
+                                    params: { item_id: post.source_id },
+                                }"
+                            ></router-link>
                         </div>
                     </div>
                 </div>
@@ -182,12 +213,15 @@
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import Search from "../components/Search.vue";
 import { iconLink, getThumbnail } from "@jx3box/jx3box-common/js/utils";
-import { get_item_posts, getItemPrediction, get_items_search_hottest } from "../service/item.js";
+import { get_item_posts, get_newest_items, get_items_by_node } from "../service/item.js";
+import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 import { __iconPath, feedback, default_avatar } from "@jx3box/jx3box-common/data/jx3box.json";
 import { date_format, star } from "../filters";
+import GameText from "@jx3box/jx3box-editor/src/GameText.vue";
+import { chunk } from "lodash";
 export default {
     name: "Home",
-    data () {
+    data() {
         return {
             newest_posts: [],
             new_plans: [],
@@ -204,25 +238,19 @@ export default {
     },
     components: {
         Search,
-        WikiPanel
+        WikiPanel,
+        GameText
     },
     methods: {
         icon_url: function (id) {
             return iconLink(id, this.client);
         },
-        ellipsis (value) {
+        ellipsis(value) {
             value = value ? value.trim() : "";
             if (value.length > 100) {
                 return value.slice(0, 100) + "...";
             }
             return value;
-        },
-        chuck (arr, number = 3) {
-            let output = [];
-            for (let i = 0; i < arr.length; i += number) {
-                output.push(arr.slice(i, i + number));
-            }
-            return output;
         },
         date_format,
         star,
@@ -251,29 +279,28 @@ export default {
                     return "keep";
                 }
             }
-        },
-        // 描述过滤
-        description_filter (value) {
-            let matchs = /text="(.*?)(\\\\\\n)?"/.exec(value);
-            if (matchs && matchs.length > 1) value = matchs[1].trim();
-            if (value) value = value.replace(/\\n/g, "<br>");
-            return value || '暂无介绍';
-        },
+        }
     },
-    created () {
+    created() {
         get_item_posts().then((res) => {
             res = res.data;
             this.newest_posts = res.data.newest;
         });
-        get_items_search_hottest({ server: '梦江南' }).then((res) => {
-            this.hot_plans = this.chuck(Object.values(res.data.data.items));
-        })
-        getItemPrediction({ limit: 15, dungeon: '河阳之战' }).then((res) => {
-            res = res.data;
-            this.new_plans = this.chuck(Object.values(res.data.data));
+        // 获取最新物品
+        get_newest_items({client: this.client}).then((res) => {
+            this.new_plans = chunk(res.data, 3);
         });
-
-
+        // 获取最热物品，先调stat接口获得物品ID之后调用node的items接口
+        getStatRank("item", "views", 15)
+            .then((res) => {
+                let ids = res.data.map((item) => item.name?.replace(/item-(\d+_\d+)/, "$1"));
+                get_items_by_node({ ids, client: this.client, per: 15 }).then((res) => {
+                    this.hot_plans = chunk(res.data?.list, 3);
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     },
 };
 </script>

@@ -1,9 +1,9 @@
 import { $helper, $next, $node } from "@jx3box/jx3box-common/js/https";
-// import axios from "axios";
-const $ = $node()
-// const $ = axios.create({
-//     baseURL : 'http://localhost:9002/'
-// })
+const $ = $node();
+/* import axios from "axios";
+const $ = axios.create({
+    baseURL: "http://localhost:7002/",
+}); */
 
 function getMyFavItems(params) {
     return $helper().get(`api/my/post/favorites`, {
@@ -64,6 +64,23 @@ function get_items_search_hottest(params) {
     });
 }
 
+// 通过node的接口获取物品
+function get_items_by_node(params) {
+    let ids = params.ids instanceof Array ? params.ids.join(",") : params.ids;
+    return $.get(`/item_merged/id/${ids}`, {
+        params: {
+            client: params.client ?? "std",
+            per: params.per ?? 20,
+        },
+    });
+}
+
+function get_newest_items(params) {
+    return $.get(`/item/newest`, {
+        client: params.client ?? "std",
+    });
+}
+
 function get_items(params) {
     return $helper().get(`api/items`, {
         params,
@@ -92,24 +109,24 @@ function get_item_posts() {
 }
 
 // 获取生活技艺产品原料
-function getManufactureDetail(params){
+function getManufactureDetail(params) {
     return $.get(`/manufactures`, {
-        params
-    })
+        params,
+    });
 }
 
 // 获取物品详情
-function getItemDetail(params){
+function getItemDetail(params) {
     return $.get(`/other`, {
-        params
-    })
+        params,
+    });
 }
 
 // 获取物品详情
-function getItemPrediction(params){
+function getItemPrediction(params) {
     return $helper().get(`api/item/prediction`, {
-        params
-    })
+        params,
+    });
 }
 
 export {
@@ -121,6 +138,7 @@ export {
     get_item_price_logs,
     get_item_servers_price_logs,
     get_items_search_hottest,
+    get_items_by_node,
     get_items,
     get_items_search,
     get_menu_items,
@@ -129,4 +147,5 @@ export {
     getItemDetail,
     getManufactureDetail,
     getItemPrediction,
+    get_newest_items
 };
