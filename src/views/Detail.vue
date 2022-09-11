@@ -32,7 +32,7 @@
 						<span class="u-label">制作原料</span>
 						<template v-for="item in requiredList">
 							<router-link class="u-item" :key="item.ID" target="_blank" :to="`/view/5_${item.ID}`">
-								<img class="u-icon" :src="iconLink(item.item_info[0].IconID)" :alt="item.Name" :title="item.Name" />
+								<img class="u-icon" :src="iconLink(item.item_info[0]?.IconID || item.item_info?.IconID)" :alt="item.Name" :title="item.Name" />
 								<span class="u-count">{{ item._count }}</span>
 							</router-link>
 						</template>
