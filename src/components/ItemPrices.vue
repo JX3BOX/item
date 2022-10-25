@@ -1,6 +1,6 @@
 <template>
     <div class="m-item-prices">
-        <table v-if="prices.length">
+        <table v-if="prices.length" v-loading="priceLoading">
             <tr>
                 <th>物品</th>
                 <th>等级</th>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { get_item_prices } from "../service/item";
+import { get_item, get_item_prices } from "../service/item";
 import { item_price, date_format, item_color } from "../filters";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
 export default {
@@ -47,6 +47,7 @@ export default {
         return {
             item: null,
             prices: [],
+            priceLoading: false,
         };
     },
     computed: {
@@ -57,14 +58,21 @@ export default {
     methods: {
         get_data() {
             if (this.item_id) {
+                this.priceLoading = true;
                 get_item_prices(this.item_id, {
                     server: this.server,
                     limit: 15,
                 }).then((data) => {
+                    this.priceLoading = false;
+                    data = data.data;
+                    this.prices = data.data.prices || [];
+                });
+                // 获取物品信息
+                get_item(this.item_id).then((data) => {
                     data = data.data;
                     this.item = data.data.item;
-                    this.prices = data.data.prices;
                 });
+
             }
         },
         icon_url: function(id) {
