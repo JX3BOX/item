@@ -36,7 +36,7 @@ function get_item_relation_plans(item_id, params) {
 // 物品价格
 function get_item_prices(item_id, params) {
     if (!item_id) return;
-    return $helper().get(`api/item/${item_id}/prices`, {
+    return $next().get(`api/item-price/${item_id}/detail`, {
         params,
     });
 }
