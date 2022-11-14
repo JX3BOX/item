@@ -44,7 +44,7 @@
                         >
                             <img
                                 class="u-icon"
-                                :src="iconLink(item.item_info[0]?.IconID || item.item_info?.IconID)"
+                                :src="iconLink(item)"
                                 :alt="item.Name"
                                 :title="item.Name"
                             />
@@ -385,7 +385,9 @@ export default {
         item_price,
         item_bind,
         ts2str,
-        iconLink,
+        iconLink(item) {
+            return iconLink(item.item_info[0]?.IconID || item.item_info?.IconID)
+        },
         showAvatar: function (url) {
             return showAvatar(url, 32);
         },
