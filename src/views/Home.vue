@@ -180,6 +180,7 @@
                                             name: 'view',
                                             params: { item_id: post.source_id },
                                         }"
+                                        target="_blank"
                                     ></router-link>
                                 </div>
                                 <div class="u-level" v-text="'综合难度：' + star(post.level)"></div>
@@ -193,6 +194,7 @@
                                         class="u-name"
                                         v-text="post.user_nickname"
                                         v-if="post.user_id"
+                                        target="_blank"
                                     ></a>
                                     <span v-else class="u-name">{{ post.user_nickname }}</span>
                                 </div>
