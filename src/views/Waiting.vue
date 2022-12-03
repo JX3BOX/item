@@ -42,7 +42,6 @@ export default {
     },
     methods: {
         async getData(page = 1) {
-            page = page - 1;
             let params = {
                 page,
                 client: this.client,
