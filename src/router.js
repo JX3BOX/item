@@ -9,6 +9,7 @@ const Detail = () => import("./views/Detail.vue");
 const PlanDetail = () => import("./views/PlanDetail.vue");
 const PlanList = () => import("./views/PlanList.vue");
 const Search = () => import("./views/Search.vue");
+const Waiting = () => import("./views/Waiting.vue");
 
 const routes = [
     // 主页
@@ -29,6 +30,7 @@ const routes = [
         path: "/plan_list/:keyword(.+)?",
         component: PlanList,
     },
+    { name: "waiting", path: "/waiting", component: Waiting },
 ];
 
 const router = new VueRouter({

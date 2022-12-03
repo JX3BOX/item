@@ -19,6 +19,13 @@
                         </a>
                     </li>
                     <li class="qlink">
+                        <router-link :to="{ name: 'waiting' }">
+                            <i class="el-icon-edit-outline"></i>
+                            <span>待攻略物品</span>
+                            <span class="u-waiting" :style="waitingColorStyle()">（{{ solveRate.toFixed(2) }}%）</span>
+                        </router-link>
+                    </li>
+                    <li class="qlink">
                         <router-link :to="{ name: 'plan_list' }">
                             <i class="el-icon-document"></i>
                             物品清单
@@ -223,7 +230,7 @@
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import Search from "../components/Search.vue";
 import { iconLink, getThumbnail } from "@jx3box/jx3box-common/js/utils";
-import { get_item_posts, get_newest_items, get_items_by_node } from "../service/item.js";
+import { get_item_posts, get_newest_items, get_items_by_node, get_waiting_rate } from "../service/item.js";
 import { getStatRank } from "@jx3box/jx3box-common/js/stat";
 import { __iconPath, feedback, default_avatar } from "@jx3box/jx3box-common/data/jx3box.json";
 import { date_format, star } from "../filters";
@@ -239,6 +246,7 @@ export default {
             feedback: feedback,
             plan_2_icon: __iconPath + "icon/2410.png",
             plan_1_icon: __iconPath + "icon/3089.png",
+            solveRate: 0,
         };
     },
     computed: {
@@ -290,6 +298,15 @@ export default {
                 }
             }
         },
+        waitingColorStyle() {
+            if (this.solveRate > 95) {
+                return "color: #8dfa58";
+            } else if (this.solveRate > 60) {
+                return "color: #e2d849";
+            } else {
+                return "color: #ff3838";
+            }
+        },
     },
     created() {
         get_item_posts().then((res) => {
@@ -311,6 +328,10 @@ export default {
             .catch((err) => {
                 console.log(err);
             });
+        get_waiting_rate({ client: this.client }).then((res) => {
+            let { wiki_count: solve, source_count: all } = res.data.data ?? {};
+            this.solveRate = (solve / all) * 100;
+        });
     },
 };
 </script>

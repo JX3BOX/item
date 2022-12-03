@@ -5,28 +5,28 @@ const $ = axios.create({
     baseURL: "http://localhost:7002/",
 }); */
 
-function getMyFavItems(params) {
+export function getMyFavItems(params) {
     return $helper().get(`api/my/post/favorites`, {
         params,
     });
 }
 
-function getMenus() {
+export function getMenus() {
     return $helper().get(`api/item/menus`);
 }
 
-function get_items_count() {
+export function get_items_count() {
     return $helper().get(`api/items/count`);
 }
 
 // 获取物品
-function get_item(item_id) {
+export function get_item(item_id) {
     if (!item_id) return;
     return $helper().get(`api/item/${item_id}`);
 }
 
 // 相关物品清单
-function get_item_relation_plans(item_id, params) {
+export function get_item_relation_plans(item_id, params) {
     if (!item_id) return;
     return $helper().get(`api/item/${item_id}/relation_plans`, {
         params,
@@ -34,7 +34,7 @@ function get_item_relation_plans(item_id, params) {
 }
 
 // 物品价格
-function get_item_prices(item_id, params) {
+export function get_item_prices(item_id, params) {
     if (!item_id) return;
     return $next().get(`api/item-price/${item_id}/detail`, {
         params,
@@ -42,7 +42,7 @@ function get_item_prices(item_id, params) {
 }
 
 // 物品价格日志
-function get_item_price_logs(item_id, params) {
+export function get_item_price_logs(item_id, params) {
     if (!item_id) return;
     return $next().get(`api/item-price/${item_id}/logs`, {
         params,
@@ -50,7 +50,7 @@ function get_item_price_logs(item_id, params) {
 }
 
 // 物品区服价格日志
-function get_item_servers_price_logs(item_id, params) {
+export function get_item_servers_price_logs(item_id, params) {
     if (!item_id) return;
     return $next().get(`api/item-price/${item_id}/logs`, {
         params,
@@ -58,14 +58,14 @@ function get_item_servers_price_logs(item_id, params) {
 }
 
 // 热搜物品列表
-function get_items_search_hottest(params) {
+export function get_items_search_hottest(params) {
     return $helper().get(`api/items/search_hottest`, {
         params,
     });
 }
 
 // 通过node的接口获取物品
-function get_items_by_node(params) {
+export function get_items_by_node(params) {
     let ids = params.ids instanceof Array ? params.ids.join(",") : params.ids;
     return $.get(`/item_merged/id/${ids}`, {
         params: {
@@ -75,7 +75,7 @@ function get_items_by_node(params) {
     });
 }
 
-function get_newest_items(params) {
+export function get_newest_items(params) {
     return $.get(`/item/newest`, {
         params: {
             client: params.client ?? "std",
@@ -83,26 +83,26 @@ function get_newest_items(params) {
     });
 }
 
-function get_items(params) {
+export function get_items(params) {
     return $helper().get(`api/items`, {
         params,
     });
 }
 
-function get_items_search(params) {
+export function get_items_search(params) {
     return $helper().get(`api/item/search`, {
         params,
     });
 }
 
-function get_menu_items(params) {
+export function get_menu_items(params) {
     return $helper().get(`api/item/menu_list`, {
         params,
     });
 }
 
 // 获取物品攻略列表
-function get_item_posts() {
+export function get_item_posts() {
     return $helper().get(`api/wiki/posts/newest`, {
         params: {
             type: "item",
@@ -110,44 +110,37 @@ function get_item_posts() {
     });
 }
 
+export function get_waiting(params) {
+    params = Object.assign(params, {
+        type: 'item',
+    });
+    return $helper().get(`/api/wiki/posts/waiting`, { params });
+}
+
+export function get_waiting_rate(params) {
+    params = Object.assign(params, {
+        type: 'item',
+    });
+    return $helper().get(`/api/wiki/posts/counter`, { params });
+}
+
 // 获取生活技艺产品原料
-function getManufactureDetail(params) {
+export function getManufactureDetail(params) {
     return $.get(`/manufactures`, {
         params,
     });
 }
 
 // 获取物品详情
-function getItemDetail(params) {
+export function getItemDetail(params) {
     return $.get(`/other`, {
         params,
     });
 }
 
 // 获取物品详情
-function getItemPrediction(params) {
+export function getItemPrediction(params) {
     return $helper().get(`api/item/prediction`, {
         params,
     });
 }
-
-export {
-    getMenus,
-    get_items_count,
-    get_item,
-    get_item_relation_plans,
-    get_item_prices,
-    get_item_price_logs,
-    get_item_servers_price_logs,
-    get_items_search_hottest,
-    get_items_by_node,
-    get_items,
-    get_items_search,
-    get_menu_items,
-    get_item_posts,
-    getMyFavItems,
-    getItemDetail,
-    getManufactureDetail,
-    getItemPrediction,
-    get_newest_items,
-};
