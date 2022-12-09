@@ -24,6 +24,7 @@ module.exports = {
 
     //❤️ Porxy ~
     devServer: {
+        port: 6090,
         proxy: {
             "/api/vip": {
                 "target": "https://pay.jx3box.com",
