@@ -445,7 +445,6 @@ export default {
         },
     },
     mounted: function () {
-
         if (this.post_id) {
             this.loadRevision();
         } else {
@@ -456,11 +455,9 @@ export default {
         if (this.$store.state.client == "origin") {
             this.server = "缘起稻香";
         }
-        try {
-            this.server = sessionStorage.getItem('server_name') || ''
+        if (sessionStorage.getItem('server_name')) {
+            this.server = sessionStorage.getItem('server_name')
             sessionStorage.removeItem('server_name')
-        } catch (error) {
-            console.log(error);
         }
     },
 };
