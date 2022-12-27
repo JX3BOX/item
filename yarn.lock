@@ -1203,10 +1203,10 @@
     "vue" "^2.6.11"
     "vuex" "^3.6.2"
 
-"@jx3box/jx3box-common-ui@^6.4.0":
-  "integrity" "sha512-G/eQz/LOsIEUvxtpT9hLeXK96WUHD70D5ozog8L0K+ZZqc2LWOYciUHatf5v4qWyU+GVQq+AzFIbQ1tzp6U5uQ=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.4.0.tgz"
-  "version" "6.4.0"
+"@jx3box/jx3box-common-ui@^6.5.0":
+  "integrity" "sha512-qN1zgQR8CfzwxywhPmi1h+kS4+N7wi2vKOSNak77Jw817KX0MNGl48+gtbpTH+MlQrMkXNiGJbl+raQ++ZYCOQ=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common-ui/-/jx3box-common-ui-6.5.0.tgz"
+  "version" "6.5.0"
   dependencies:
     "@jx3box/jx3box-comment-ui" "^1.7.1"
     "@jx3box/jx3box-common" "^7.4.8"
@@ -1254,10 +1254,10 @@
     "moment" "^2.29.1"
     "vue" "^2.6.12"
 
-"@jx3box/jx3box-common@^7.0.18", "@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.4.8", "@jx3box/jx3box-common@^7.5.0":
-  "integrity" "sha512-zt/FCjVUEeeagoh2gnMsvHtweP5PsBiUO3qBEayVc3fTSWWauxBQj2I0F+6QUSuZvypepOdsjzpDZdnnTS3Nag=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.5.0.tgz"
-  "version" "7.5.0"
+"@jx3box/jx3box-common@^7.0.18", "@jx3box/jx3box-common@^7.4.2", "@jx3box/jx3box-common@^7.4.8", "@jx3box/jx3box-common@^7.5.1":
+  "integrity" "sha512-njeUzH/iZg4qjEdAJi2JCInQILWtnXP7cvylOpCYGCEo0GpSGwIPS4SH5fayqPqQjc0YLl6sG+yCeve2ZYhAHw=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-common/-/jx3box-common-7.5.1.tgz"
+  "version" "7.5.1"
   dependencies:
     "axios" "^0.20.0"
     "cheerio" "1.0.0-rc.10"
@@ -1275,10 +1275,10 @@
     "fs" "0.0.1-security"
     "path" "^0.12.7"
 
-"@jx3box/jx3box-editor@^1.5.5":
-  "integrity" "sha512-JUqNfOQtE8b8JbhQX95c1tTviGiOa8H9TYLme7HjXW62TZIAov+NafrjeVkFTgGSk8j5Ktxvzp5kvsVyU8E6xA=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-1.5.5.tgz"
-  "version" "1.5.5"
+"@jx3box/jx3box-editor@^1.5.5", "@jx3box/jx3box-editor@^1.5.6":
+  "integrity" "sha512-ni4Tt4vd1fnrMQcAmdx/73UzhnqPV/6Q5ztp3lVHpE92dlU9oioOA/PHSZ/OW6KmGxVbwpmRZynnAz/YvRfe8w=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-1.5.6.tgz"
+  "version" "1.5.6"
   dependencies:
     "@jx3box/jx3box-common" "^7.4.2"
     "@jx3box/jx3box-data" "^1.11.1"
