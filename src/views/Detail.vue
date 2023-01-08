@@ -226,6 +226,7 @@ import RelationPlans from "@/components/RelationPlans.vue";
 import ItemPrices from "@/components/ItemPrices.vue";
 import ItemPriceChart from "@/components/ItemPriceChart.vue";
 import GamePrice from "@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue";
+import User from "@jx3box/jx3box-common/js/user";
 
 import { postStat } from "@jx3box/jx3box-common/js/stat";
 import { wiki } from "@jx3box/jx3box-common/js/wiki.js";
@@ -235,10 +236,13 @@ import origin_servers from "@jx3box/jx3box-data/data/server/server_origin.json";
 import { item_color, item_quality, item_price, item_bind } from "../filters";
 import { publishLink, ts2str, showAvatar, iconLink } from "@jx3box/jx3box-common/js/utils";
 import { getManufactureDetail, getItemDetail } from "@/service/item";
+import { getMyInfo } from "@/service/user";
 
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 dayjs.extend(duration);
+
+const DEFAULT_ACTIVE_TAB = "item-price-chart";
 
 export default {
     name: "Detail",
@@ -253,7 +257,7 @@ export default {
             is_empty: true,
 
             server: "",
-            activeTab: "item-prices",
+            activeTab: DEFAULT_ACTIVE_TAB,
             loading: false,
             requiredList: [], // 原料列表
         };
@@ -307,6 +311,12 @@ export default {
                 );
             }
             return [];
+        },
+        firstServer: function(){
+            for(let i of (this.servers || [])){
+                return i;
+            }
+            return '';
         },
     },
     components: {
@@ -419,6 +429,16 @@ export default {
             val = Number(val);
             return val && dayjs.duration(val).asDays().toFixed(0) + "天";
         },
+        loadUserDefaultServer(){
+            User.isLogin() && getMyInfo().then((data) => {
+                let userServer = data?.jx3_server;
+                if (userServer) {
+                    this.server = userServer
+                }else{
+                    this.server = this.firstServer
+                }
+            })
+        }
     },
     watch: {
         id: {
@@ -436,7 +456,7 @@ export default {
             deep: true,
             handler () {
                 let item = this.wiki_post.source;
-                this.activeTab = item && item.BindType != 3 ? "item-prices" : "relation-plans";
+                this.activeTab = item && item.BindType != 3 ? DEFAULT_ACTIVE_TAB : "relation-plans";
                 this.$store.state.sidebar.AucGenre = parseInt(item.AucGenre);
                 this.$store.state.sidebar.AucSubTypeID = parseInt(item.AucSubTypeID);
 
@@ -450,6 +470,7 @@ export default {
         } else {
             this.loadData();
         }
+        this.loadUserDefaultServer()
     },
     created () {
         if (this.$store.state.client == "origin") {
