@@ -432,7 +432,7 @@ export default {
         loadUserDefaultServer(){
             User.isLogin() && getMyInfo().then((data) => {
                 let userServer = data?.jx3_server;
-                if (userServer) {
+                if (userServer && this.servers.includes(userServer)) {
                     this.server = userServer
                 }else{
                     this.server = this.firstServer
