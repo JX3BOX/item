@@ -16,4 +16,10 @@ function getMeta(key) {
     });
 }
 
-export { getProfile, getMeta };
+function getMyInfo() {
+    return $cms().get("/api/cms/user/my/info").then((res) => {
+        return res.data.data;
+    });
+}
+
+export { getProfile, getMeta, getMyInfo };
