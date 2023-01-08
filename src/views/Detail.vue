@@ -438,6 +438,7 @@ export default {
                     } else {
                         this.server = this.firstServer
                     }
+                    this.$refs.item_price_chart.render();
                 })
             })
         }
