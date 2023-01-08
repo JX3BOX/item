@@ -22,7 +22,7 @@
             class="m-pagination"
             background
             layout="prev, pager, next"
-            :pager-count="3"
+            :pager-count="5"
             small
             :hide-on-single-page="true"
             :page-size="per"
