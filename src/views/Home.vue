@@ -2,7 +2,7 @@
     <div class="m-home-view">
         <Search />
 
-        <WikiPanel border-none="true">
+        <WikiPanel :border-none="true">
             <template slot="head-title">
                 <i class="el-icon-location-information"></i>
                 <span>便捷入口</span>
@@ -66,7 +66,7 @@
             </template>
         </WikiPanel>
 
-        <WikiPanel border-none="true">
+        <WikiPanel :border-none="true">
             <template slot="head-title">
                 <i class="el-icon-notebook-1"></i>
                 <span>最新物品</span>
@@ -115,7 +115,7 @@
             </template>
         </WikiPanel>
 
-        <WikiPanel border-none="true">
+        <WikiPanel :border-none="true">
             <template slot="head-title">
                 <i class="el-icon-notebook-1"></i>
                 <span>最热物品</span>
@@ -164,7 +164,7 @@
             </template>
         </WikiPanel>
 
-        <WikiPanel border-none="true">
+        <WikiPanel :border-none="true">
             <template slot="head-title">
                 <i class="el-icon-collection"></i>
                 <span>最新攻略</span>

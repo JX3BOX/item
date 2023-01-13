@@ -2,6 +2,11 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
+const VueRouterPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (to) {
+  return VueRouterPush.call(this, to).catch(err => err)
+}
+
 // 组件懒加载
 const Home = () => import("./views/Home.vue");
 const Normal = () => import("./views/Normal.vue");
@@ -17,7 +22,7 @@ const routes = [
     // 常规
     { name: "normal", path: "/:AucGenre([empty|\\d]+)/:AucSubTypeID(\\d+)", component: Normal },
     // 搜索
-    { name: "search", path: "/search/:keyword(.+)?", component: Search },
+    { name: "search", path: "/search/:keyword(\\s?|.+)?", component: Search },
 
     // 单页
     { name: "view", path: "/view/:item_id([_\\d]+)/:post_id(\\d+)?", component: Detail },

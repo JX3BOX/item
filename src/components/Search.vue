@@ -22,7 +22,13 @@ export default {
 	},
 	methods: {
 		return_handle() {
-			history.back();
+      if (history.length <= 1) {
+          this.$router.push({
+              name: "home",
+          });
+      } else {
+          history.back();
+      }
 		},
 		search_handle() {
 			let query = { page: 1 };
