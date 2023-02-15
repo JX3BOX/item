@@ -1289,10 +1289,10 @@
   "resolved" "https://registry.npmjs.org/@jx3box/jx3box-data/-/jx3box-data-3.0.4.tgz"
   "version" "3.0.4"
 
-"@jx3box/jx3box-editor@^1.7.1", "@jx3box/jx3box-editor@^1.7.2":
-  "integrity" "sha512-PPKN9XJe2cf296rbrQSNUZYxUa4WGwafK0JqQ7lVYy1cgpp/dmoivUdZ6yg9w4xclbMYr8915O4aVPCVBVrWjA=="
-  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-1.7.2.tgz"
-  "version" "1.7.2"
+"@jx3box/jx3box-editor@^1.7.1", "@jx3box/jx3box-editor@^1.7.3":
+  "integrity" "sha512-caV26aJSJg/GsxA/3DqKlfELIX39MFQLdjj17drXLGl6npS1w2bQaPvusP0tVGM1P6Rm+oVRKrSv43CHgCVJdQ=="
+  "resolved" "https://registry.npmjs.org/@jx3box/jx3box-editor/-/jx3box-editor-1.7.3.tgz"
+  "version" "1.7.3"
   dependencies:
     "@jx3box/jx3box-common" "^7.6.8"
     "@jx3box/jx3box-data" "^3.0.4"
