@@ -108,13 +108,16 @@ export default {
             }
         },
         render() {
-            if (this.chart) this.chart.destroy();
-            this.chart = new Chart({
-                container: "m-item-price-chart",
-                autoFit: true,
-                width: "100%",
-                height: 300,
-            });
+            if (!this.chart) {
+                this.chart = new Chart({
+                    container: "m-item-price-chart",
+                    autoFit: true,
+                    width: "100%",
+                    height: 300,
+                });
+            }else{
+                this.chart.clear();
+            }
 
             this.chart.scale({
                 date: {
