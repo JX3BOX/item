@@ -12,7 +12,7 @@
             <tr v-for="(price, key) in prices" :key="key">
                 <td>
                     <div class="m-item-icon">
-                        <img class="u-icon" :src="icon_url(item?.IconID)" />
+                        <img class="u-icon" :src="icon_url(item && item.IconID)" />
                         <span class="u-count" v-if="price.n_count > 1" v-text="price.n_count"></span>
                     </div>
                     <span
