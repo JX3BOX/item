@@ -25,12 +25,12 @@
                             <span class="u-waiting" :style="waitingColorStyle()">（{{ solveRate.toFixed(2) }}%）</span>
                         </router-link>
                     </li>
-                    <li class="qlink">
+                    <!-- <li class="qlink">
                         <router-link :to="{ name: 'plan_list' }">
                             <i class="el-icon-document"></i>
                             物品清单
                         </router-link>
-                    </li>
+                    </li> -->
                     <li class="qlink">
                         <router-link
                             :to="{
@@ -182,13 +182,14 @@
                                     />
                                     <router-link
                                         class="u-name"
-                                        v-text="post.title"
                                         :to="{
                                             name: 'view',
                                             params: { item_id: post.source_id },
                                         }"
                                         target="_blank"
-                                    ></router-link>
+                                    >
+                                    <span v-text="post.title"></span>
+                                    </router-link>
                                 </div>
                                 <div class="u-level" v-text="'综合难度：' + star(post.level)"></div>
                                 <div class="u-remark" v-if="post.remark" v-text="'📑 ' + post.remark"></div>
@@ -211,12 +212,12 @@
                         <div class="m-excerpt">
                             <router-link
                                 class="u-excerpt"
-                                v-html="ellipsis(post.excerpt)"
+
                                 :to="{
                                     name: 'view',
                                     params: { item_id: post.source_id },
                                 }"
-                            ></router-link>
+                            ><span v-html="ellipsis(post.excerpt)"></span></router-link>
                         </div>
                     </div>
                 </div>
