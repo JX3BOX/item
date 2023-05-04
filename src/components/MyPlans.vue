@@ -2,7 +2,7 @@
     <div class="m-plans-my">
         <div class="m-my-item-plans">
             <h3 class="c-sidebar-right-title">
-                <i class="u-icon u-icon-mycollection"><img svg-inline src="../assets/img/plan.svg"/></i>
+                <i class="u-icon u-icon-mycollection"><img svg-inline src="../assets/img/plan.svg" /></i>
                 <span>我的清单</span>
                 <a class="fr el-button el-button--success el-button--mini" :href="publish_url(`item_plan`)">
                     <i class="el-icon-document-add"></i>
@@ -34,7 +34,17 @@
                             <span class="u-updated">编辑于{{ date_format(plan.updated) }}</span>
                         </div> -->
                     </router-link>
-                    <a class="u-more" :href="publish_url(`bucket/item_plan`)" target="_blank"><i class="el-icon-arrow-left"></i> <i class="el-icon-more"></i> <i class="el-icon-arrow-right"></i></a>
+                    <el-pagination
+                        class="m-pagination"
+                        background
+                        layout="prev, pager, next"
+                        :pager-count="5"
+                        small
+                        :hide-on-single-page="false"
+                        :page-size="per"
+                        :total="total"
+                        :current-page.sync="page"
+                    ></el-pagination>
                 </template>
                 <div v-else class="u-tip"><i class="el-icon-warning-outline"></i> 暂无物品清单记录</div>
             </template>
@@ -46,7 +56,7 @@
 </template>
 
 <script>
-import { get_my_item_plans } from "@/service/item_plan.js";
+import { get_my_item_plans, getMyPlans } from "@/service/item_plan.js";
 import { __Links } from "@jx3box/jx3box-common/data/jx3box.json";
 import User from "@jx3box/jx3box-common/js/user";
 import { date_format } from "../filters";
@@ -54,19 +64,31 @@ import { publishLink } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "",
     props: [],
-    data: function() {
+    data: function () {
         return {
             isLogin: User.isLogin(),
+            data: [],
+
+            page: 1,
+            per: 10,
+            total: 0,
         };
     },
     computed: {
-        data: function() {
-            return this.$store.state.my_item_plans;
-        },
-        params: function() {
+        params: function () {
             return {
-                limit: 10,
+                page: this.page,
+                per: this.per,
             };
+        },
+    },
+    watch: {
+        params: {
+            deep: true,
+            immediate: true,
+            handler() {
+                this.loadData();
+            },
         },
     },
     methods: {
@@ -74,14 +96,15 @@ export default {
             return publishLink(val);
         },
         date_format,
-    },
-    mounted: function() {
-        // 获取我的清单
-        if (this.isLogin)
-            get_my_item_plans(this.params).then((res) => {
-                this.$store.commit("SET_STATE", { key: "my_item_plans", value: res.data.data.data });
+        loadData() {
+            if (!this.isLogin) {
+                return;
+            }
+            getMyPlans(this.params).then((res) => {
+                this.data = res.list;
+                this.total = res.total;
             });
+        },
     },
-    components: {},
 };
 </script>
