@@ -13,6 +13,7 @@ const Normal = () => import("./views/Normal.vue");
 const Detail = () => import("./views/Detail.vue");
 const PlanDetail = () => import("./views/PlanDetail.vue");
 const PlanList = () => import("./views/PlanList.vue");
+const PlanEdit = () => import("./views/PlanEdit.vue");
 const Search = () => import("./views/Search.vue");
 const Waiting = () => import("./views/Waiting.vue");
 
@@ -29,6 +30,8 @@ const routes = [
 
     // 清单单页
     { name: "plan_view", path: "/plan_view/:plan_id(\\d+)", component: PlanDetail },
+    // 编辑清单
+    { name: "plan_edit", path: "/plan_edit/:plan_id(\\d+)", component: PlanEdit },
     // 清单列表
     {
         name: "plan_list",

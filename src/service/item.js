@@ -75,6 +75,12 @@ export function get_items_by_node(params) {
     });
 }
 
+export function getItemsByName(name, params) {
+    return $.get(`/item_merged/name/${name}`, {
+        params
+    })
+}
+
 export function get_newest_items(params) {
     return $.get(`/item/newest`, {
         params: {

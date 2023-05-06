@@ -164,9 +164,9 @@
                     v-if="wiki_post.source && wiki_post.source.BindType != 3" lazy>
                     <item-prices :item_id="wiki_post.source.id" :server="server" />
                 </el-tab-pane>
-                <el-tab-pane label="📜 相关物品清单" name="relation-plans" lazy>
+                <!-- <el-tab-pane label="📜 相关物品清单" name="relation-plans" lazy>
                     <relation-plans :item_id="wiki_post.source.id" />
-                </el-tab-pane>
+                </el-tab-pane> -->
             </el-tabs>
         </div>
 
@@ -222,7 +222,6 @@ import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
 import WikiRevisions from "@jx3box/jx3box-common-ui/src/wiki/WikiRevisions";
 import WikiComments from "@jx3box/jx3box-common-ui/src/wiki/WikiComments";
 import Search from "@/components/Search.vue";
-import RelationPlans from "@/components/RelationPlans.vue";
 import ItemPrices from "@/components/ItemPrices.vue";
 import ItemPriceChart from "@/components/ItemPriceChart.vue";
 import GamePrice from "@jx3box/jx3box-common-ui/src/wiki/GamePrice.vue";
@@ -329,7 +328,6 @@ export default {
         Search,
         Fav,
         Plan,
-        "relation-plans": RelationPlans,
         "item-prices": ItemPrices,
         "item-price-chart": ItemPriceChart,
         GamePrice,

@@ -49,7 +49,7 @@
 </template>
 <script>
 import User from "@jx3box/jx3box-common/js/user";
-import { getMyPlans, postMyPlans, addMyPlans } from "../service/item_plan.js";
+import { getMyPlans, updatePlan, addMyPlan } from "../service/item_plan.js";
 export default {
     name: "plan",
     props: [],
@@ -142,7 +142,7 @@ export default {
         },
         // 提交清单
         postPlan(id, data) {
-            postMyPlans(id, data)
+            updatePlan(id, data)
                 .then(() => {
                     this.$message({
                         message: "添加成功",
@@ -169,7 +169,7 @@ export default {
                 description: "",
             };
             this.list.push(data);
-            addMyPlans(data)
+            addMyPlan(data)
                 .then(() => {
                     this.$notify({
                         title: "新增清单成功",

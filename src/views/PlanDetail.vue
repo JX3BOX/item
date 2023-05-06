@@ -1,11 +1,11 @@
 <template>
 	<div class="v-plan-view" v-loading="loading">
 		<!-- 返回 & 收藏 -->
-		<div class="m-plan-navigation">
+		<!-- <div class="m-plan-navigation">
 			<el-button class="u-goback" size="medium" icon="el-icon-arrow-left" @click="goBack" plain>返回列表</el-button>
-		</div>
+		</div> -->
 		<!-- 内容展示 -->
-		<WikiPanel class="m-plan-content" :wiki-post="plan">
+		<WikiPanel class="m-plan-content" :wiki-post="plan" :showQR="false">
 			<!-- 头部标题 -->
 			<template slot="head-title">
 				<i class="el-icon-tickets"></i>
@@ -13,6 +13,10 @@
 			</template>
 			<!-- 编辑 & 删除 & 收藏 -->
 			<template slot="head-actions">
+                <template v-if="isAuthor">
+                    <el-button type="primary" icon="el-icon-edit" size="mini" plain @click="editPlan(plan.id)">编辑</el-button>
+                    <el-button type="info" icon="el-icon-delete" size="mini" plain @click="deletePlan(plan.id)">删除</el-button>
+                </template>
 				<Fav post-type="item_plan" :post-id="plan.id" :post-title="plan && plan.title" />
 			</template>
 			<!-- 详细内容 -->
@@ -21,10 +25,6 @@
 				<div class="m-description m-border">
 					<div class="u-title">
 						<span>简介</span>
-						<div class="u-button" v-if="isAuthor">
-							<el-button type="primary" icon="el-icon-edit" size="mini" plain @click="editPlan(plan.id)">编辑</el-button>
-							<el-button type="danger" icon="el-icon-delete" size="mini" plain @click="deletePlan(plan.id)">删除</el-button>
-						</div>
 					</div>
 					<div class="u-desc">{{ plan.description || "作者很懒什么也没写 😜" }}</div>
 					<span class="u-user">
@@ -67,12 +67,6 @@
 				</div>
 			</template>
 		</WikiPanel>
-
-		<!-- 评论 -->
-		<div>
-			<el-divider content-position="left">讨论</el-divider>
-			<Comment :id="plan_id" category="plan_view" />
-		</div>
 	</div>
 </template>
 <script>
@@ -80,7 +74,6 @@ import { getItemPlanID, delItemPlans, searchItemsID } from "../service/item_plan
 import itemIcon from "@/components/ItemIcon.vue";
 import Equip from "@/components/Equip.vue";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
-import Comment from "@jx3box/jx3box-comment-ui/src/Comment.vue";
 import { iconLink } from "@jx3box/jx3box-common/js/utils";
 import { __Links, default_avatar } from "@jx3box/jx3box-common/data/jx3box.json";
 import { showAvatar, authorLink, ts2str } from "@jx3box/jx3box-common/js/utils";
@@ -89,7 +82,7 @@ import User from "@jx3box/jx3box-common/js/user";
 export default {
 	name: "PlanDetail",
 	props: [],
-	components: { Comment, WikiPanel, itemIcon, Equip },
+	components: { WikiPanel, itemIcon, Equip },
 	data: function () {
 		return {
 			loading: false,

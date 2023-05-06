@@ -4,7 +4,7 @@
             <h3 class="c-sidebar-right-title">
                 <i class="u-icon u-icon-mycollection"><img svg-inline src="../assets/img/plan.svg" /></i>
                 <span>我的清单</span>
-                <a class="fr el-button el-button--success el-button--mini" :href="publish_url(`item_plan`)">
+                <a class="fr el-button el-button--success el-button--mini" @click="onAddPlan" v-if="isLogin">
                     <i class="el-icon-document-add"></i>
                     <span>创建</span>
                 </a>
@@ -40,7 +40,7 @@
                         layout="prev, pager, next"
                         :pager-count="5"
                         small
-                        :hide-on-single-page="false"
+                        :hide-on-single-page="true"
                         :page-size="per"
                         :total="total"
                         :current-page.sync="page"
@@ -56,11 +56,10 @@
 </template>
 
 <script>
-import { get_my_item_plans, getMyPlans } from "@/service/item_plan.js";
+import { getMyPlans, addMyPlan } from "@/service/item_plan.js";
 import { __Links } from "@jx3box/jx3box-common/data/jx3box.json";
 import User from "@jx3box/jx3box-common/js/user";
 import { date_format } from "../filters";
-import { publishLink } from "@jx3box/jx3box-common/js/utils";
 export default {
     name: "",
     props: [],
@@ -92,9 +91,6 @@ export default {
         },
     },
     methods: {
-        publish_url(val) {
-            return publishLink(val);
-        },
         date_format,
         loadData() {
             if (!this.isLogin) {
@@ -105,6 +101,35 @@ export default {
                 this.total = res.total;
             });
         },
+        onAddPlan() {
+            this.$prompt("请输入清单名称", "创建清单", {
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                inputPlaceholder: "请输入清单名称",
+                inputValidator: (value) => {
+                    if (!value) {
+                        return "请输入清单名称";
+                    }
+                },
+                callback: (action, instance) => {
+                    if (action === "confirm") {
+                        const data = {
+                            title: instance.inputValue,
+                            type: 1, // 1: 物品清单
+                            public: 1,
+                            relation: [],
+                            description: "",
+                        }
+                        addMyPlan(data).then((res) => {
+                            this.$message({
+                                message: "创建成功",
+                                type: "success",
+                            });
+                        });
+                    }
+                },
+            })
+        }
     },
 };
 </script>
