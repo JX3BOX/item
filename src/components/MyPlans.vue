@@ -60,6 +60,7 @@ import { getMyPlans, addMyPlan } from "@/service/item_plan.js";
 import { __Links } from "@jx3box/jx3box-common/data/jx3box.json";
 import User from "@jx3box/jx3box-common/js/user";
 import { date_format } from "../filters";
+import bus from "../bus";
 export default {
     name: "",
     props: [],
@@ -89,6 +90,11 @@ export default {
                 this.loadData();
             },
         },
+    },
+    mounted() {
+        bus.on('plan_list_refresh', () => {
+            this.loadData();
+        })
     },
     methods: {
         date_format,
@@ -124,6 +130,11 @@ export default {
                             this.$message({
                                 message: "创建成功",
                                 type: "success",
+                            });
+                            this.data.unshift(res.data.data);
+                            this.$router.push({
+                                name: "plan_edit",
+                                params: { plan_id: res.data.data.id },
                             });
                         });
                     }

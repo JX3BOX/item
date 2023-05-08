@@ -18,7 +18,7 @@ function getItemPlanID(id) {
 		});
 }
 // 删除清单
-function delItemPlans(id) {
+function delItemPlan(id) {
 	return $cms().delete(`/api/cms/app/item_plan/${id}`);
 }
 
@@ -47,4 +47,4 @@ function addMyPlan(data) {
 	return $cms().post(`/api/cms/app/item_plan`, data);
 }
 
-export { getItemPlans, getItemPlanID, delItemPlans, searchItemsID, getMyPlans, updatePlan, addMyPlan };
+export { getItemPlans, getItemPlanID, delItemPlan, searchItemsID, getMyPlans, updatePlan, addMyPlan };

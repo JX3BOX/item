@@ -13,7 +13,7 @@
 			</template>
 			<!-- 编辑 & 删除 & 收藏 -->
 			<template slot="head-actions">
-                <template v-if="isAuthor">
+                <template v-if="isAuthor || isEditor">
                     <el-button type="primary" icon="el-icon-edit" size="mini" plain @click="editPlan(plan.id)">编辑</el-button>
                     <el-button type="info" icon="el-icon-delete" size="mini" plain @click="deletePlan(plan.id)">删除</el-button>
                 </template>
@@ -70,7 +70,7 @@
 	</div>
 </template>
 <script>
-import { getItemPlanID, delItemPlans, searchItemsID } from "../service/item_plan.js";
+import { getItemPlanID, delItemPlan, searchItemsID } from "../service/item_plan.js";
 import itemIcon from "@/components/ItemIcon.vue";
 import Equip from "@/components/Equip.vue";
 import WikiPanel from "@jx3box/jx3box-common-ui/src/wiki/WikiPanel";
@@ -78,6 +78,7 @@ import { iconLink } from "@jx3box/jx3box-common/js/utils";
 import { __Links, default_avatar } from "@jx3box/jx3box-common/data/jx3box.json";
 import { showAvatar, authorLink, ts2str } from "@jx3box/jx3box-common/js/utils";
 import User from "@jx3box/jx3box-common/js/user";
+import bus from "../bus.js";
 
 export default {
 	name: "PlanDetail",
@@ -122,6 +123,9 @@ export default {
 		type() {
 			return 1;
 		},
+        isEditor() {
+            return User.isEditor();
+        },
 	},
     watch: {
         plan_id(val) {
@@ -134,7 +138,6 @@ export default {
             this.loading = true;
 			getItemPlanID(this.plan_id)
 				.then((res) => {
-					// this.plan = res;
 					this.converted(res);
 					if (res.type == 2) this.toEquipList(res.relation);
 					this.isAuthorUser(res.user_id);
@@ -249,14 +252,9 @@ export default {
 			obj = this.equipItem(obj);
 			this.plan.relation = obj;
 		},
-
-		// 发布中心链接
-		publish_url(val) {
-			return `${__Links.dashboard.publish}#/${val}`;
-		},
 		// 编辑清单
 		editPlan(plan_id) {
-			location.href = this.publish_url(`item_plan/${plan_id}`);
+			this.$router.push({ name: "plan_edit", params: { plan_id } });
 		},
 		// 删除清单
 		deletePlan(plan_id) {
@@ -265,14 +263,12 @@ export default {
 				cancelButtonText: "取消",
 				type: "warning",
 			}).then(() => {
-				delItemPlans(plan_id)
+				delItemPlan(plan_id)
 					.then((res) => {
-						this.$message.success(res.message);
+						this.$message.success('删除成功');
+                        bus.emit('plan_list_refresh');
 						this.$router.push({ name: "plan_list" });
 					})
-					.catch((e) => {
-						this.$message.error(e.message);
-					});
 			});
 		},
 
