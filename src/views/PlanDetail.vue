@@ -17,7 +17,7 @@
                     <el-button type="primary" icon="el-icon-edit" size="mini" plain @click="editPlan(plan.id)">编辑</el-button>
                     <el-button type="info" icon="el-icon-delete" size="mini" plain @click="deletePlan(plan.id)">删除</el-button>
                 </template>
-				<Fav post-type="item_plan" :post-id="plan.id" :post-title="plan && plan.title" />
+				<!-- <Fav post-type="item_plan" :post-id="plan.id" :post-title="plan && plan.title" /> -->
 			</template>
 			<!-- 详细内容 -->
 			<template slot="body">
