@@ -25,7 +25,7 @@
                     ></span>
                 </td>
                 <td v-text="item && item.RequireLevel ? item.RequireLevel : 1"></td>
-                <td v-text="dayjs(price.created*1000).format('YYYY-MM-DD hh:mm:ss')"></td>
+                <td v-text="dayjs(price.created*1000).format('YYYY-MM-DD HH:mm:ss')"></td>
                 <td v-text="price.server"></td>
                 <td style="text-align: right" v-text="item_price(price.n_money)"></td>
                 <td style="text-align: right" v-text="item_price(price.unit_price)"></td>
