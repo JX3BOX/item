@@ -188,7 +188,7 @@
                                         }"
                                         target="_blank"
                                     >
-                                    <span v-text="post.title"></span>
+                                        <span v-text="post.title"></span>
                                     </router-link>
                                 </div>
                                 <div class="u-level" v-text="'综合难度：' + star(post.level)"></div>
@@ -212,12 +212,12 @@
                         <div class="m-excerpt">
                             <router-link
                                 class="u-excerpt"
-
                                 :to="{
                                     name: 'view',
                                     params: { item_id: post.source_id },
                                 }"
-                            ><span v-html="ellipsis(post.excerpt)"></span></router-link>
+                                ><span v-html="ellipsis(post.excerpt)"></span
+                            ></router-link>
                         </div>
                     </div>
                 </div>
@@ -321,7 +321,9 @@ export default {
         // 获取最热物品，先调stat接口获得物品ID之后调用node的items接口
         getStatRank("item", "views", 15)
             .then((res) => {
-                let ids = res.data.map((item) => item.name?.replace(/item-(\d+_\d+)/, "$1"));
+                let ids = res.data
+                    .map((item) => item?.name?.match(/item-(\d+_\d+)/) && item.name?.replace(/item-(\d+_\d+)/, "$1"))
+                    .filter((item) => item);
                 get_items_by_node({ ids, client: this.client, per: 15 }).then((res) => {
                     this.hot_plans = chunk(res.data?.list, 3);
                 });
