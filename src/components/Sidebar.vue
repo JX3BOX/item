@@ -39,15 +39,15 @@ export default {
                             data = data.data;
                             let menus = [];
                             // 生成ID用于菜单激活
-                            for (let index in data.data.menus) {
-                                data.data.menus[index].id = data.data.menus[index].AucGenre;
-                                for (let i in data.data.menus[index].children) {
-                                    data.data.menus[index].children[i].id = `${data.data.menus[index].AucGenre}-${data.data.menus[index].children[i].AucSubTypeID}`;
+                            for (let index in data.data) {
+                                data.data[index].id = data.data[index].AucGenre;
+                                for (let i in data.data[index].children) {
+                                    data.data[index].children[i].id = `${data.data[index].AucGenre}-${data.data[index].children[i].AucSubTypeID}`;
                                 }
-                                menus.push(data.data.menus[index]);
+                                menus.push(data.data[index]);
                             }
                             this.menus = menus;
-    
+
                             // 展开菜单
                             this.expand_menu();
                         }

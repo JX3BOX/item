@@ -1,9 +1,4 @@
-import { $helper, $next, $node } from "@jx3box/jx3box-common/js/https";
-const $ = $node();
-/* import axios from "axios";
-const $ = axios.create({
-    baseURL: "http://localhost:7002/",
-}); */
+import { $helper, $next, $node, $cms } from "@jx3box/jx3box-common/js/https";
 
 export function getMyFavItems(params) {
     return $helper().get(`api/my/post/favorites`, {
@@ -12,17 +7,17 @@ export function getMyFavItems(params) {
 }
 
 export function getMenus() {
-    return $helper().get(`api/item/menus`);
+    return $node().get("/item/menus");
 }
 
 export function get_items_count() {
-    return $helper().get(`api/items/count`);
+    return $node().get(`/item/count`);
 }
 
 // 获取物品
 export function get_item(item_id) {
     if (!item_id) return;
-    return $helper().get(`api/item/${item_id}`);
+    return $node().get(`/item_merged/id/${item_id}`);
 }
 
 // 相关物品清单
@@ -67,7 +62,7 @@ export function get_items_search_hottest(params) {
 // 通过node的接口获取物品
 export function get_items_by_node(params) {
     let ids = params.ids instanceof Array ? params.ids.join(",") : params.ids;
-    return $.get(`/item_merged/id/${ids}`, {
+    return $node().get(`/item_merged/id/${ids}`, {
         params: {
             client: params.client ?? "std",
             per: params.per ?? 20,
@@ -76,13 +71,13 @@ export function get_items_by_node(params) {
 }
 
 export function getItemsByName(name, params) {
-    return $.get(`/item_merged/name/${name}`, {
-        params
-    })
+    return $node().get(`/item_merged/name/${name}`, {
+        params,
+    });
 }
 
 export function get_newest_items(params) {
-    return $.get(`/item/newest`, {
+    return $node().get(`/item/newest`, {
         params: {
             client: params.client ?? "std",
         },
@@ -90,19 +85,19 @@ export function get_newest_items(params) {
 }
 
 export function get_items(params) {
-    return $helper().get(`api/items`, {
+    return $node().get(`/item/list`, {
         params,
     });
 }
 
 export function get_items_search(params) {
-    return $helper().get(`api/item/search`, {
+    return $node().get(`/item/search`, {
         params,
     });
 }
 
 export function get_menu_items(params) {
-    return $helper().get(`api/item/menu_list`, {
+    return $node().get(`/item/menu_list`, {
         params,
     });
 }
@@ -117,36 +112,38 @@ export function get_item_posts() {
 }
 
 export function get_waiting(params) {
-    params = Object.assign(params, {
-        type: 'item',
-    });
+    params = {
+        ...params,
+        type: "item",
+    };
     return $helper().get(`/api/wiki/posts/waiting`, { params });
 }
 
 export function get_waiting_rate(params) {
-    params = Object.assign(params, {
-        type: 'item',
-    });
+    params = {
+        ...params,
+        type: "item",
+    };
     return $helper().get(`/api/wiki/posts/counter`, { params });
 }
 
 // 获取生活技艺产品原料
 export function getManufactureDetail(params) {
-    return $.get(`/manufactures`, {
+    return $node().get(`/manufactures`, {
         params,
     });
 }
 
 // 获取物品详情
 export function getItemDetail(params) {
-    return $.get(`/other`, {
+    return $node().get(`/other`, {
         params,
     });
 }
 
-// 获取物品详情
+// 获取硅石信息
 export function getItemPrediction(params) {
-    return $helper().get(`api/item/prediction`, {
+    return $node().get(`/item/prediction`, {
         params,
     });
 }

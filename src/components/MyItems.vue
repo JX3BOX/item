@@ -60,7 +60,7 @@ export default {
     computed: {},
     methods: {
         loadItems: function(ids, limit) {
-            return get_items({ ids: ids, limit: limit });
+            return get_items({ ids: ids, per: limit });
         },
         loadHotItems: function() {
             // 获取热门物品
