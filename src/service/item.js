@@ -102,6 +102,10 @@ export function get_menu_items(params) {
     });
 }
 
+export function get_item_enums() {
+    return $node().get(`/item/enums`);
+}
+
 // 获取物品攻略列表
 export function get_item_posts() {
     return $helper().get(`api/wiki/posts/newest`, {
