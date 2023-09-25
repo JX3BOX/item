@@ -49,6 +49,11 @@
                             <el-option v-for="item in enums.TypeLabel" :key="item" :label="item" :value="item">
                             </el-option>
                         </el-select>
+                        <div class="u-filter-level">
+                            <el-input v-model="filter.MinLevel" placeholder="最低品质"></el-input>
+                            <span>~</span>
+                            <el-input v-model="filter.MaxLevel" placeholder="最高品质"></el-input>
+                        </div>
                     </div>
                     <el-button slot="reference" class="u-search-more" type="primary" plain>
                         <i class="el-icon-more"></i>
@@ -73,6 +78,8 @@ export default {
             MagicType: null,
             GetType: null,
             TypeLabel: null,
+            MinLevel: null,
+            MaxLevel: null
         },
         enums: {
             BindType: [],
