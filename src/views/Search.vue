@@ -82,7 +82,7 @@ export default {
                     ids: this.$route.query.ids ? this.$route.query.ids.split(",") : [],
                     keyword: this.$route.params.keyword,
                     page: this.page,
-                    limit: this.length,
+                    per: this.length,
                     client: this.client,
                 };
                 params = {
