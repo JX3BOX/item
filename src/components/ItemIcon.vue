@@ -55,8 +55,7 @@ export default {
         get_data(item_id) {
             if (item_id) {
                 get_item(item_id).then((res) => {
-                    let data = res.data;
-                    let item = data.data.item;
+                    let item = res.data.list?.[0] || {};
                     if (Object.keys(item).length) this.source = item;
                 });
             }

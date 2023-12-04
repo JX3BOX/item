@@ -145,11 +145,11 @@
 <script>
 import { getItemsByName } from "@/service/item";
 import { getItemPlanID, updatePlan } from "@/service/item_plan";
-import { iconLink } from "@jx3box/jx3box-common/js/utils";
 // components
 import draggable from "vuedraggable";
 import ItemIcon from "@/components/ItemIcon";
 import ItemSimple from "@jx3box/jx3box-editor/src/ItemSimple";
+import {pick} from "lodash";
 export default {
     name: "planEdit",
     data() {
@@ -236,7 +236,8 @@ export default {
         },
         submit() {
             this.loading = true;
-            updatePlan(this.id, this.data).then(() => {
+            const data = pick(this.data, ['title', 'type', 'public','relation','description'])
+            updatePlan(this.id, data).then(() => {
                 this.$message({
                     message: "提交成功",
                     type: "success",
